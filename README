@@ -15,7 +15,10 @@ CORAL is free software: you can redistribute it and/or modify it under the terms
 CORAL is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with CORAL.  If not, see <http://www.gnu.org/licenses/>.
 
-
 **************************
-To contact the CORAL Developers:
-coral.steering@gmail.com 
+UM-Dearborn Notes
+Many of the changes in branches of this repo have not been fully set up to be brought into an existing installation of CORAL via the regular channels of upgrades. Packaging these changes into self-contained modules is part of future development.
+If it is added into the Main Branch of this repository, it should be self-contained enough to be ported over into an existing installation. Notes about the current changes in the live Dearborn server are listed below:
+- Bugfix to allow adding a Resource parent (a13641c): Okay to Merge after testing, no prep needed.
+- Allow the hiding of uninstalled/unactivated modules in the CORAL main menu (ad876e1): SHOULD be able to get merged after testing, probably a much better way to integrate it into existing CORAL upgrade/installation procedures.
+- Updates Catalog Link in Resources Right Panel (8596d00): Not okay to merge yet. Very specific to Dearborn and Sierra installations.
