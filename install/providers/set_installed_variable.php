@@ -32,7 +32,8 @@ function register_set_installed_variable_provider()
 							"version" => $INSTALLATION_VERSION
 						],
 						"settings" => [
-							"environment" => "prod"
+							"environment" => "prod",
+							"displayFullMenu" => "Y",
 						],
 						"database" => $db_details
 					];

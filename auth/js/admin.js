@@ -81,23 +81,46 @@ function validateForm (){
     return control;
 }
 
-  function bind_removes(){
+function showMenuChange(){
+	let menuStatus = $("#showAllMenu").is(":checked");
+	$.ajax({
+		type:       "GET",
+		url:        "ajax_processing.php",
+		cache:      false,
+		data:       "action=updateMenu&menuStatus=" + menuStatus,
+		success:    function(html) {
+			console.log(html);
+		}
+	});
+} 
+
+function updateMenuSettings(){
+	$.ajax({
+		type:       "GET",
+		url:        "ajax_processing.php",
+		cache:      false,
+		data:       "action=updateSettings",
+		success:    function() {
+			location.reload();
+		}
+	});
+}
+
+function bind_removes(){
+	$(".deleteUser").unbind('click').click(function () {
+	if (confirm(_("Do you really want to delete this user?")) == true) {
+		$.ajax({
+			type:       "GET",
+			url:        "ajax_processing.php",
+			cache:      false,
+			data:       "action=deleteUser&loginID=" + $(this).attr("id"),
+			success:    function(html) {
+				updateUsers();
+			}
 
 
-  	 $(".deleteUser").unbind('click').click(function () {
-	  if (confirm(_("Do you really want to delete this user?")) == true) {
-		  $.ajax({
-			 type:       "GET",
-			 url:        "ajax_processing.php",
-			 cache:      false,
-			 data:       "action=deleteUser&loginID=" + $(this).attr("id"),
-			 success:    function(html) {
-				 updateUsers();
-			 }
 
-
-
-		 });
-	  }
-  	 });
-  }
+		});
+	}
+	});
+}

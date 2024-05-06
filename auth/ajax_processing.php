@@ -29,6 +29,19 @@ if (isset($_SESSION['loginID'])){
 
 $user = new User(new NamedArguments(array('primaryKey' => $loginID)));
 
+function configSet($config_file, $section, $key, $value) {
+	$config_data = parse_ini_file($config_file, true);
+	$config_data[$section][$key] = $value;
+	$new_content = '';
+	foreach ($config_data as $section => $section_content) {
+		$section_content = array_map(function($value, $key) {
+			return "$key=$value";
+		}, array_values($section_content), array_keys($section_content));
+		$section_content = implode("\n", $section_content);
+		$new_content .= "[$section]\n$section_content\n\n";
+	}
+	file_put_contents($config_file, $new_content);
+}
 
 if (($user->isAdmin) && ($user->getOpenSession())){
 
@@ -84,11 +97,17 @@ if (($user->isAdmin) && ($user->getOpenSession())){
 			}
 
 			break;
-
-
-
-
-
+		case 'updateMenu':
+			$updateStatus = $_GET['menuStatus'];
+			$fileName = "../common/configuration.ini";
+			$setting = ($updateStatus === "true") ? "Y" : "N";
+			$commonConfig = "../common/configuration.ini";
+			configSet($commonConfig, 'settings', 'displayFullMenu', $setting);
+			break;
+		case 'updateSettings':
+			$commonConfig = "../common/configuration.ini";
+			configSet($commonConfig, 'settings', 'displayFullMenu', 'Y');
+			break;
 		default:
 				if (empty($action))
             return;
