@@ -1,0 +1,3 @@
+[submodule "drbn-coral-development"]
+	path = drbn-coral-development
+	url = git@github.com:ml-systems-um/drbn-coral-development.git
