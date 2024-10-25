@@ -16,3 +16,6 @@ tests/_support/_generated/
 
 # Custom terms tool branding
 licensing/css/custom.css
+
+# Custom Coral Development Folder for UM-Dearborn
+dearborn_coral_development/
