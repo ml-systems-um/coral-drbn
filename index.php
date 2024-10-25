@@ -57,36 +57,48 @@
 	</header>
 
 	<section class="icons">
-		<?php
-		$mainPageIcon = "";
-		$modules = [ "resources" => _("Resources"), "licensing" => _("Licensing"), "organizations" => _("Organizations"), "usage" => _("Usage Statistics"), "management" => _("Management") ];
+		<?php 
+			$modules = [
+				"resources" => _("Resources"), 
+				"licensing" => _("Licensing"), 
+				"organizations" => _("Organizations"), 
+				"usage" => _("Usage Statistics"), 
+				"management" => _("Management") 
+			];
 
-		foreach ($modules as $key => $value)
-		{
-			$module = "";
-			try
-			{
-				$mod_conf = Config::getSettingsFor($key);
-				if (isset($mod_conf["enabled"]) && $mod_conf["enabled"] == "Y")
+			$menuSettings = Config::getSettingsFor('settings');
+			$displayFullMenu = ($menuSettings['displayFullMenu'] == "Y");
+			foreach ($modules as $key => $value) {
+				$skippedMenu = true;
+				try {
+					$mod_conf = Config::getSettingsFor($key);
+					if (isset($mod_conf["enabled"]) && $mod_conf["enabled"] == "Y")
+					{
+						$skippedMenu = false;
+						$output = [
+							"<div class='main-page-icons'>",
+								"<a href='{$key}/'><img src='images/icon-{$key}.png' class='rollover' /><span>{$value}</span></a>",
+							"</div>",
+						];
+						echo implode("", $output);
+					}
+				}
+				catch (Exception $e)
 				{
-					$module = "<a href='{$key}/'><img src='images/icon-{$key}.png' class='rollover' /><span>{$value}</span></a>";
+					if ($e->getCode() != Config::ERR_VARIABLES_MISSING)
+					{
+						throw $e;
+					}
+				}
+				if($displayFullMenu && $skippedMenu){
+					$output = [
+						"<div class='main-page-icons main-page-icons-off'>",
+								"<img src='images/icon-{$key}-off.png'><span>{$value}</span>",
+						"</div>",
+					];
+					echo implode("", $output);
 				}
 			}
-			catch (Exception $e)
-			{
-				if ($e->getCode() != Config::ERR_VARIABLES_MISSING)
-				{
-					throw $e;
-				}
-			}
-
-			if (empty($module))
-			{
-				$module = "<div class='main-page-icons-off'><img src='images/icon-{$key}-off.png'><span>{$value}</span></div>";
-			}
-			$mainPageIcon .= "<div class='main-page-icons'>$module</div>";
-		}
-		echo $mainPageIcon;
 		?>
 	</section>
 

@@ -85,11 +85,27 @@ if (isset($user) && ($user->isAdmin) && ($user->getOpenSession())){
 
 
 		<div style='text-align:left;margin:0px 60px 60px 38px;' id='div_users'>
-		<br />
-		<br />
-		<img src='images/circle.gif'>  <span style='font-size:90%'><?php echo _("Processing...")?></span>
+            <br />
+            <br />
+            <img src='images/circle.gif'>  <span style='font-size:90%'><?php echo _("Processing...")?></span>
 		</div>
 	</div>
+    <br>
+    <div style="margin:auto;width:416px;">
+        <?php 
+            $fileName = "../common/configuration.ini";
+			$configFile = parse_ini_file($fileName, true);
+            $menuSettingExists = (isset($configFile['settings']['displayFullMenu']));
+            if($menuSettingExists){ 
+                $menuSetting = ($configFile['settings']['displayFullMenu'] == 'Y') ? 'checked' : '';
+        ?>
+            <label for="showAllMenu" style="width:75%;margin-left:0px;"><?php echo _("Show uninstalled menu options")?></label>
+            <input style="margin-top:0px;" type="checkbox" onchange="showMenuChange()" id="showAllMenu" <?php echo $menuSetting?>/>
+        <?php } else { ?> 
+            <input style="width:100%;padding:1rem;" type="button" value="Add Menu Options Setting" onclick="updateMenuSettings()"/>
+        <?php } ?>
+    </div>
+    <br>
     <div class='boxRight'>
 		<p class="fontText"><?php echo _("Change language:");?></p>
         <?php $lang_name->getLanguageSelector(); ?>
