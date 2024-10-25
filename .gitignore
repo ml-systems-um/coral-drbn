@@ -16,3 +16,6 @@ tests/_support/_generated/
 
 # Custom terms tool branding
 licensing/css/custom.css
+
+# UM-Dearborn Testing/Development Space.
+dearborn_coral_development/
