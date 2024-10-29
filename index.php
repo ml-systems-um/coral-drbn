@@ -22,16 +22,23 @@
 	bindtextdomain("messages", dirname(__FILE__) . "/locale");
 	textdomain("messages");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE html>
+<html lang="<?php echo str_replace('_', '-', $http_lang); ?>">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>eRM - eResource Management</title>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="css/indexstyle.css" type="text/css" media="screen" />
-	<link rel="icon" href="images/favicon.ico" />
-	<script type="text/javascript" src="js/plugins/jquery.js"></script>
-	<script type="text/javascript" src="js/plugins/Gettext.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="CACHE-CONTROL" CONTENT="public">
+
+	<title><?php echo _("eRM - eResource Management"); ?></title>
+	
+	<link rel="icon" href="<?php echo $coralPath; ?>images/favicon.ico">
+  <link rel="icon" href="<?php echo $coralPath; ?>images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="<?php echo $coralPath; ?>css/style.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="css/indexstyle.css" type="text/css" media="screen" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="js/plugins/Gettext.js"></script>
+	<script src="js/common.js"></script>
 
 	<?php
 		// Add translation for the JavaScript files
@@ -48,15 +55,19 @@
 		}
 	?>
 </head>
-<body>
+<body class="home">
 
 	<header>
-		<div class="title-main"><strong><?php echo _("eRM");?></strong> &bullet; <?php echo _("eResource Management");?></div>
-        <nav class="language-select"><?php echo _("Change language:");?></nav>
-        <?php $lang_name->getLanguageSelector(); ?>
+		<a href="#main-content" class="skip"><?php echo _('Skip to main content'); ?></a>
+    <h1 class="title-main fw-normal"><?php echo _("<b>eRM</b> &bullet; eResource Management");?></h1>
+    <p>
+			<label for="lang" class="language-select"><?php echo _("Change language:");?></label>
+      <?php $lang_name->getLanguageSelector(); ?>
+		</p>
 	</header>
-
-	<section class="icons">
+<main id="main-content">
+	<article>
+	<ul class="icons">
 		<?php
 		$mainPageIcon = "";
 		$modules = [ "resources" => _("Resources"), "licensing" => _("Licensing"), "organizations" => _("Organizations"), "usage" => _("Usage Statistics"), "management" => _("Management") ];
@@ -69,7 +80,7 @@
 				$mod_conf = Config::getSettingsFor($key);
 				if (isset($mod_conf["enabled"]) && $mod_conf["enabled"] == "Y")
 				{
-					$module = "<a href='{$key}/'><img src='images/icon-{$key}.png' class='rollover' /><span>{$value}</span></a>";
+					$module = "<a href='{$key}/'><img src='images/icon-{$key}.png' alt='' /><span>{$value}</span></a>";
 				}
 			}
 			catch (Exception $e)
@@ -82,32 +93,19 @@
 
 			if (empty($module))
 			{
-				$module = "<div class='main-page-icons-off'><img src='images/icon-{$key}-off.png'><span>{$value}</span></div>";
+				$module = "<img src='images/icon-{$key}-off.png'><span>{$value}</span>";
 			}
-			$mainPageIcon .= "<div class='main-page-icons'>$module</div>";
+			$mainPageIcon .= "<li id='{$key}' class='main-page-icons'>$module</li>";
 		}
 		echo $mainPageIcon;
 		?>
-	</section>
+	</ul>
 
-	<footer><?php echo _("Powered by");?><img src="images/logo-coral.jpg" /></footer>
+	</article>
+	</main>
 
-	<script type="text/javascript">
-		/*
-		 * Functions to change the language with the dropdown
-		 */
-		$("#lang").change(function() {
-			setLanguage($("#lang").val());
-			location.reload();
-		});
-		// Create a cookie with the code of language
-		function setLanguage(lang) {
-			var wl = window.location, now = new Date(), time = now.getTime();
-			var cookievalid=2592000000; // 30 days (1000*60*60*24*30)
-			time += cookievalid;
-			now.setTime(time);
-			document.cookie ='lang='+lang+';path=/'+';domain='+wl.hostname+';expires='+now;
-		}
-	</script>
+	<?php
+	include('templates/footer.php');
+	?>
 </body>
 </html>
