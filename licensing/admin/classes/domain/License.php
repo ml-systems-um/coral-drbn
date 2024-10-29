@@ -741,6 +741,7 @@ class License extends DatabaseObject {
 	}
 
 
+// TODO: i18n; remove other articles
 
 	//used for A-Z on search (index)
 	public function getAlphabeticalList(){

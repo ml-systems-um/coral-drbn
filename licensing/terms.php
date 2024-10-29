@@ -77,28 +77,20 @@ foreach($uniqueExpressionTypeArray as $expressionTypeId) {
     $expressionTypes[] = $expressionType = new ExpressionType(new NamedArguments(array('primaryKey' => $expressionTypeId)));
 }
 
+$pageTitle=_('Terms Tool - License Terms');
+include 'templates/header.php';
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Terms Tool - License Terms</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/terms.css" type="text/css" />
-</head>
-<body>
-<div style="margin:10px auto; width: 900px; text-align: left;">
+<main id="main-content">
+    <article>
     <?php if(!empty($error)): ?>
-        <p><?php echo $error; ?></p>
+        <p class="error"><?php echo $error; ?></p>
     <?php else: ?>
         <?php foreach($expressionTypes as $expressionType): ?>
-        <div class="darkShaded" id="the-terms-titlebar">
-            <h1>
-                <?php echo $expressionType->shortName; ?> Terms for <?php echo $termsToolObj->getTitle(); ?>
-            </h1>
-        </div>
+        <h2><?php printf(_('%1$s Terms for %2$s', $expressionType->shortName, $termsToolObj->getTitle())); ?></h2>
+        <!-- TODO: redo display of this div; remove terms.css and friends -->
+        <!-- TODO: i18n placeholders (as above) -->
         <div id="the-terms">
             <?php foreach($expressionType->reorderTargets($targetsArray) as $i => $targetArray): ?>
                 <span class="titleText"><?php echo $targetArray['public_name']; ?></span>
@@ -159,6 +151,11 @@ foreach($uniqueExpressionTypeArray as $expressionTypeId) {
         </div>
         <?php endforeach; ?>
     <?php endif; ?>
-</div>
+</article>
+</main>
+
+<?php
+include 'templates/footer.php';
+?>
 </body>
 </html>
