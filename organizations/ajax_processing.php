@@ -431,7 +431,7 @@ switch ($_GET['action']) {
 		$instance = new $className(new NamedArguments(array('primaryKey' => $deleteID)));
 		$numberOfChildren = $instance->getNumberOfChildren();
 
-		echo "<font color='red'>";
+		echo "<span class='error'>";
 
 		if ($numberOfChildren > 0){
 			//print out a friendly message...
@@ -444,7 +444,7 @@ switch ($_GET['action']) {
 				echo _("Unable to delete.  Please make sure no organizations are set up with this information.");
 			}
 		}
-		echo "</font>";
+		echo "</span>";
 
 		break;
 
