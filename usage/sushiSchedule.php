@@ -29,7 +29,7 @@ $config = new Configuration();
 $day = date("j");
 $sushiServices = new SushiService();
 $sushiServicesArray = $sushiServices->getByDayOfMonth($day);
-
+// TODO: i18n placeholders
 $emailLog = "<h2>" . count($sushiServicesArray) . _(" SUSHI runs found for day: ") . $day . "</h2>";
 
 foreach ($sushiServicesArray as $sushiService){
@@ -48,7 +48,7 @@ foreach ($sushiServicesArray as $sushiService){
 
 //if more than one run, send email
 if (count($sushiServicesArray) > 0) {
-
+	// TODO: i18n placeholders
 	$emailLog .= "<br /><br />" . _("Log in to ") . "<a href='" . $util->getPageURL() . "sushi.php'>" . _("Sushi Administration") . "</a>" . _(" for more information.");
 
 	//send email to email addresses listed in DB
@@ -62,13 +62,16 @@ if (count($sushiServicesArray) > 0) {
 	if (count($emailAddresses) > 0){
 		$email = new Email();
 		$email->to 			= implode(", ", $emailAddresses);
+		// TODO: i18n placeholders
 		$email->subject		= _("SUSHI Scheduled run log for ") . format_date(date) . " - " . count($sushiServicesArray) . _(" runs");
 		$email->message		= $emailLog;
 
 
 		if ($email->send()) {
+			// TODO: i18n placeholders
 			echo _("Run complete.  Log has been emailed to ") . implode(", ", $emailAddresses);
 		}else{
+			// TODO: i18n placeholders
 			echo _("Email to ") . implode(", ", $emailAddresses) . _(" Failed!");
 		}
 	}

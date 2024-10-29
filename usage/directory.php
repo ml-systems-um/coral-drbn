@@ -40,16 +40,22 @@ function usage_sidemenu($selected_link = '') {
 
   foreach ($links as $key => $value) {
     $name = mb_convert_case($key, MB_CASE_TITLE, "UTF-8");
+    $ariaCurrent = '';
     if ($selected_link == $key) {
       $class = 'sidemenuselected';
+      $ariaCurrent = ' aria-current="page" ';
     } else {
       $class = 'sidemenuunselected';
     }
-    if ($key != 'accounts' || $user->accountTabIndicator == '1') {
+
+    $params = array_merge( $_GET, array( 'showTab' => $key ) );
+    $href = http_build_query( $params );
+
+    if ($key != 'accounts' || $user->accountTabIndicator == '1' || $user->isAdmin) {
     ?>
-    <div class="<?php echo $class; ?>" style='position: relative; width: 105px'>
-       <span class='link'><a href='javascript:void(0)' class='show<?php echo $name; ?>' title='<?php echo $value; ?>'><?php echo $value; ?></a></span>
-    </div>
+    <li class="<?php echo $class; ?>">
+      <a href="<?php echo $href; ?>" class='show<?php echo $name; ?>' $ariaCurrent><?php echo $value; ?></a>
+    </li>
     <?php
     }
   }

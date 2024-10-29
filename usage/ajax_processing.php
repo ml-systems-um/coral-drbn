@@ -526,13 +526,13 @@ switch ($action) {
 
 		$importLog = new ImportLog(new NamedArguments(array('primaryKey' => $importLogID)));
 
-		echo "<font color='red'>";
+		echo "<span class='error'>";
 		try {
 			$importLog->delete();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-		echo "</font>";
+		echo "</span>";
 
  		break;
 
@@ -545,13 +545,13 @@ switch ($action) {
 
 		$user = new User(new NamedArguments(array('primaryKey' => $loginID)));
 
-		echo "<font color='red'>";
+		echo "<span class='error'>";
 		try {
 			$user->delete();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-		echo "</font>";
+		echo "</span>";
 
  		break;
 

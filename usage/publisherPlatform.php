@@ -36,108 +36,44 @@ if ($publisherPlatformID) {
 }
 ?>
 
+<!-- TODO: check this layout -->
+<main id="main-content">
+	<nav aria-label="<?php echo _("Publisher / Platform Tools"); ?>" class="sidemenu">
+		<ul class="nav side">
+			<?php echo usage_sidemenu(watchString($_GET['showTab'])); ?>
+		</ul>
+	</nav>
+	<article>
+    <h2><?php echo $displayName; ?></h2>
+		<span class="editElement">
+			<?php if ($platformID): ?>
+				<button type="button" onclick='myDialog("ajax_forms.php?action=getUpdatePlatformForm&platformID=<?php echo $platformID; ?>&height=530&width=518&modal=true",530,520)' class='thickbox link'>
+					<i class="fa fa-pencil" aria-hidden="true"></i>
+				</button>
+			<?php endif; ?>
 
-<table class="headerTable" style="background-image:url('images/header.gif');background-repeat:no-repeat;">
-<tr><td>
-	<table style='width:897px;'>
-	<tr style='vertical-align:top'>
-	<td>
-    <span class="headerText"><?php echo $displayName; ?></span>
-    <?php if ($platformID): ?>
-      <a href='javascript:void(0)' onclick='myDialog("ajax_forms.php?action=getUpdatePlatformForm&platformID=<?php echo $platformID; ?>&height=530&width=518&modal=true",530,520)' class='thickbox'>
-        <i class="fa fa-pencil" aria-hidden="true"></i>
-      </a>
-    <?php endif; ?>
-    <br /><br />
-  </td>
-	<td style='text-align:right;'>
-    <a href="deletePublisherPlatformConfirmation.php?<?php echo $deleteParam; ?>" class="save-button" style="background-color: #7a0026;"><?php echo $deleteText; ?></a>
-  </td>
-	</tr>
-	</table>
+			<a href="deletePublisherPlatformConfirmation.php?<?php echo $deleteParam; ?>" class="save-button" style="background-color: #7a0026;"><?php echo $deleteText; ?></a>
+		</span>
 
+		<input type='hidden' name='platformID' id='platformID' value='<?php echo $platformID; ?>'>
+		<input type='hidden' name='publisherPlatformID' id='publisherPlatformID' value='<?php echo $publisherPlatformID; ?>'>
 
-	<input type='hidden' name='platformID' id='platformID' value='<?php echo $platformID; ?>'>
-	<input type='hidden' name='publisherPlatformID' id='publisherPlatformID' value='<?php echo $publisherPlatformID; ?>'>
-
-
-	<div style='width:900px;'>
-
-		<div style='float:left; width:797px;vertical-align:top;margin:0; padding:0;'>
-		<div style="width: 797px;" id ='div_imports' class="usage_tab_content">
-			<table cellpadding="0" cellspacing="0" style="width: 100%; table-layout: initial;">
-				<tr>
-					<td class="sidemenu">
-						<?php echo usage_sidemenu(watchString('imports')); ?>
-					</td>
-					<td class='mainContent'>
+		<?php foreach ($links as $key => $value) { ?>
+				<div id ='div_<?php echo $key ?>' class="usage_tab_content">
+					
+					<div class='mainContent'>
 						<div class='div_mainContent'>
 						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
+					</div>
+				</div>
 
-		<div style="display:none;width: 797px;" id ='div_titles' class="usage_tab_content">
-			<table cellpadding="0" cellspacing="0" style="width: 100%; table-layout: initial;">
-				<tr>
-					<td class="sidemenu">
-						<?php echo usage_sidemenu(watchString('titles')); ?>
-					</td>
-					<td class='mainContent'>
-						<div class='div_mainContent'>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div style="display:none;width: 797px;" id ='div_statistics' class="usage_tab_content">
-			<table cellpadding="0" cellspacing="0" style="width: 100%; table-layout: initial;">
-				<tr>
-					<td class="sidemenu">
-						<?php echo usage_sidemenu(watchString('statistics')); ?>
-					</td>
-					<td class='mainContent'>
-						<div class='div_mainContent'>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div style="display:none;width: 797px;" id ='div_logins' class="usage_tab_content">
-			<table cellpadding="0" cellspacing="0" style="width: 100%; table-layout: initial;">
-				<tr>
-					<td class="sidemenu">
-						<?php echo usage_sidemenu(watchString('logins')); ?>
-					</td>
-					<td class='mainContent'>
-						<div class='div_mainContent'>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-			<div style="display:none;width: 797px;" id ='div_sushi' class="usage_tab_content">
+		<?php } ?>
+</article>
+</main>
 
-			<table cellpadding="0" cellspacing="0" style="width: 100%; table-layout: initial;">
-				<tr>
-					<td class="sidemenu">
-						<?php echo usage_sidemenu(watchString('sushi')); ?>
-					</td>
-					<td class='mainContent'>
-						<div class='div_mainContent'>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	</div>
-</td></tr>
-</table>
-
-
-
+<?php
+include 'templates/footer.php';
+?>
 <script type="text/javascript" src="js/publisherPlatform.js"></script>
     <script>
       $(document).ready(function() {
@@ -149,8 +85,5 @@ if ($publisherPlatformID) {
       });
     </script>
 
-	<?php
-
-include 'templates/footer.php';
-
-?>
+</body>
+</html>

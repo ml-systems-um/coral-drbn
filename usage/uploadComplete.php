@@ -70,7 +70,7 @@ function firstOrCreatePlatform($name) {
     try {
       $platform->save();
     } catch (Exception $e) {
-      echo "<div>Error saving platform: " . $e->getMessage() . "</div>";
+      echo "<p class='error'>Error saving platform: " . $e->getMessage() . "</p>";
       return false;
     }
 
@@ -84,7 +84,7 @@ function firstOrCreatePlatform($name) {
       $platformNote->save();
       $screenOutput[] = _("New Platform set up: ") . $name . "   <a href='publisherPlatform.php?platformID=" . $platform->primaryKey . "'>" . _("edit") . "</a></b>";
     } catch (Exception $e) {
-      echo "<div>Error saving platform note: " . $e->getMessage() . "</div>";
+      echo "<p class='error'>Error saving platform note: " . $e->getMessage() . "</p>";
     }
     return $platform;
   }
@@ -121,7 +121,7 @@ function firstOrCreatePublisher($counterID, $name) {
     try {
       $publisher->save();
     } catch (Exception $e) {
-      echo "<div>Error saving publisher: " . $e->getMessage() . "</div>";
+      echo "<p class='error'>Error saving publisher: " . $e->getMessage() . "</p>";
       return false;
     }
     return $publisher;
@@ -147,7 +147,7 @@ function firstOrCreatePublisherPlatform($platformID, $publisherID, $platformName
       $publisherPlatform->save();
       $logOutput[] = _("New Publisher / Platform set up: ") . $publisherName . " / " . $platformName;
     } catch (Exception $e) {
-      echo "<div>Error saving publisher platform: " . $e->getMessage() . "</div>";
+      echo "<p class='error'>Error saving publisher platform: " . $e->getMessage() . "</p>";
       return false;
     }
     return $publisherPlatform;
@@ -229,7 +229,7 @@ function createOrUpdateTitle($titleName, $titleIdentifiers, $resourceType, $publ
 				$title->save();
 				$titleID = $title->primaryKey;
 			} catch (Exception $e) {
-			  echo "<div>Error saving title: " . $e->getMessage() . "</div>";
+			  echo "<p class='error'>Error saving title: " . $e->getMessage() . "</p>";
         return false;
 			}
   }
@@ -261,7 +261,7 @@ function createOrUpdateTitle($titleName, $titleIdentifiers, $resourceType, $publ
     try {
       $titleIdentifier->save();
     } catch (Exception $e) {
-      echo "<div>Error saving title identifier: " . $e->getMessage() . "</div>";
+      echo "<p class='error'>Error saving title identifier: " . $e->getMessage() . "</p>";
     }
   }
 
@@ -299,8 +299,8 @@ function sumCounts($counts, $year) {
   // if there are more than 12 months in the year, log the issue and do not save anything
   if (is_array($counts)) {
     if(count($counts) > 12) {
-      $logOutput[] = '<span style="color: red;">' ._('There are more than 12 months of stats for this title for the year ')
-        . $year . _('. Yearly Usage Summary will not be saved.') .'</span>';
+      $logOutput[] = '<p class="error">' ._('There are more than 12 months of stats for this title for the year ')
+        . $year . _('. Yearly Usage Summary will not be saved.') .'</p>';
       return false;
     }
     return array_sum($counts);
@@ -593,7 +593,7 @@ while (!feof($file_handle)) {
     // Log the title
     $logOutput[] = _("Title: ") . $reportModel['title'];
   } else {
-    array_unshift($logOutput, '<span style="color: red">' . _("Title match did not complete correctly, please check ISBN / ISSN to verify for Title:  ") . $reportModel['title'] . ".</span>");
+    array_unshift($logOutput, '<p class="error">' . _("Title match did not complete correctly, please check ISBN / ISSN to verify for Title:  ") . $reportModel['title'] . ".</p>");
     continue;
   }
 
@@ -721,11 +721,11 @@ while (!feof($file_handle)) {
           $logOutput[] = _("New Usage Count Record Added: Month: ") . $month .  _("  Count: ") . $usageCount;
         }
         if ($outlierID != 0) {
-          $logOutput[] = '<span style="color: red;">' . _("Outlier found for this record: Level ") . $outlierLevel . '</span>';
+          $logOutput[] = '<p class="error">' . _("Outlier found for this record: Level ") . $outlierLevel . '</p>';
         }
         $yearsToUpdate[$year] = true;
       } catch (Exception $e) {
-        echo "<div>Error saving monthly usage stat: " . $e->getMessage() . "</div>";
+        echo "<p class='error'>Error saving monthly usage stat: " . $e->getMessage() . "</p>";
       }
     } else {
       $logOutput[] = _("Current or future month will not be imported: ") . $month . ": " . $usageCount;
@@ -838,7 +838,7 @@ while (!feof($file_handle)) {
       $yearlyUsageSummary->save();
       $logOutput[] = $yearlyLogLine;
     } catch (Exception $e) {
-      echo "<div>Error saving yearly usage summary: " . $e->getMessage() . "</div>";
+      echo "<p class='error'>Error saving yearly usage summary: " . $e->getMessage() . "</p>";
     }
 
   }
@@ -872,13 +872,16 @@ $mailOutput='';
 if (count($emailAddresses) > 0){
 	$email = new Email();
 	$email->to 			= implode(", ", $emailAddresses);
+  // TODO: i18n placeholders
 	$email->subject		= _("Log Output for ") . $fileInfo['basename'];
 	$email->message		= _("Usage Statistics File Import Run!") . "\n\n" . _("Please find log file: ") . "\n\n" . $Base_URL . $logfile;
 
 
 	if ($email->send()) {
+    // TODO: i18n placeholders
 		$mailOutput = _("Log has been emailed to ") . implode(", ", $emailAddresses);
 	}else{
+    // TODO: i18n placeholders
 		$mailOutput = _("Email to ") . implode(", ", $emailAddresses) . _(" Failed!");
 	}
 }
@@ -892,6 +895,7 @@ if ($fromSushi){
 	$importLog = new ImportLog(new NamedArguments(array('primaryKey' => $importLogID)));
 	$importLog->fileName = $importLog->fileName;
 	$importLog->archiveFileURL = $importLog->fileName;
+  // TODO: i18n placeholders
 	$importLog->details = $importLog->details . "\n" . $rownumber . _(" rows processed.") . $logSummary;
 	$archvieFileName = $importLog->fileName;
 }else{
@@ -902,6 +906,7 @@ if ($fromSushi){
 	$importLog->importLogID = '';
 	$importLog->fileName = $fileInfo['basename'];
 	$importLog->archiveFileURL = $archvieFileName;
+  // TODO: i18n placeholders
 	$importLog->details = $rownumber . _(" rows processed.") . $logSummary;
 }
 
@@ -913,7 +918,7 @@ try {
 	$importLog->save();
 	$importLogID = $importLog->primaryKey;
 } catch (Exception $e) {
-  echo "<div>Error saving import log: " . $e->getMessage() . "</div>";
+  echo "<p class='error'>Error saving import log: " . $e->getMessage() . "</p>";
 }
 
 
@@ -928,7 +933,7 @@ foreach ($platformArray AS $platformID){
 	try {
 		$importLogPlatformLink->save();
 	} catch (Exception $e) {
-    echo "<div>Error saving import log platfomr link: " . $e->getMessage() . "</div>";
+    echo "<p class='error'>Error saving import log platform link: " . $e->getMessage() . "</p>";
 	}
 }
 
@@ -936,23 +941,21 @@ foreach ($platformArray AS $platformID){
 
 ?>
 
-
-<table class="headerTable">
-<tr><td>
-<div class="headerText"><?php echo _("Status");?></div>
-	<br />
+<main id="main-content">
+  <article>
+    <h2><?php echo _("Status");?></h2>
+    <!-- TODO: i18n placeholders throughout this section -->
     <p><?php echo _("File archived as") . ' ' . $Base_URL . $archvieFileName; ?>.</p>
     <p><?php echo _("Log file available at:");?> <a href='<?php echo $Base_URL . $logfile; ?>'><?php echo $Base_URL . $logfile; ?></a>.</p>
     <p><?php echo _("Process completed.") . " " . $mailOutput; ?></p>
-    <br />
-    <?php echo _("Summary:") . ' ' .$rownumber . _(" rows processed.") . "<br />" . nl2br($logSummary); ?><br />
-    <br />
-    <?php echo implode('<br/>',$screenOutput); ?><br />
-    <p>&nbsp; </p>
-
-			</td>
-		</tr>
-	</table>
-
+    <h3><?php echo _("Summary:") . ' ' .$rownumber . _(" rows processed."); ?></h3> 
+    <?php echo nl2br($logSummary); ?>
+    <div class="log">
+      <?php echo implode('<br/>',$screenOutput); ?>
+    </div>
+  </article>
+</main>
 
 <?php include 'templates/footer.php'; ?>
+</body>
+</html>

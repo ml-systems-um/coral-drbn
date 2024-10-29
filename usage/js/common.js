@@ -304,12 +304,13 @@ function myDialog(loadForm, h,w){
             open: function ()
             {
             if ($(this).is(':empty')) {
-                $(this).load(loadForm);
+                $(this).load(loadForm, function() {
+                    $('.ui-dialog-title').prepend($('.ui-dialog-content h2'));
+                });
                 }
             },
             height: h,
-            width: w,
-           dialogClass: "no-titlebar"
+            width: w
         });
 }
 
