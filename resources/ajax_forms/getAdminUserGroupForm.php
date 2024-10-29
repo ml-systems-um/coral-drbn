@@ -16,29 +16,30 @@
 
 		<div class='formTitle' style='width:280px; margin-bottom:5px;position:relative;'><span class='headerText'><?php if ($userGroupID){ echo _("Edit User Group"); } else { echo _("Add User Group"); } ?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
-
+		<p class='error' id='span_errors'></p>
+		<!-- TODO: eliminate nested tables -->
+		<!-- Note that userGroupForm.js validation logic uses table/row classes -->
 		<table class='noBorder' style='width:100%;'>
 		<tr style='vertical-align:top;'>
 		<td style='vertical-align:top;position:relative;'>
 
 
-			<span class='surroundBoxTitle'>&nbsp;&nbsp;<label for='rule'><b><?php echo _("User Group");?></b></label>&nbsp;&nbsp;</span>
+			<span class='surroundBoxTitle'><b><?php echo _("User Group");?></b></span>
 
-			<table class='surroundBox' style='width:275px;'>
+			<table class='surroundBox'>
 			<tr>
 			<td>
 
-				<table class='noBorder' style='width:335px; margin:15px 20px 10px 20px;'>
+				<table class='noBorder'>
 				<tr>
-				<td style='vertical-align:top;text-align:left;'><label for='groupName'><b><?php echo _("Group Name:");?></b></label></td>
+				<td><label for='groupName'><b><?php echo _("Group Name:");?></b></label></td>
 				<td>
-				<input type='text' id='groupName' name='groupName' value = '<?php echo $userGroup->groupName; ?>' style='width:210px' class='changeInput' /><span id='span_error_groupName' class='smallDarkRedText'></span>
+				<input type='text' id='groupName' name='groupName' value = '<?php echo $userGroup->groupName; ?>' class='changeInput' aria-describedby="span_error_groupName" /><p id='span_error_groupName' class='error'></p>
 				</td>
 				</tr>
 
 				<tr>
-				<td style='vertical-align:top;text-align:left;'><label for='emailAddress' style="white-space: nowrap;"><b><?php echo _("Email Addresses:");?></b></label></td>
+				<td><label for='emailAddress' style="white-space: nowrap;"><b><?php echo _("Email Addresses:");?></b></label></td>
 				<td>
 				<input type='text' id='emailAddress' name='emailAddress' value = '<?php echo $userGroup->emailAddress; ?>' style='width:210px' class='changeInput' />
 				</td>
@@ -53,12 +54,12 @@
 
 			</td>
 			</tr>
-			<tr style='vertical-align:top;'>
+			<tr>
 			<td>
 
 			<span class='surroundBoxTitle'>&nbsp;&nbsp;<label for='loginID'><b><?php echo _("Assigned Users");?></b></label>&nbsp;&nbsp;</span>
 
-			<table class='surroundBox' style='width:275px;'>
+			<table class='surroundBox'>
 			<tr>
 			<td>
 
@@ -79,12 +80,12 @@
 				</select>
 				</td>
 
-				<td style='vertical-align:top;text-align:left;width:40px;'>
-				<a href='javascript:void();'><input class='addUser add-button' title='<?php echo _("add user");?>' type='button' value='<?php echo _("Add");?>'/></a>
+				<td class="actions">
+				<a href="javascript:void(0)"><input class='addUser add-button' title='<?php echo _("add user");?>' type='button' value='<?php echo _("Add");?>'/></a>
 				</td>
 				</tr>
 				</table>
-				<div class='smallDarkRedText' id='div_errorUser' style='margin:0px 35px 7px 35px;'></div>
+				<p class='error' id='div_errorUser'></p>
 
 				<table class='noBorder smallPadding userTable' style='width:205px; margin:0px 35px 0px 35px;'>
 				<tr>
@@ -118,8 +119,8 @@
 						</select>
 						</td>
 
-						<td style='vertical-align:top;text-align:left;width:40px;'>
-							<a href='javascript:void();'><img src='images/cross.gif' alt="<?php echo _("remove user from group");?>" title="<?php echo _("remove user from group");?>" class='remove' /></a>
+						<td class="actions">
+							<a href="javascript:void(0)"><img src='images/cross.gif' alt="<?php echo _("remove user from group");?>" title="<?php echo _("remove user from group");?>" class='remove' /></a>
 						</td>
 						</tr>
 					<?php
@@ -145,8 +146,8 @@
 
 		<table class='noBorderTable' style='width:125px;'>
 			<tr>
-				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitUserGroupForm' id ='submitUserGroupForm' class='submit-button'></td>
-				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button'></td>
+				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitUserGroupForm' id ='submitUserGroupForm' class='submit-button primary'></td>
+				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button secondary'></td>
 			</tr>
 		</table>
 

@@ -81,7 +81,7 @@ $(document).ready(function(){
 
 	$(".adddetailedSubject").on('click', function () {
 
-		var detailedSubjectID = $('.newdetailedSubjectTable').children().children().children().children('.detailedSubjectID').val();
+		var detailedSubjectID = $('.newdetailedSubjectTable .detailedSubjectID').val();
 
 		if ((detailedSubjectID == '') || (detailedSubjectID == null)){
 			$('#div_errordetailedSubject').html(_("Error - Detailed Subject is required"));
@@ -111,7 +111,7 @@ $(document).ready(function(){
 
 					//next put the original clone back, we just need to reset the values
 					originalTR.appendTo('.newdetailedSubjectTable');
-					$('.newdetailedSubjectTable').children().children().children().children('.detailedSubjectID').val('');
+					$('.newdetailedSubjectTable .detailedSubjectID').val('');
 
 					detailID = -1;
 					return false;
@@ -130,7 +130,7 @@ $(document).ready(function(){
 			//it's too confusing to chain all of the children.
 			$('.newdetailedSubjectTR').appendTo('.detailedSubjectTable');
 
-			$('.newdetailedSubjectTR').children().children().children('.adddetailedSubject').replaceWith("<img src='images/cross.gif' class='remove' alt='" + _("remove detailed subject") + "' title='" + _("remove detailed subject") + "'/>");
+			$('.newdetailedSubjectTR .actions .adddetailedSubject').replaceWith("<img src='images/cross.gif' class='remove' alt='" + _("remove detailed subject") + "' title='" + _("remove detailed subject") + "'/>");
 			$('.detailedSubjectID').addClass('changeSelect');
 			$('.detailedSubjectID').addClass('idleField');
 			$('.detailedSubjectID').css("background-color","");
@@ -141,7 +141,7 @@ $(document).ready(function(){
 
 			//next put the original clone back, we just need to reset the values
 			originalTR.appendTo('.newdetailedSubjectTable');
-			$('.newdetailedSubjectTable').children().children().children().children('.detailedSubjectID').val('');
+			$('.newdetailedSubjectTable .detailedSubjectID').val('');
 
 
 			return false;

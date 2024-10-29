@@ -37,7 +37,7 @@ function generateIssueHTML($issue,$associatedEntities=null) {
 	  		<dd>";
 	$contacts = $issue->getContacts();
 	if ($contacts) {
-		$html .= "<ul class=\"contactList\">";
+		$html .= "<ul class='unstyled'>";
 		foreach($contacts as $contact) {
 			if (!empty($contact['name'])) {
 				$html .= "<li><a href=\"mailto:".urlencode($contact['emailAddress'])."?Subject=RE: {$issue->subjectText}\">{$contact['name']}</a></li>";
@@ -63,7 +63,7 @@ function generateIssueHTML($issue,$associatedEntities=null) {
 	$html .= "</dd>
         <dt>" . _("Subject:") . "</dt>
         <dd>{$issue->subjectText}</dd>
-        <dt class=\"block\">" . _("Body:") . "</dt>
+        <dt>" . _("Body:") . "</dt>
         <dd>{$issue->bodyText}</dd>
         </dl>
     </div></div>";

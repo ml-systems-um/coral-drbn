@@ -37,19 +37,19 @@ Date.firstDayOfWeek = 0;
 $(function () {
   refreshContext();
 
-  $("#search_organization").autocomplete('ajax_processing.php?action=getOrganizationList', {
-    minChars: 2,
-    max: 20,
-    mustMatch: true,
-    width: 142,
-    delay: 20,
-    matchContains: false,
-    formatItem: function (row) {
-      return "<span style='font-size: 80%;'>" + row[0] + "</span>";
-    },
-    formatResult: function (row) {
-      return row[0].replace(/(<.+?>)/gi, '');
-    }
+	$("#search_organization").autocomplete('ajax_processing.php?action=getOrganizationList', {
+		minChars: 2,
+		max: 20,
+		mustMatch: true,
+		width: 142,
+		delay: 20,
+		matchContains: false,
+		formatItem: function(row) {
+			return "<span class='suggest-item'>" + row[0] + "</span>";
+		},
+		formatResult: function(row) {
+			return row[0].replace(/(<.+?>)/gi, '');
+		}
 
   });
 
@@ -301,32 +301,24 @@ function isValidDate(dateString) {
   return day > 0 && day <= monthLength[month - 1];
 }
 
-function myDialog(loadForm, h, w) {
-  if (h < 800) h = 'auto';
-  if (w < 800) w = w * 1.2;
-  const el = $('<div/>');
-  el.dialog({
-    modal: true,
-    position: {my: "center top", at: "center top"},
-    classes: {
-      "ui-dialog": "my-dialog"
-    },
-    open: function () {
-      if ($(this).is(':empty')) {
-        $(this).load(loadForm, function () {
-          $('.date-pick').datePicker({startDate: '01/01/1996'});
+function myDialog(loadForm, h,w){
+       if (h < 800) h = 'auto';
+       if (w < 800) w = w * 1.2;
+
+       $('<div/>').dialog({
+            modal: true,
+            open: function ()
+            {
+            if ($(this).is(':empty')) {
+                $(this).load(loadForm, function() {
+									$('.ui-dialog-title').prepend($('.ui-dialog-content h2'));
+								});
+                }
+            },
+            height: h,
+            width: w
         });
-      }
-      $('.ui-widget-overlay').bind('click', function()
-      {
-        el.dialog('close');
-      });
-    },
-    height: h,
-    width: w,
-    //    title:"JQuery Dialog"
-    dialogClass: "no-titlebar"
-  });
+				$('.ui-dialog').removeAttr('aria-describedby');
 }
 
 function myCloseDialog() {

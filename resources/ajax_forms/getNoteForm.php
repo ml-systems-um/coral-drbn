@@ -17,7 +17,7 @@
 
 		<div class='formTitle' style='width:395px;'><span class='headerText' style='margin-left:7px;'><?php if ($resourceNoteID){ echo _("Edit Note"); } else { echo _("Add Note"); } ?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
+		<span class='error' id='span_errors'></span>
 
 		<table class="surroundBox" style="width:400px;">
 		<tr>
@@ -46,7 +46,7 @@
 
 			<tr>
 			<td style='vertical-align:top;text-align:left;'><label for='noteText'><b><?php echo _("Notes:");?></b></label></td>
-			<td><textarea rows='5' id='noteText' name='noteText' style='width:270px'><?php echo $resourceNote->noteText; ?></textarea><span class='smallDarkRedText' id='span_error_noteText'></span></td>
+			<td><textarea rows='5' id='noteText' name='noteText' style='width:270px'><?php echo $resourceNote->noteText; ?></textarea><span class='error' id='span_error_noteText'></span></td>
 			</td>
 			</tr>
 			</table>

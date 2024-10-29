@@ -17,22 +17,28 @@
 
 $(document).ready(function(){
 
-    updateUserTable();
+    baseTitle = document.title;
 
-    $(".AdminLink").click(function () {
+    updateUserTable();
+    $("#side li:first-child a").attr('aria-current', 'page');
+
+    $("#side li a").click(function () {
+        $("#side li a").removeAttr('aria-current');
+        $(this).attr('aria-current', 'page');
         updateTable($(this).attr("id"));
+        updateDocTitle($(this).text());
     });
 
-    $(".UserAdminLink").click(function () {
+    $("#UserAdminLink").click(function () {
         updateUserTable();
     });
 
-    $(".AlertAdminLink").click(function () {
+    $("#AlertAdminLink").click(function () {
         updateAlertTable();
     });
 
 
-    $(".WorkflowAdminLink").click(function () {
+    $("#WorkflowAdminLink").click(function () {
         updateWorkflowTable();
     });
 
@@ -41,19 +47,19 @@ $(document).ready(function(){
     });
 
 
-    $(".CurrencyLink").click(function () {
+    $("#CurrencyLink").click(function () {
         updateCurrencyTable();
     });
 
-    $(".FundLink").click(function () {
+    $("#FundLink").click(function () {
         updateFundTable();
     });
 
-    $(".ImportConfigLink").click(function () {
+    $("#ImportConfigLink").click(function () {
         updateImportConfigTable();
     });
 
-    $(".EbscoKbConfigLink").click(function () {
+    $("#EbscoKbConfigLink").click(function () {
         updateEbscoKbConfigTable();
     });
 
@@ -68,23 +74,11 @@ $(document).ready(function(){
 
 });
 
-function removeSelectedClassFromNav(){
-  $(".AlertAdminLink").parent().parent().removeClass('selected');
-  $(".AdminLink").parent().parent().removeClass('selected');
-  $(".WorkflowAdminLink").parent().parent().removeClass('selected');
-  $(".UserAdminLink").parent().parent().removeClass('selected');
-  $(".CurrencyLink").parent().parent().removeClass('selected');
-  $(".FundLink").parent().parent().removeClass('selected');
-  $(".ImportConfigLink").parent().parent().removeClass('selected');
-  $(".SubjectsAdminLink").parent().parent().removeClass('selected');
-  $(".EbscoKbConfigLink").parent().parent().removeClass('selected');
+function updateDocTitle(newTitle) {
+	document.title = newTitle + ' - ' + baseTitle;
 }
 
-
 function updateTable(className){
-
-    removeSelectedClassFromNav();
-    $("#" + className).parent().parent().addClass('selected');
 
     $.ajax({
         type:       "GET",
@@ -105,9 +99,6 @@ function updateTable(className){
 
 function updateCurrencyTable(){
 
-    removeSelectedClassFromNav();
-    $(".CurrencyLink").parent().parent().addClass('selected');
-
     $.ajax({
         type:       "GET",
         url:        "ajax_htmldata.php",
@@ -125,9 +116,6 @@ function updateCurrencyTable(){
 
 function updateFundTable(){
 
-    removeSelectedClassFromNav();
-    $(".FundLink").parent().parent().addClass('selected');
-
     $.ajax({
         type:       "GET",
         url:        "ajax_htmldata.php",
@@ -144,8 +132,6 @@ function updateFundTable(){
 }
 
 function updateImportConfigTable(){
-    removeSelectedClassFromNav();
-    $(".ImportConfigLink").parent().parent().addClass('selected');
 
     $.ajax({
         type:       "GET",
@@ -165,9 +151,6 @@ function updateImportConfigTable(){
 
 function updateUserTable(){
 
-    removeSelectedClassFromNav();
-    $(".UserAdminLink").parent().parent().addClass('selected');
-
     $.ajax({
         type:       "GET",
         url:        "ajax_htmldata.php",
@@ -185,9 +168,6 @@ function updateUserTable(){
 
 
 function updateAlertTable(){
-
-    removeSelectedClassFromNav();
-    $(".AlertAdminLink").parent().parent().addClass('selected');
 
     $.ajax({
         type:       "GET",
@@ -207,9 +187,6 @@ function updateAlertTable(){
 
 function updateWorkflowTable(){
 
-    removeSelectedClassFromNav();
-    $(".WorkflowAdminLink").parent().parent().addClass('selected');
-
     $.ajax({
         type:       "GET",
         url:        "ajax_htmldata.php",
@@ -227,9 +204,6 @@ function updateWorkflowTable(){
 
 function updateSubjectsTable(){
 
-    removeSelectedClassFromNav();
-    $(".SubjectsAdminLink").parent().parent().addClass('selected');
-
     $.ajax({
         type:       "GET",
         url:        "ajax_htmldata.php",
@@ -246,9 +220,6 @@ function updateSubjectsTable(){
 }
 
 function updateEbscoKbConfigTable(){
-
-  removeSelectedClassFromNav();
-  $(".EbscoKbConfigLink").parent().parent().addClass('selected');
 
   $.ajax({
     type:       "GET",

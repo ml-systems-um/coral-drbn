@@ -16,7 +16,7 @@
 
 		<div class='formTitle' style='width:385px;'><span class='headerText' style='margin-left:7px;'><?php if ($externalLoginID){ echo _("Edit Account"); } else { echo _("Add Account"); } ?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
+		<span class='error' id='span_errors'></span>
 
 		<table class="surroundBox" style="width:390px;">
 		<tr>
@@ -43,7 +43,7 @@
 				<tr>
 				<td style='vertical-align:top;text-align:left;'><label for='loginURL'><b><?php echo _("URL:");?></b></label></td>
 				<td>
-				<input type='text' id='loginURL' name='loginURL' value = '<?php echo $externalLogin->loginURL; ?>' style='width:200px' class='changeInput' />
+				<input type='url' id='loginURL' name='loginURL' value = '<?php echo $externalLogin->loginURL; ?>' style='width:200px' class='changeInput' />
 				</td>
 				</tr>
 
@@ -83,7 +83,7 @@
 
 		<table class='noBorderTable' style='width:125px;'>
 			<tr>
-				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitExternalLoginForm' id ='submitExternalLoginForm' class='submit-button'></td>
+				<td style='text-align:left'><input type='submit' value='<?php echo _("submit");?>' name='submitExternalLoginForm' id ='submitExternalLoginForm' class='submit-button'></td>
 				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button'></td>
 			</tr>
 		</table>

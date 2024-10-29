@@ -17,7 +17,7 @@
 
 		<div class='formTitle' style='width:345px;'><span class='headerText' style='margin-left:7px;'><?php if ($attachmentID){ echo _("Edit Attachment"); } else { echo _("Add Attachment"); } ?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
+		<span class='error' id='span_errors'></span>
 
 		<table class="surroundBox" style="width:350px;">
 		<tr>
@@ -28,7 +28,7 @@
 			<tr>
 			<td style='vertical-align:top;text-align:left;'><label for='shortName'><b><?php echo _("Name:");?></b></label></td>
 			<td>
-			<input type='text' class='changeInput' id='shortName' name='shortName' value = '<?php echo $attachment->shortName; ?>' style='width:230px' /><span id='span_error_shortName' class='smallDarkRedText'></span>
+			<input type='text' class='changeInput' id='shortName' name='shortName' value = '<?php echo $attachment->shortName; ?>' style='width:230px' /><span id='span_error_shortName' class='error'></span>
 			</td>
 			</tr>
 
@@ -37,7 +37,7 @@
 			<td style='vertical-align:top;text-align:left;border:0px;'><label for='attachmentTypeID'><b><?php echo _("Type:");?></b></label></td>
 			<td style='vertical-align:top;text-align:left;border:0px;'>
 
-			<select name='attachmentTypeID' id='attachmentTypeID'>
+			<select name='attachmentTypeID' id='attachmentTypeID' aria-describedby='span_error_attachmentTypeID'>
 			<option value=''></option>
 			<?php
 			foreach ($attachmentTypeArray as $attachmentType){
@@ -49,18 +49,18 @@
 			}
 			?>
 			</select>
-			<span id='span_error_attachmentTypeID' class='smallDarkRedText'></span>
+			<span id='span_error_attachmentTypeID' class='error'></span>
 			</td>
 			</tr>
 
 			<tr>
-			<td style='text-align:left;vertical-align:top;'><label for="uploadAttachment"><b><?php echo _("File:");?></b></label></td>
+			<td style='text-align:left;vertical-align:top;'><label for="upload_button"><b><?php echo _("File:");?></b></label></td>
 			<td>
 			<?php
 
 			//if editing
 			if ($attachmentID){
-				echo "<div id='div_uploadFile'>" . $attachment->attachmentURL . "<br /><a href='javascript:replaceFile();'>"._("replace with new file")."</a>";
+				echo "<div id='div_uploadFile'>" . $attachment->attachmentURL . "<br /><button type='button' class='btn' onclick='replaceFile();'>"._("replace with new file")."</button>";
 				echo "<input type='hidden' id='upload_button' name='upload_button' value='" . $attachment->attachmentURL . "'></div>";
 
 			//if adding

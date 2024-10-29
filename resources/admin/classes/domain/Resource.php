@@ -994,7 +994,7 @@ class Resource extends DatabaseObject {
 		return $result['count'];
 	}
 
-
+// TODO: i18n; remove other articles
 
 	//used for A-Z on search (index)
 	public function getAlphabeticalList() {

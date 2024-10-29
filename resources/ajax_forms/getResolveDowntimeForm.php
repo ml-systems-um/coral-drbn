@@ -10,32 +10,32 @@ if ($downtimeID) {
 	<table class="thickboxTable" style="width:98%;background-image:url('images/title.gif');background-repeat:no-repeat;">
 		<tr>
 			<td colspan="2">
-				<h1>Resolve Downtime</h1>
+				<h1><?php echo _('Resolve Downtime'); ?></h1>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>Downtime Resolution:</label>
+				<h2><?php echo _('Downtime Resolution:'); ?></h2>
 			</td>
 			<td>
 				<div>
-					<div><i>Date</i></div>
-					<input class="date-pick" type="text" name="endDate" id="endDate" />
-					<span id='span_error_endDate' class='smallDarkRedText updateDowntimeError'></span>
+					<div><label for="endDate"><i><?php echo _('Date'); ?></i></label></div>
+					<input class="date-pick" type="text" name="endDate" id="endDate" aria-describedby="span_error_endDate" />
+					<span id='span_error_endDate' class='error updateDowntimeError'></span>
 				</div>
 				<div style="clear:both;">
-					<div><i>Time</i></div>
+					<div><label for="endDate"><i><?php echo _('Time'); ?></i></label></div>
 <?php
 echo buildTimeForm("endTime");
 ?>
-					<span id='span_error_endDate' class='smallDarkRedText updateDowntimeError'></span>
+					<span id='span_error_endDate' class='error updateDowntimeError'></span>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td><label>Note:</label></td>
+			<td><label for="note"><?php echo _('Note:'); ?></label></td>
 			<td>
-				<textarea name="note"><?php echo $downtime->note;?></textarea>
+				<textarea id="note" name="note"><?php echo $downtime->note;?></textarea>
 			</td>
 		</tr>
 	</table>
@@ -50,7 +50,7 @@ echo buildTimeForm("endTime");
 } else {
 ?>
 		<div>
-			Unable to retrieve Downtime.
+			<?php echo _('Unable to retrieve Downtime.'); ?>
 		</div>
 		<table class='noBorderTable' style='width:125px;'>
 			<tr>

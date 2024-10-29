@@ -51,7 +51,7 @@
 
 		<div class='formTitle' style='width:360px; margin-bottom:5px;'><span class='headerText'><?php echo _("Edit Licenses");?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
+		<span class='error' id='span_errors'></span>
 
 		<table class='noBorder' style='width:360px;'>
 		<tr style='vertical-align:top;'>
@@ -70,7 +70,8 @@
 				<tr class='newLicenseTR'>
 
 				<td style='vertical-align:top;text-align:left;'>
-				<input type='text' value = '' style='width:260px;background:#f5f8fa;' class='changeAutocomplete licenseName' />
+				<label for="licenseName"><?php echo _('License Name'); ?></label>
+				<input type='text' id="licenseName" value = '' style='width:260px;background:#f5f8fa;' class='changeAutocomplete licenseName' />
 				<input type='hidden' class='licenseID' value = '' />
 				</td>
 
@@ -79,7 +80,7 @@
 				</td>
 				</tr>
 				</table>
-				<div class='smallDarkRedText' id='div_errorLicense' style='margin:0px 20px 7px 26px;'></div>
+				<div class='error' id='div_errorLicense' style='margin:0px 20px 7px 26px;'></div>
 
 
 				<table class='noBorder smallPadding licenseTable' style='width:310px; margin:0px 20px 15px 20px;'>
@@ -97,7 +98,8 @@
 						<tr>
 
 						<td style='vertical-align:top;text-align:left;'>
-						<input type='text' class='changeInput licenseName' value = '<?php echo $license['license']; ?>' style='width:260px;' class='changeInput' />
+						<label for="licenseName-<?php echo $license['licenseID']; ?>"><?php echo _('License Name'); ?></label>
+						<input type='text' id="licenseName-<?php echo $license['licenseID']; ?>" class='changeInput licenseName' value = '<?php echo $license['license']; ?>' style='width:260px;' class='changeInput' />
 						<input type='hidden' class='licenseID' value = '<?php echo $license['licenseID']; ?>' />
 						</td>
 
@@ -127,7 +129,7 @@
 
 			<?php } ?>
 
-			<span class='surroundBoxTitle'>&nbsp;&nbsp;<label for='licenseStatus'><b><?php echo _("Licensing Status");?></b></label></span>
+			<span class='surroundBoxTitle'>&nbsp;&nbsp;<label for='licenseStatusID'><b><?php echo _("Licensing Status");?></b></label></span>
 
 			<table class='surroundBox' style='width:350px;'>
 			<tr>
@@ -165,6 +167,7 @@
 				<?php
 				if (count($resourceLicenseStatusArray) > 0){
 					foreach ($resourceLicenseStatusArray as $licenseStatus){
+						// TODO: i18n placeholders
 						echo $licenseStatus['licenseStatus'] . " - <i>" . format_date($licenseStatus['licenseStatusChangeDate']) . _(" by ") . $licenseStatus['changeName'] . "</i><br />";
 					}
 				}else{
@@ -190,7 +193,7 @@
 
 		<table class='noBorderTable' style='width:125px;'>
 			<tr>
-				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitLicense' id ='submitLicense' class='submit-button'></td>
+				<td style='text-align:left'><input type='submit' value='<?php echo _("submit");?>' name='submitLicense' id ='submitLicense' class='submit-button'></td>
 				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button'></td>
 			</tr>
 		</table>

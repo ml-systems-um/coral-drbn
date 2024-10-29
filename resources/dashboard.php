@@ -1,23 +1,17 @@
 <?php
 	include_once 'directory.php';
 	$pageTitle=_('Dashboard');
-    $customJSInclude .= '<script type="text/javascript" src="../js/plugins/datatables.min.js"></script>' . "\n";
-    $customJSInclude .= '<script type="text/javascript" src="../js/plugins/datatables_defaults.js"></script>' . "\n";
-	include 'templates/header.php';
+    $dataTables = true;
+    include 'templates/header.php';
     $dashboard = new Dashboard();
-
 ?>
-<link rel="stylesheet" type="text/css" href="../css/datatables.min.css"/>
-<script type="text/javascript" src="js/dashboard.js"></script>
-<div id="dashboardPage"><h1><?php echo _("Dashboard: Statistics");?></h1>
-<br />
-<div style='text-align:left;'>
-<table class="headerTable" style="background-image:url('images/header.gif');background-repeat:no-repeat;">
-<tr style='vertical-align:top;'>
-<td style="width:155px;padding-right:10px;">
-<table class='noBorder' id='title-search'>
-	<tr><td style='text-align:left;width:75px;vertical-align:top' align='left'>
 
+<main id="dashboardPage">
+  <article>
+    <h2><?php echo _("Dashboard: Statistics");?></h2>
+
+    <!-- TODO: un-table -->
+    <div id="side">
 	<table class='borderedFormTable' style="width:150px">
 
 	<tr>
@@ -107,10 +101,16 @@
     </td></tr>
     </table>
     </div>
- </td>
-<td style="vertical-align:top">
-<div id="dashboardTable" />
-</td></tr>
-</table>
-</div>
 
+    
+<div id="dashboardTable"></div>
+
+</article>
+</main>
+
+<?php
+include 'templates/footer.php';
+?>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

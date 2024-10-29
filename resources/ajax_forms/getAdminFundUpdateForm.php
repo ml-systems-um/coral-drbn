@@ -14,7 +14,7 @@
 
 		<div class='formTitle' style='width:245px;'><span class='headerText' style='margin-left:7px;'><?php if ($updateID){ echo _("Edit Fund"); } else { echo _("Add Fund"); } ?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
+		<span class='error' id='span_errors'></span>
 
 		<table class="surroundBox" style="width:250px;">
 		<tr>
@@ -22,14 +22,14 @@
 
 			<table class='noBorder' style='width:200px; margin:10px;'>
 			<tr>
-			<td><?php echo _("Code");?></td><td><input type='text' id='fundCode' value='<?php echo $instance->fundCode; ?>' style='width:150px;'/></td>
+			<td><label for="fundCode"><?php echo _("Code");?></label></td><td><input type='text' id='fundCode' value='<?php echo $instance->fundCode; ?>' style='width:150px;'/></td>
 			</tr>
 			<tr>
-			<td><?php echo _("Name");?></td><td><input type='text' id='shortName' value='<?php echo $instance->shortName; ?>' style='width:150px;'/></td>
+			<td><label for="shortName"><?php echo _("Name");?></label></td><td><input type='text' id='shortName' value='<?php echo $instance->shortName; ?>' style='width:150px;'/></td>
 			</tr>
 			<?php	{
 								if($instance->archived == 1){$archive = 'checked';}else{$archive='';}
-								echo "<tr><td>" . _("Archived") . "</td>";
+								echo "<tr><td><label for='archivedUpdate'>" . _("Archived") . "</label></td>";
 								echo "<td><input type='checkbox' id='archivedUpdate' ".$archive." /></td></tr>";
 					}
 			?>
@@ -42,7 +42,7 @@
 		<br />
 		<table class='noBorderTable' style='width:125px;'>
 			<tr>
-				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' id ='submitAddUpdate' class='submit-button'></td>
+				<td style='text-align:left'><input type='submit' value='<?php echo _("submit");?>' id ='submitAddUpdate' class='submit-button'></td>
 				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog(); return false;" class='cancel-button'></td>
 			</tr>
 		</table>

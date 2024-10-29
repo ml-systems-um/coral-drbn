@@ -41,7 +41,7 @@
 
 		<div class='formTitle' style='width:420px; margin-bottom:5px;'><span class='headerText'><?php echo ($op == 'clone') ? _("Clone Order") : _("Edit Order");?></span></div>
 
-		<span class='smallDarkRedText' id='span_errors'></span>
+		<span class='error' id='span_errors'></span>
 
 		<table class='noBorder' style='width:435px;'>
 		<tr style='vertical-align:top;'>
@@ -143,9 +143,9 @@
 							echo "<tr>\n";
 						}
 						if (in_array($purchaseSiteIns['purchaseSiteID'],$resourcePurchaseSiteArray)){
-							echo "<td><input class='check_purchaseSite' type='checkbox' name='" . $purchaseSiteIns['purchaseSiteID'] . "' id='" . $purchaseSiteIns['purchaseSiteID'] . "' value='" . $purchaseSiteIns['purchaseSiteID'] . "' checked />   " . $purchaseSiteIns['shortName'] . "</td>\n";
+							echo "<td><label><input class='check_purchaseSite' type='checkbox' name='" . $purchaseSiteIns['purchaseSiteID'] . "' id='" . $purchaseSiteIns['purchaseSiteID'] . "' value='" . $purchaseSiteIns['purchaseSiteID'] . "' checked />   " . $purchaseSiteIns['shortName'] . "</label></td>\n";
 						}else{
-							echo "<td><input class='check_purchaseSite' type='checkbox' name='" . $purchaseSiteIns['purchaseSiteID'] . "' id='" . $purchaseSiteIns['purchaseSiteID'] . "' value='" . $purchaseSiteIns['purchaseSiteID'] . "' />   " . $purchaseSiteIns['shortName'] . "</td>\n";
+							echo "<td><label><input class='check_purchaseSite' type='checkbox' name='" . $purchaseSiteIns['purchaseSiteID'] . "' id='" . $purchaseSiteIns['purchaseSiteID'] . "' value='" . $purchaseSiteIns['purchaseSiteID'] . "' />   " . $purchaseSiteIns['shortName'] . "</label></td>\n";
 						}
 						if(($i % 2)==0){
 							echo "</tr>\n";
@@ -177,7 +177,7 @@
 
 		<table class='noBorderTable' style='width:125px;'>
 			<tr>
-				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitOrder' id ='submitOrder' class='submit-button'></td>
+				<td style='text-align:left'><input type='submit' value='<?php echo _("submit");?>' name='submitOrder' id ='submitOrder' class='submit-button'></td>
 				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button'></td>
 			</tr>
 		</table>

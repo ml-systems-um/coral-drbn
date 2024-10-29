@@ -18,7 +18,7 @@
 		include 'templates/header.php';
 		$uploaddir = 'attachments/';
 		$uploadfile = $_FILES['uploadFile']['tmp_name'];
-		print '<p>' . _("The file has been successfully uploaded.") . '</p>';
+		print '<p class="msg">' . _("The file has been successfully uploaded.") . '</p>';
 
 		// Let's analyze this file
 		if (($handle = fopen($uploadfile, "r")) !== FALSE) {
@@ -34,7 +34,7 @@
 			$error = _("Unable to open the uploaded file");
 		}
 		if ($error) {
-			print "<p>" . _("Error: ") . $error . "</p>";
+			print "<p class='error'>" . _("Error: ") . $error . "</p>";
 		} else {
 		// Let's analyze this file
 			if (($handle = fopen($uploadfile, "r")) !== FALSE) {

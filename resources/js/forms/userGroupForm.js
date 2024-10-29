@@ -95,7 +95,7 @@ $(document).ready(function(){
 
 	$(".addUser").on('click', function () {
 
-		var loginID = $('.newUserTable').children().children().children().children('.loginID').val();
+		var loginID = $('.newUserTable .loginID').val();
 
 		if ((loginID == '') || (loginID == null)){
 			$('#div_errorUser').html(_("Error - User is required"));
@@ -112,13 +112,13 @@ $(document).ready(function(){
 			//it's too confusing to chain all of the children.
 			$('.newUserTR').appendTo('.userTable');
 
-			$('.newUserTR').children().children().children('.addUser').attr({
+			$('.newUserTR .actions .addUser').attr({
 			  src: 'images/cross.gif',
 			  alt: _("remove user from group"),
 			  title: _("remove from group")
 			});
 
-			$('.newUserTR').children().children().children('.addUser').addClass('remove');
+			$('.newUserTR .actions .addUser').addClass('remove');
 			$('.loginID').addClass('changeSelect');
 			$('.loginID').addClass('idleField');
 			$('.loginID').css("background-color","");
@@ -129,7 +129,7 @@ $(document).ready(function(){
 
 			//next put the original clone back, we just need to reset the values
 			originalTR.appendTo('.newUserTable');
-			$('.newUserTable').children().children().children().children('.loginID').val('');
+			$('.newUserTable .loginID').val('');
 
 
 			return false;

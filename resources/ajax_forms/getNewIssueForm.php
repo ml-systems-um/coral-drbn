@@ -26,20 +26,20 @@ if ($organizationData['organizationID']) {
 		<tr>
 			<td colspan="2">
 				<h1><?php echo _("Report New Problem");?></h1>
-				<span class='smallDarkRedText'><?php echo _("* required fields");?></span>
+				<span class='error'><?php echo _("* required fields");?></span>
 			</td>
 		</tr>
 		<tr>
 			<td><label><?php echo _("Organization:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
 			<td>
 				<p><?php echo $organizationData['organization']; ?></p>
-				<span id='span_error_organizationId' class='error smallDarkRedText'></span>
+				<span id='span_error_organizationId' class='error'></span>
 			</td>
 		</tr>
 		<tr>
-			<td><label><?php echo _("Contact:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
+			<td><label for="contactIDs"><?php echo _("Contact:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
 			<td>
-				<select multiple style="min-height: 60px;" type='text' id='contactIDs' name='contactIDs[]'>
+				<select multiple style="min-height: 60px;" type='text' id='contactIDs' name='contactIDs[]' aria-describedby='span_error_contactName'>
 <?php
 
 	foreach ($contactsArray as $contact) {
@@ -52,7 +52,7 @@ if ($organizationData['organizationID']) {
 
 ?>
 				</select>
-				<span id='span_error_contactName' class='error smallDarkRedText'></span>
+				<span id='span_error_contactName' class='error'></span>
 			</td>
 		</tr>
 <?php
@@ -78,36 +78,36 @@ if ($config->settings->organizationsModule == 'Y') {
 }
 ?>
 		<tr>
-			<td><label><?php echo _("CC myself:");?></label></td>
+			<td><label for="ccCreator"><?php echo _("CC myself:");?></label></td>
 			<td>
-				<input type='checkbox' id='ccCreator' name='ccCreator' class='changeInput' />
-				<span id='span_error_ccCreator' class='error smallDarkRedText'></span>
+				<input type='checkbox' id='ccCreator' name='ccCreator' class='changeInput' aria-describedby='span_error_ccCreator' />
+				<span id='span_error_ccCreator' class='error error'></span>
 			</td>
 		</tr>
 		<tr>
-			<td><label><?php echo _("CC:");?></label></td>
+			<td><label for="inputEmail"><?php echo _("CC:");?></label></td>
 			<td>
-				<input type="text" id="inputEmail" name="inputEmail" />
+				<input type="text" id="inputEmail" name="inputEmail" aria-describedby="span_error_contactIDs" />
 				<input type="button" id="addEmail" name="addEmail" value="<?php echo _('Add');?>" />
 				<p>
 					<?php echo _("Current CCs:");?> <span id="currentEmails"></span>
 				</p>
 				<input type="hidden" id='ccEmails' name='ccEmails' value='' class='changeInput' />
-				<span id='span_error_contactIDs' class='error smallDarkRedText'></span>
+				<span id='span_error_contactIDs' class='error'></span>
 			</td>
 		</tr>
 		<tr>
-			<td><label><?php echo _("Subject:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
+			<td><label for="subjectText"><?php echo _("Subject:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
 			<td>
-				<input type='text' id='subjectText' name='issue[subjectText]' value='' class='changeInput' />
-				<span id='span_error_subjectText' class='error smallDarkRedText'></span>
+				<input type='text' id='subjectText' name='issue[subjectText]' value='' class='changeInput' aria-describedby='span_error_subjectText' />
+				<span id='span_error_subjectText' class='error error'></span>
 			</td>
 		</tr>
 		<tr>
-			<td><label><?php echo _("Body:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
+			<td><label for="bodyText"><?php echo _("Body:");?>&nbsp;&nbsp;<span class='bigDarkRedText'>*</span></label></td>
 			<td>
-				<textarea id='bodyText' name='issue[bodyText]' value=''></textarea>
-				<span id='span_error_bodyText' class='error smallDarkRedText'></span>
+				<textarea id='bodyText' name='issue[bodyText]' value='' aria-describedby="span_error_bodyText"></textarea>
+				<span id='span_error_bodyText' class='error error'></span>
 			</td>
 		</tr>
 		<tr>
@@ -121,9 +121,10 @@ if ($config->settings->organizationsModule == 'Y') {
 					<input type="checkbox" class="issueResources entityArray" name="organizationID" id="organizationID" value="<?php echo $organizationData['organizationID'];?>" /> <label for="allResources"><?php echo _("Applies to all");?> <?php echo $organizationData['organization']; ?> resources</label>
 				</div>
 				<div>
-					<input type="checkbox" class="issueResources" id="otherResources" /><label for="otherResources"> <?php echo _("Applies to selected");?> <?php echo $organizationData['organization'] ?> resources</label>
+					<!-- TODO: i18n placeholders -->
+					<input type="checkbox" class="issueResources" id="otherResources" /><label for="otherResources"> <?php echo _("Applies to selected");?> <?php echo $organizationData['organization'] ?> <?php echo _("resources");?></label>
 				</div>
-				<select multiple id="resourceIDs" name="resourceIDs[]">
+				<select multiple id="resourceIDs" name="resourceIDs[]" aria-label="<?php echo _('Select resources') ?>" aria-describedby="span_error_entities">
 <?php
 	if (!empty($organizationResourcesArray)) {
 		foreach ($organizationResourcesArray as $resource) {
@@ -132,20 +133,20 @@ if ($config->settings->organizationsModule == 'Y') {
 	}
 ?>
 				</select>
-				<span id='span_error_entities' class='error smallDarkRedText'></span>
+				<span id='span_error_entities' class='error'></span>
 			</td>
 		</tr>
 	</table>
 
-	<p> <?php echo _("Send me a reminder every");?>
+	<p><label> <?php echo _("Send me a reminder every");?>
 		<select name="issue[reminderInterval]">
 			<?php for ($i = 1; $i <= 31; $i++) echo "<option".(($i==7) ? ' selected':'').">{$i}</option>"; ?>
-		</select> <?php echo _("day(s)");?>
+		</select> <?php echo _("day(s)");?></label>
 	</p>
 
 	<table class='noBorderTable' style='width:125px;'>
 		<tr>
-			<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitNewIssue' id='submitNewIssue' class='submit-button'></td>
+			<td style='text-align:left'><input type='submit' value='<?php echo _("submit");?>' name='submitNewIssue' id='submitNewIssue' class='submit-button'></td>
 			<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button'></td>
 		</tr>
 	</table>
