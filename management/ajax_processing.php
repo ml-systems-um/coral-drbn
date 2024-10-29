@@ -553,40 +553,28 @@ switch ($_GET['action']) {
 					}
 				}
 				?>
-				<table class="thickboxTable" style="background-image:url('images/title.gif');background-repeat:no-repeat;width:260px;">
-				<tr>
-				<td colspan='2'><br /><span class='headerText'><?php echo $response; ?></span><br /></td>
-				</tr>
-				<tr>
-				<td colspan='2'><p><a href='#' onclick='myCloseDialog(); window.parent.location=("license.php?licenseID=<?php echo $licenseID; ?>"); return false'><?php echo _("Continue");?></a></td>
-				</tr>
-
-				</table>
+				<p><?php echo $response; ?></p>
+				
+				<p class="actions"><a href='#' onclick='myCloseDialog(); window.parent.location=("license.php?licenseID=<?php echo $licenseID; ?>"); return false'><?php echo _("Continue");?></a>
+			
 				<?php
 			} catch (Exception $e) {
 				?>
-				<table class="thickboxTable" style="background-image:url('images/title.gif');background-repeat:no-repeat;width:260px;">
-				<tr>
-				<td colspan='2'><br /><span class='headerText'><?php echo _("SQL Insert Failed.") . ' ' . $e->getMessage() . ' ' .  _(" Please make sure everything is filled out correctly.");?></span><br /></td>
-				</tr>
-				<tr>
-				<td colspan='2'><p><a href='#' onclick='myCloseDialog(); return false'><?php echo _("Continue");?></a></td>
-				</tr>
-
-				</table>
+				<h2 class='headerText'><?php echo _("SQL Insert Failed."); ?></h2>
+				<p class="error"><?php echo $e->getMessage(); ?>
+				<p><?php echo _(" Please make sure everything is filled out correctly.");?></p>
+				
+				<p class="actions"><a href='#' onclick='myCloseDialog(); return false'><?php echo _("Continue");?></a>
 				<?php
 			}
 		}else{
 			?>
-			<table class="thickboxTable" style="background-image:url('images/title.gif');background-repeat:no-repeat;width:260px;">
-			<tr>
-			<td colspan='2'><br /><span class='headerText'><?php echo _("SQL Insert Failed.") . ' ' . $e->getMessage() . ' ' . _(" Please make sure everything is filled out correctly.");?></span><br /></td>
-			</tr>
-			<tr>
-			<td colspan='2'><p><a href='#' onclick='myCloseDialog(); return false'><?php echo _("Continue");?></a></td>
-			</tr>
-
-			</table>
+			
+			<h2 class='headerText'><?php echo _("SQL Insert Failed."); ?></h2>
+			<p class="error"><?php echo $e->getMessage(); ?>
+			<p><?php echo _(" Please make sure everything is filled out correctly.");?></p>
+				
+			<p class="actions"><a href='#' onclick='myCloseDialog(); return false'><?php echo _("Continue");?></a></p>
 			<?php
 		}
 
@@ -864,13 +852,13 @@ switch ($_GET['action']) {
 		$instance = new $className();
 		$instance->shortName = $shortName;
 
-		echo "<font color='red'>";
+		echo "<p class='error'>";
 		try {
 			$instance->save();
 		} catch (Exception $e) {
 			echo $e->POSTMessage();
 		}
-		echo "</font>";
+		echo "</p>";
 
  		break;
 
@@ -903,11 +891,12 @@ switch ($_GET['action']) {
 		//since we're using MyISAM which doesn't support FKs, must verify that there are no records of children or they could disappear
 		$instance = new $className(new NamedArguments(array('primaryKey' => $deleteID)));
 		$numberOfChildren = $instance->getNumberOfChildren();
-		echo "<font color='red'>";
+		echo "<p class='error'>";
 
 		if ($numberOfChildren > 0){
 			$type = ($className == 'Consortium') ? 'category':strtolower(preg_replace("/[A-Z]/", " \\0" , lcfirst($className)));
 			//print out a friendly message...
+			// TODO: i18n placeholders
 			echo _("Unable to delete  - this ") . $type . _(" is in use.  Please make sure no documents are set up with this information.");
 		}else{
 			try {
@@ -917,7 +906,7 @@ switch ($_GET['action']) {
 				echo _("Unable to delete.  Please make sure no documents are set up with this information.");
 			}
 		}
-		echo "</font>";
+		echo "</p>";
 
  		break;
 
@@ -993,13 +982,13 @@ switch ($_GET['action']) {
 
 		$user = new User(new NamedArguments(array('primaryKey' => $loginID)));
 
-		echo "<font color='red'>";
+		echo "<p class='error'>";
 		try {
 			$user->delete();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-		echo "</font>";
+		echo "</p>";
 
  		break;
 
@@ -1012,13 +1001,13 @@ switch ($_GET['action']) {
 
 		$expressionType = new ExpressionType(new NamedArguments(array('primaryKey' => $expressionTypeID)));
 
-		echo "<font color='red'>";
+		echo "<p class='error'>";
 		try {
 			$expressionType->removeExpressionType();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-		echo "</font>";
+		echo "</p>";
 
  		break;
 
@@ -1220,7 +1209,7 @@ switch ($_GET['action']) {
 
 		try {
 			$license->save();
-			echo _("Status has been updated");
+			//echo _("Status has been updated");
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
