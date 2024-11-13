@@ -131,8 +131,8 @@ global $http_lang;
     <a href="#main-content" class="skip"><?php echo _('Skip to main content'); ?></a>
     <h1>
       <a href="<?php echo $coralPath; ?>" class="site-title-link">
-        <img src="<?php echo $coralPath; ?>/images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM"/> 
-        <img src="<?php echo $coralPath; ?>/images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM"/>
+        <img src="<?php echo $coralPath; ?>images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM"/> 
+        <img src="<?php echo $coralPath; ?>images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM"/>
       </a>
       <a href="<?php echo $coralPath . $modulePath; ?>/" class="module-title-link">
         <?php echo $moduleTitle; ?>
