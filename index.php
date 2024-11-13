@@ -32,9 +32,9 @@
 
 	<title><?php echo _("eRM - eResource Management"); ?></title>
 	
-	<link rel="icon" href="<?php echo $coralPath; ?>images/favicon.ico">
-  <link rel="icon" href="<?php echo $coralPath; ?>images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="<?php echo $coralPath; ?>css/style.css" type="text/css" media="screen" />
+	<link rel="icon" href="images/favicon.ico">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="css/indexstyle.css" type="text/css" media="screen" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="js/plugins/Gettext.js"></script>
@@ -104,8 +104,18 @@
 	</article>
 	</main>
 
-	<?php
-	include('templates/footer.php');
-	?>
+	<footer class="footer">
+		<?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2024.??<br/>
+		<a href="http://coral-erm.org/">
+			<img src="images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM project website"/> 
+			<img src="images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM project website"/>
+		</a>
+		<a href="https://github.com/coral-erm/coral/issues" id="report-issue"><?php echo _("Report an Issue");?></a>
+	</footer>
+
+	<script>
+		const CORAL_ILS_LINK=<?php echo $config->ils->ilsConnector ? 1 : 0; ?>;
+		Date.format = '<?php echo return_datepicker_date_format(); ?>';
+	</script>
 </body>
 </html>
