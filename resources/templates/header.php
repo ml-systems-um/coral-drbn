@@ -19,7 +19,7 @@
 
 
 /* CORAL setup */
-include_once $_SERVER['DOCUMENT_ROOT'].'/coral/resources/user.php';
+include_once 'user.php';
 
 $util = new Utility();
 $config = new Configuration();

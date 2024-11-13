@@ -18,8 +18,8 @@
 */
 
 /* CORAL setup */
-include_once $_SERVER['DOCUMENT_ROOT'].'/coral/organizations/directory.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/coral/organizations/user.php';
+include_once 'directory.php';
+include_once 'user.php';
 
 /* module setup */
 $moduleTitle = _('Organizations');
