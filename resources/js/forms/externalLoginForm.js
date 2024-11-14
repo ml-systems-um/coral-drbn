@@ -130,7 +130,7 @@ function submitExternalLogin(){
 				$("#span_errors").html(html);
 				$("#submitExternalLoginForm").removeAttr("disabled");
 			}else{
-				myDialogClose();
+				myCloseDialog();
 				window.parent.updateAccounts();
 				return false;
 			}

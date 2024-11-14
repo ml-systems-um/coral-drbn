@@ -38,7 +38,7 @@ function integer_to_cost($price) {
     if ($price > 0){
         return $nf->format($price / 100);
     }else{
-        return "";
+        return $nf->format(0);
     }
 }
 
@@ -90,7 +90,7 @@ function resource_sidemenu($selected_link = '') {
     } else {
       $class = 'sidemenuunselected';
     }
-    if ($key != 'accounts' || $user->accountTabIndicator == '1') {
+    if ($key != 'accounts' || $user->accountTabIndicator == '1' || $user->isAdmin) {
     ?>
     <div class="<?php echo $class; ?>" style='position: relative; width: 105px'><span class='link'><a href='javascript:void(0)' class='show<?php echo $name; ?>' title="<?php echo $value; ?>"><?php echo $value; ?></a></span>
       <?php if ($key == 'attachments') { ?>

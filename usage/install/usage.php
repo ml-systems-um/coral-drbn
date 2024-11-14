@@ -208,6 +208,17 @@ function register_usage_provider()
                         }
                 ];
 
+        case "2024.10":
+            return [
+                "function" => function($shared_module_info) {
+                    $return = new stdClass();
+                    $return->yield = new stdClass();
+                    $return->success = true;
+                    $return->yield->title = _("Usage Module");
+                    return $return;
+                }
+            ];
+        
 				default:
 					return null;
 			}

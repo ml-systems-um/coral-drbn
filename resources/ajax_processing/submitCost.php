@@ -32,10 +32,10 @@
 					$resourcePayment->subscriptionStartDate = $start;
 					$resourcePayment->subscriptionEndDate   = $end;
 					$resourcePayment->fundID        = $fundIDArray[$key];
-					$resourcePayment->priceTaxExcluded = $pteArray[$key];
+					$resourcePayment->priceTaxExcluded = is_numeric($pteArray[$key]) ? $pteArray[$key] : null;
 					$resourcePayment->taxRate       = is_numeric($taxRateArray[$key]) ? $taxRateArray[$key] : null;
-					$resourcePayment->priceTaxIncluded = $ptiArray[$key];
-					$resourcePayment->paymentAmount = $paymentAmountArray[$key];
+					$resourcePayment->priceTaxIncluded = is_numeric($ptiArray[$key]) ? $ptiArray[$key] : null;
+					$resourcePayment->paymentAmount = is_numeric($paymentAmountArray[$key]) ? $paymentAmountArray[$key] : null;
 					$resourcePayment->currencyCode  = $currencyCodeArray[$key];
 					$resourcePayment->orderTypeID   = $value;
 					$resourcePayment->costDetailsID = $costDetailsArray[$key];
