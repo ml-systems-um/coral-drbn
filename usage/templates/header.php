@@ -17,8 +17,9 @@
 */
 
 /* CORAL setup */
-include_once "user.php";
 include_once 'directory.php';
+include_once "user.php";
+
 
 $util = new Utility();
 $config = new Configuration();
