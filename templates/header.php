@@ -131,8 +131,8 @@ global $http_lang;
     <a href="#main-content" class="skip"><?php echo _('Skip to main content'); ?></a>
     <h1>
       <a href="<?php echo $coralPath; ?>" class="site-title-link">
-        <img src="/coral/images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM"/> 
-        <img src="/coral/images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM"/>
+        <img src="<?php echo $coralPath; ?>images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM"/> 
+        <img src="<?php echo $coralPath; ?>images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM"/>
       </a>
       <a href="<?php echo $coralPath . $modulePath; ?>/" class="module-title-link">
         <?php echo $moduleTitle; ?>
@@ -228,7 +228,7 @@ global $http_lang;
 <nav id="main" aria-label="<?php echo _("Modules"); ?>">
   <button class="btn menu-toggle" id="modules-toggle" type="button" aria-expanded="false" aria-controls="modules"><?php echo _("Modules"); ?></button>
   <ul class="nav" id="modules">
-    <?php if (file_exists($util->getCORALPath() . "index.php")) { 
+    <?php if (file_exists($util->getCORALPath() . "/index.php")) { 
       if ($currentModule == $coralPath) {
         $ariaCurrentModule = 'aria-current="page"';
       }

@@ -24,8 +24,8 @@
 <footer class="footer">
   <?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2024.??<br/>
   <a href="http://coral-erm.org/">
-    <img src="/coral/images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM project website"/> 
-    <img src="/coral/images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM project website"/>
+    <img src="<?php echo $coralPath; ?>images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM project website"/> 
+    <img src="<?php echo $coralPath; ?>images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM project website"/>
   </a>
   <a href="https://github.com/coral-erm/coral/issues" id="report-issue"><?php echo _("Report an Issue");?></a>
 </footer>
