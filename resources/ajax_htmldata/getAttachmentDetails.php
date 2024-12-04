@@ -21,7 +21,7 @@
 			array_push($attachmentArray, $sanitizedInstance);
 		}
 
-		if (count($attachmentArray) > 0){
+		if (is_array($attachmentArray) && count($attachmentArray) > 0) {
 			foreach ($attachmentArray as $attachment){
 			?>
 			<div class="header">

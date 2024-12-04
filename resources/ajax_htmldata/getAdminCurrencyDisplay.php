@@ -11,7 +11,7 @@
 		</div>
 
 		<?php
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>

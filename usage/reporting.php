@@ -20,7 +20,7 @@ $platformArray = array();
 
 $platformArray = $platformObj->all();
 
-if (count($platformArray) > 0){
+if (is_array($platformArray) && count($platformArray) > 0) {
 	// TODO: i18n placeholders
 	echo _("Available") . "<br />" . _("As Default") . "<br />" . _("Report");
 

@@ -15,7 +15,7 @@
 			<span class="addElement"><?php echo "<a href='javascript:void(0);' onclick='javascript:myDialog(\"ajax_forms.php?action=getAdminUpdateForm&className=" . $className . "\", 200,300)' class='thickbox'><img id='addType' src='images/plus.gif' title='"._("add")."'/></a>";?></span>
 		</div>
 		<?php
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>

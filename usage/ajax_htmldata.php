@@ -54,7 +54,7 @@ switch ($action) {
 		$importLogArray = $platform->getImportLogs();
 		$importLog = new ImportLog();
 
-		if (count($importLogArray) > 0){
+		if (is_array($importLogArray) && count($importLogArray) > 0) {
 
 			echo "<table class='dataTable table-border table-striped'>";
 			echo "<thead>";
@@ -108,7 +108,7 @@ switch ($action) {
 			$externalLogin = new ExternalLogin();
 
 
-			if (count($externalLoginArray) > 0){
+			if (is_array($externalLoginArray) && count($externalLoginArray) > 0) {
 			?>
 
 			<table class='verticalFormTable table-border table-striped'>
@@ -171,7 +171,7 @@ switch ($action) {
 			$externalLogin = new ExternalLogin();
 
 
-			if (count($externalLoginArray) > 0){
+			if (is_array($externalLoginArray) && count($externalLoginArray) > 0) {
 			?>
 
 			<table class='verticalFormTable table-border table-striped'>
@@ -241,7 +241,7 @@ switch ($action) {
 
 				$externalLoginArray = $obj->getOrganizationExternalLogins();
 
-				if (count($externalLoginArray) > 0){
+				if (is_array($externalLoginArray) && count($externalLoginArray) > 0) {
 					?>
 					<?php echo _("For ");?><?php echo $obj->getOrganizationName() . "&nbsp;&nbsp;<a href='" . $util->getOrganizationURL() . $obj->organizationID . "' target='_blank'>" . _("view organization") . "</a>";?>
 					<table class='verticalFormTable table-border table-striped'>
@@ -308,7 +308,7 @@ switch ($action) {
 
 				}
 
-				if (count($pubArray) > 0){
+				if (is_array($pubArray) && count($pubArray) > 0) {
 					echo "<br />";
 					echo _("Login Credentials are also available for the following publishers:") . "<br />";
 
@@ -341,7 +341,7 @@ switch ($action) {
 			$publisherPlatformNoteArray = $publisherPlatform->getPublisherPlatformNotes();
 			$publisherPlatformNote = new PublisherPlatformNote();
 
-			if (count($publisherPlatformNoteArray) > 0){
+			if (is_array($publisherPlatformNoteArray) && count($publisherPlatformNoteArray) > 0) {
 			?>
 
 			<table class='verticalFormTable table-border table-striped'>
@@ -403,7 +403,7 @@ switch ($action) {
 			$platformNoteArray = $platform->getPlatformNotes();
 			$platformNote = new PlatformNote();
 
-			if (count($platformNoteArray) > 0){
+			if (is_array($platformNoteArray) && count($platformNoteArray) > 0) {
 
 			?>
 
@@ -812,7 +812,7 @@ switch ($action) {
 
 		$titleArray = $databaseTitleArray;
 
-		if (count($titleArray) > 0){
+		if (is_array($titleArray) && count($titleArray) > 0) {
 			?>
 			<h3><?php echo _("Database Titles");?></h3>
 			<ul class="unstyled">
@@ -1155,7 +1155,7 @@ switch ($action) {
 		$sushiArray = array();
 		$sushiArray = $sushiImport->getSushiImports();
 
-		if (count($sushiArray) > 0){
+		if (is_array($sushiArray) && count($sushiArray) > 0) {
 			echo "<table class='dataTable table-striped'>";
 			echo "<thead>";
 			echo "<tr>";
@@ -1210,7 +1210,7 @@ switch ($action) {
 		$sushiArray = array();
 		$sushiArray = $sushiService->failedImports();
 
-		if (count($sushiArray) > 0){
+		if (is_array($sushiArray) && count($sushiArray) > 0) {
 			echo "<table class='dataTable table-striped'>";
 			echo "<thead>";
 			echo "<tr>";
@@ -1271,7 +1271,7 @@ switch ($action) {
 		$sushiArray = array();
 		$sushiArray = $sushiService->allServices();
 
-		if (count($sushiArray) > 0){
+		if (is_array($sushiArray) && count($sushiArray) > 0) {
 			echo "<table class='dataTable table-striped'>";
 			echo "<thead>";
 			echo "<tr>";
@@ -1338,7 +1338,7 @@ switch ($action) {
 		$tempArray = array();
 		$config = new Configuration();
 
-		if (count($user->allAsArray()) > 0){
+		if (is_array($user->allAsArray()) && count($user->allAsArray()) > 0) {
 
 			?>
 			<table class='dataTable table-border table-striped'>

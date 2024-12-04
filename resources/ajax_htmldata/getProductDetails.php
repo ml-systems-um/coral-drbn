@@ -183,7 +183,7 @@
 				<dd>
 				<?php
 
-        if (count($parentResourceArray) > 0) {
+        if (is_array($parentResourceArray) && count($parentResourceArray) > 0) {
 					echo "<div id='parentResources'>";
 					echo "<h3>" . _("Parent Resources") . "</h3>";
 					echo "<ul class='unstyled'>";
@@ -195,7 +195,7 @@
 					echo "</div>";
 				}
 
-				if (count($childResourceArray) > 0) { 
+				if (is_array($childResourceArray) && count($childResourceArray) > 0) { 
 					echo "<div id='childResources'>";
 					echo "<h3>" . _("Child Resources") . "</h3>";
 					echo "<ul class='unstyled'>";
@@ -228,7 +228,7 @@
 			<?php
 			}
 
-			if (count($aliasArray) > 0){
+			if (is_array($aliasArray) && count($aliasArray) > 0) {
 			?>
 			<dt><?php echo _("Aliases:");?></dt>
 			<dd>
@@ -243,7 +243,7 @@
 			}
 
 
-			if (count($orgArray) > 0){
+			if (is_array($orgArray) && count($orgArray) > 0) {
 			?>
 
 			<dt><?php echo _("Organizations:");?></dt>
@@ -305,7 +305,7 @@
 
 		}
 
-		if (count($generalDetailSubjectIDArray) > 0){
+		if (is_array($generalDetailSubjectIDArray) && count($generalDetailSubjectIDArray) > 0) {
 
 		?>
 		<h2><?php echo _("Subjects");?></h2>
@@ -413,7 +413,7 @@
 			array_push($noteArray, $sanitizedInstance);
 		}
 
-		if (count($noteArray) > 0){
+		if (is_array($noteArray) && count($noteArray) > 0) {
 		?>
 		<div class="header">
 			<h2><?php echo _("Additional Notes");?></h2>

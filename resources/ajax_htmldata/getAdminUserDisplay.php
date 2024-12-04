@@ -14,7 +14,7 @@
 
 
 
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 			?>
 			<div class="adminHeader header">
 				<h3 class="adminRightHeader"><?php echo _("Users");?></h3>

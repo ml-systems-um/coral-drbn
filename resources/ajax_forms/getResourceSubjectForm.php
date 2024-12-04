@@ -7,7 +7,7 @@
 		<div class='formTitle'><h2 class='headerText'><?php echo _("Add General / Detail Subject Link");?></h2></div>
 
 	<?php
-		if (count($generalSubjectArray) > 0){
+		if (is_array($generalSubjectArray) && count($generalSubjectArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>

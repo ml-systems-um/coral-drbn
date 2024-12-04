@@ -543,7 +543,7 @@ switch ($_GET['action']) {
 		<div id='div_Qualifiers'>
 
 		<?php
-		if (count($expressionQualifierArray) > 0){
+		if (is_array($expressionQualifierArray) && count($expressionQualifierArray) > 0) {
 			echo '<ul class="unstyled">';
 			//loop over all qualifiers available for this expression type
 			foreach ($expressionQualifierArray as $expressionQualifierIns){

@@ -28,7 +28,7 @@
 				
 			</div>
 			<?php
-		if (count($workflowArray) > 0){
+		if (is_array($workflowArray) && count($workflowArray) > 0) {
 			?>
 			<table class='linedDataTable table-striped table-border'>
 			<thead>
@@ -96,7 +96,7 @@
 				</span>
 		</div>
 			<?php
-		if (count($userGroupArray) > 0){
+		if (is_array($userGroupArray) && count($userGroupArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 			<thead>

@@ -21,7 +21,7 @@
 		if ((isset($archiveInd)) && ($archiveInd == "1")){
 			//if we want archives to be displayed
 			if ($showArchivesInd == "1"){
-				if (count($resourceAcquisition->getArchivedContacts()) > 0){
+				if (is_array($resourceAcquisition->getArchivedContacts()) && count($resourceAcquisition->getArchivedContacts()) > 0) {
 					echo "<i><b>"._("The following are archived contacts:")."</b></i>";
 				}
 				$contactArray = $resourceAcquisition->getArchivedContacts();
@@ -31,7 +31,7 @@
 		}
 
 
-		if (count($contactArray) > 0){
+		if (is_array($contactArray) && count($contactArray) > 0) {
 			foreach ($contactArray as $contact){
 				if (($resContactFlag == 0) && (!isset($contact['organizationName']))){
 					echo "<h3>"._("Order Specific:")."</h3>";

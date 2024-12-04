@@ -42,7 +42,7 @@
 					<td><?php echo $acquisitionType->shortName; ?></td>
 
 					<?php
-						if (count($taskArray) > 0){
+						if (is_array($taskArray) && count($taskArray) > 0) {
 							foreach ($taskArray as $task){
 								if ($j > 0){
 								?>

@@ -91,7 +91,7 @@
 				</tr>
 
 				<?php
-				if (count($licenseArray) > 0){
+				if (is_array($licenseArray) && count($licenseArray) > 0) {
 
 					foreach ($licenseArray as $license){
 					?>
@@ -165,7 +165,7 @@
 				<td>
 
 				<?php
-				if (count($resourceLicenseStatusArray) > 0){
+				if (is_array($resourceLicenseStatusArray) && count($resourceLicenseStatusArray) > 0) {
 					foreach ($resourceLicenseStatusArray as $licenseStatus){
 						// TODO: i18n placeholders
 						echo $licenseStatus['licenseStatus'] . " - <i>" . format_date($licenseStatus['licenseStatusChangeDate']) . _(" by ") . $licenseStatus['changeName'] . "</i><br />";

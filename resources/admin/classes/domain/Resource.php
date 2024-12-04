@@ -886,7 +886,7 @@ class Resource extends DatabaseObject {
 		//also add to not retrieve saved records
 		$whereAdd[] = "R.statusID != " . $savedStatusID;
 
-		if (count($whereAdd) > 0) {
+		if (is_array($whereAdd) && count($whereAdd) > 0) {
 			$whereStatement = " WHERE " . implode(" AND ", $whereAdd);
 		}else{
 			$whereStatement = "";
@@ -1053,7 +1053,7 @@ class Resource extends DatabaseObject {
 		$savedStatusID = intval($status->getIDFromName('saved'));
 		$whereAdd[] = "R.statusID != " . $savedStatusID;
 
-		if (count($whereAdd) > 0) {
+		if (is_array($whereAdd) && count($whereAdd) > 0) {
 			$whereStatement = " WHERE " . implode(" AND ", $whereAdd);
 		}else{
 			$whereStatement = "";

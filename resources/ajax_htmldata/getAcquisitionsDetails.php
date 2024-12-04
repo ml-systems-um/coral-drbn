@@ -130,7 +130,7 @@
 
 		<tbody>
 			<?php
-			if (count($paymentArray) > 0){
+			if (is_array($paymentArray) && count($paymentArray) > 0) {
 
 				foreach ($paymentArray as $payment){
 					$year = $payment['year'] ? $payment['year'] : "&nbsp;";
@@ -198,7 +198,7 @@
 			
 			<h4><?php echo _("Status:");?></h4>
 			<?php
-			if (count($licenseStatusArray) > 0){
+			if (is_array($licenseStatusArray) && count($licenseStatusArray) > 0) {
 				echo "<ul>";
 				foreach ($licenseStatusArray as $licenseStatus){
 					// TODO: i18n placeholders
@@ -217,7 +217,7 @@
 			
 			<?php
 
-			if (count($licenseArray) > 0){
+			if (is_array($licenseArray) && count($licenseArray) > 0) {
 				echo "<ul>";
 				foreach ($licenseArray as $license){
 					echo "<li>". $license['license'] . "&nbsp;&nbsp;<a href='" . $util->getLicensingURL() . $license['licenseID'] . "' target='_blank'><img src='images/arrow-up-right.gif' alt='"._("View License")."' title='"._("View License")."'></a></li>";
@@ -281,7 +281,7 @@
 		</div>
 		
 		<?php
-		if (count($noteArray) > 0){
+		if (is_array($noteArray) && count($noteArray) > 0) {
 		?>
 		<div class="form-grid">				
 			<?php foreach ($noteArray as $resourceNote){ ?>

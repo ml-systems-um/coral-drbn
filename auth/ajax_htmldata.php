@@ -29,7 +29,7 @@ switch ($_GET['action']) {
 		$usersArray = $userObj->allAsArray();
 
 
-		if (count($usersArray) > 0){
+		if (is_array($usersArray) && count($usersArray) > 0) {
 			?>
 			<table class='table-border table-striped'>
 				<thead>

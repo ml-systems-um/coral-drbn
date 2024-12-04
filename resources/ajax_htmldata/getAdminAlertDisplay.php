@@ -12,7 +12,7 @@
 			<span class="addElement"><?php echo "<div><span class= 'addIconAlert'>"._("Add an email:")."  &nbsp;</span><a href='javascript:void(0)' onclick='javascript:myDialog(\"ajax_forms.php?action=getAdminAlertEmailForm&alertEmailAddressID=\",228,360,)' class='thickbox'><img id='addAlertEmail' src='images/plus.gif' title='"._("add Email")."' /></a></div>";?></span></br>
 		</div>
 		<?php
-		if (count($emailAddressArray) > 0){
+		if (is_array($emailAddressArray) && count($emailAddressArray) > 0) {
 			?>
 			<h4><?php echo _("Email Addresses");?></h4>
 			<table class='linedDataTable table-border table-striped'>
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<?php
-		if (count($daysInAdvanceArray) > 0){
+		if (is_array($daysInAdvanceArray) && count($daysInAdvanceArray) > 0) {
 			?>
 
 			<table class='linedDataTable table-border table-striped'>

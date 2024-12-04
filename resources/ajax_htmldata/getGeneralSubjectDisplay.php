@@ -9,7 +9,7 @@
 
 		echo "<h3 class='adminRightHeader'>" . preg_replace("/[A-Z]/", " \\0" , $className) . "</h3>";
 
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>

@@ -136,7 +136,7 @@
 				<table class='noBorder' style='width:310px; margin:15px 20px;'>
 				<?php
 				$i=0;
-				if (count($purchaseSiteArray) > 0){
+				if (is_array($purchaseSiteArray) && count($purchaseSiteArray) > 0) {
 					foreach ($purchaseSiteArray as $purchaseSiteIns){
 						$i++;
 						if(($i % 2)==1){

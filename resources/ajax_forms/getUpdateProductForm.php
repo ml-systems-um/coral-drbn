@@ -219,7 +219,7 @@ $parentResourceObj = new Resource(new NamedArguments(array('primaryKey' => $pare
 
 			<tbody class="organizationTable">
 			<?php
-			if (count($orgArray) > 0){
+			if (is_array($orgArray) && count($orgArray) > 0) {
 
 				foreach ($orgArray as $organization){
 				?>
@@ -296,7 +296,7 @@ $parentResourceObj = new Resource(new NamedArguments(array('primaryKey' => $pare
 
 				<tbody class="aliasTable">
 				<?php
-				if (count($aliasArray) > 0){
+				if (is_array($aliasArray) && count($aliasArray) > 0) {
 					foreach ($aliasArray as $resourceAlias){
 					?>
 						<tr>

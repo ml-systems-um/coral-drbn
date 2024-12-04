@@ -69,7 +69,7 @@ switch ($_GET['action']) {
 		<input type='text' id='organizationName' name='organizationName' value = "<?php echo htmlentities($organization->name); ?>" <?php if ($organization->isLinkedToILS()) echo "disabled='disabled'" ?> /> 
 		<p id='span_errors' class='error'></p>
 		
-		<?php if (count($parentOrganizationArray) > 0){ ?>
+		<?php if (is_array($parentOrganizationArray) && count($parentOrganizationArray) > 0) { ?>
 			
 			<label for='parentOrganization'><?php echo _("Parent:");?></label>
 		
@@ -96,7 +96,7 @@ switch ($_GET['action']) {
 		<ul class="unstyled columns">
 			<?php
 			$i=0;
-			if (count($organizationRoleArray) > 0){
+			if (is_array($organizationRoleArray) && count($organizationRoleArray) > 0) {
 				foreach ($organizationRoleArray as $organizationRoleIns){
 					
 					$ilsClass = ($config->ils && $organizationRoleIns['shortName'] == $config->ils->ilsVendorRole) ? ' ils_role' : '';
@@ -213,7 +213,7 @@ switch ($_GET['action']) {
 			</p>
 		</div>
 <?php
-		if (count($contactRoleArray) > 0){
+		if (is_array($contactRoleArray) && count($contactRoleArray) > 0) {
 			echo '<h3>Roles</h3>';
 			foreach ($contactRoleArray as $contactRoleIns){
 				echo "<p class='checkbox'>
@@ -289,7 +289,7 @@ switch ($_GET['action']) {
 			<div class="form-group">
 				<ul class="unstyled columns">
 				<?php
-				if (count($contactRoleArray) > 0){
+				if (is_array($contactRoleArray) && count($contactRoleArray) > 0) {
 					foreach ($contactRoleArray as $contactRoleIns){
 						$checked = '';
 						if (in_array($contactRoleIns['contactRoleID'],$contactRoleProfileArray)){
@@ -757,7 +757,7 @@ if ($issues) {
 
 
 
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 			?>
 			<table class='dataTable table-border'>
 				<?php
@@ -852,7 +852,7 @@ if ($issues) {
 
 
 
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 			?>
 			<table class='dataTable table-border table-striped'>
 				<thead>

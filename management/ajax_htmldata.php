@@ -261,7 +261,7 @@ switch ($_GET['action']) {
 		$attachment = new Attachment();
 		$attachmentArray = $license->getAttachments();
 
-		if (count($attachmentArray) > 0){
+		if (is_array($attachmentArray) && count($attachmentArray) > 0) {
 
 		?>
 		<!-- TODO: a11y: eliminate tables -->
@@ -608,7 +608,7 @@ switch ($_GET['action']) {
 			$expressionType = new ExpressionType(new NamedArguments(array('primaryKey' => $expressionTypeID)));
 			$etArray = $expressionType->getComparisonList($_GET['qualifierID']);
 
-			if (count($etArray) > 0){
+			if (is_array($etArray) && count($etArray) > 0) {
 
 				echo "<h3>" . $expressionType->shortName . "</h3>";
 
@@ -711,7 +711,7 @@ switch ($_GET['action']) {
 			echo "<table class='dataTable table-border table-striped'>";
 
 
-			if (count($etArray) > 0){
+			if (is_array($etArray) && count($etArray) > 0) {
 				?>
 
 				<tr>
@@ -826,7 +826,7 @@ switch ($_GET['action']) {
 			$isArchive='N';
 		}else if ($displayArchiveInd == '1'){
 			$documentArray = $license->getArchivedDocumentsWithoutParents($parentArchivedOrderBy);
-			if (count($documentArray) > 0){
+			if (is_array($documentArray) && count($documentArray) > 0) {
 				echo "<b>" . _("Archived Documents") . "</b>  <i><a href='javascript:updateArchivedDocuments(2)'>" . _("hide archives") . "</a></i>";
 			}
 
@@ -919,7 +919,7 @@ switch ($_GET['action']) {
 //				$signature = array();
 //				$signatureArray = $document->getSignaturesForDisplay();
 //
-//				if (count($signatureArray) > 0){
+//				if (is_array($signatureArray) && count($signatureArray) > 0) {
 //					echo "<table class='noBorderTable'>";
 //
 //					foreach($signatureArray as $signature) {
@@ -960,7 +960,7 @@ switch ($_GET['action']) {
 					}
 				}
 
-				if (count($document->getExpressions) > 0){
+				if (is_array($document->getExpressions) && count($document->getExpressions) > 0) {
 					echo "<a href='javascript:showExpressionForDocument(" . $document->documentID . ");'>" . _("view expressions") . "</a>";
 				}
 
@@ -1037,7 +1037,7 @@ switch ($_GET['action']) {
 							$signature = array();
 							$signatureArray = $childDocument->getSignaturesForDisplay();
 							// TODO: a11y: eliminate nested tables
-							if (count($signatureArray) > 0){
+							if (is_array($signatureArray) && count($signatureArray) > 0) {
 								echo "<table class='noBorderTable'>";
 
 
@@ -1077,7 +1077,7 @@ switch ($_GET['action']) {
 									echo _("(none uploaded)") . "<br />";
 								}							}
 
-							if (count($childDocument->getExpressions) > 0){
+							if (is_array($childDocument->getExpressions) && count($childDocument->getExpressions) > 0) {
 								echo "<a href='javascript:showExpressionForDocument(" . $childDocument->documentID . ");'>" . _("view expressions") . "</a>";
 							}
 
@@ -1242,7 +1242,7 @@ switch ($_GET['action']) {
 					if ($user->canEdit()){
 						echo "<td class='alt'>";
 
-						if (count($qualifierArray) > 0){
+						if (is_array($qualifierArray) && count($qualifierArray) > 0) {
 							echo implode("<br />", $qualifierArray);
 						}else{
 							echo "&nbsp;";
@@ -1312,7 +1312,7 @@ switch ($_GET['action']) {
 		$className = $_GET['tableName'];
 		$instance = new $className();
 		$resultArray = $instance->allAsArray();
-		if (count($resultArray) > 0){
+		if (is_array($resultArray) && count($resultArray) > 0) {
 			?>
 			<table class='dataTable table-striped table-border'>
 				<thead>
@@ -1351,7 +1351,7 @@ switch ($_GET['action']) {
 		$tempArray = array();
 		$util = new Utility();
 
-		if (count($user->allAsArray()) > 0){
+		if (is_array($user->allAsArray()) && count($user->allAsArray()) > 0) {
 
 			?>
 			<table class='dataTable table-striped table-border'>
@@ -1412,7 +1412,7 @@ switch ($_GET['action']) {
 			array_push($instanceArray, $tempArray);
 		}
 
-		if (count($instanceArray) > 0){
+		if (is_array($instanceArray) && count($instanceArray) > 0) {
 
 			?>
 			<table class='dataTable table-striped table-border'>
@@ -1549,7 +1549,7 @@ switch ($_GET['action']) {
 			$qualifierArray = $expressionType->getQualifiers();
 
 			$i=0;
-			if (count($qualifierArray) > 0){
+			if (is_array($qualifierArray) && count($qualifierArray) > 0) {
 				echo "<table>";
 				//loop over all qualifiers available for this expression type
 				foreach ($qualifierArray as $expressionQualifierIns){

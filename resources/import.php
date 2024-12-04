@@ -912,7 +912,7 @@
 			print "<p>" . ($row - 1) . _(" rows ") . $verb . _(" processed. ").$inserted._(" rows ") . $verb . _(" inserted.")."</p>";
 			print "<p>".$parentInserted._(" parents ") . $verb . _(" created. ").$parentAttached._(" resources ") . $verb . _(" attached to an existing parent.")."</p>";
 			print "<p>".$organizationsInserted._(" organizations ") . $verb . _(" created");
-			if (count($arrayOrganizationsCreated) > 0)
+			if (is_array($arrayOrganizationsCreated) && count($arrayOrganizationsCreated) > 0)
 			{
 				print "<ol>";
 				foreach($arrayOrganizationsCreated as $organization)

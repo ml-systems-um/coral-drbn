@@ -95,7 +95,7 @@
 				</tr>
 
 				<?php
-				if (count($ugUserArray) > 0){
+				if (is_array($ugUserArray) && count($ugUserArray) > 0) {
 
 					foreach ($ugUserArray as $ugUser){
 					?>

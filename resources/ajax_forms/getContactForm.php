@@ -68,7 +68,7 @@
 			<legend><?php echo _("Role(s):");?></legend>
 			<div class="form-group">
 			<?php
-			if (count($contactRoleArray) > 0){
+			if (is_array($contactRoleArray) && count($contactRoleArray) > 0) {
 				echo "<ul class='unstyled columns'>";
 				foreach ($contactRoleArray as $contactRoleIns){
 					

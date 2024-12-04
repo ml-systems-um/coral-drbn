@@ -7,7 +7,7 @@
 		$resELFlag = 0;
 		$orgELFlag = 0;
 
-		if (count($externalLoginArray) > 0){
+		if (is_array($externalLoginArray) && count($externalLoginArray) > 0) {
 			foreach ($externalLoginArray as $externalLogin){
 
 				if ($resELFlag == 0 && array_key_exists('organizationName', $externalLogin) && $externalLogin['organizationName'] == ''){

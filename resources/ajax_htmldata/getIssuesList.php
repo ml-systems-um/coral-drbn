@@ -73,7 +73,7 @@ function generateIssueHTML($issue,$associatedEntities=null) {
 //display any organization level issues for the resource
 $organizationArray = $resource->getOrganizationArray();
 
-if (count($organizationArray) > 0) {
+if (is_array($organizationArray) && count($organizationArray) > 0) {
 	echo '<h3 class="text-center">' . _("Organizational") . '</h3>';
 
 	$issuedOrgs = array();

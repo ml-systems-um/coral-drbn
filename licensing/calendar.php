@@ -226,7 +226,7 @@ include 'templates/header.php';
 					$html = $html . "</td>";
 					$html = $html . "</tr>";
 
-					if (count($arr3) > 0) {
+					if (is_array($arr3) && count($arr3) > 0) {
 						if ($displayYear) {
 							echo $year_html;
 							$displayYear = FALSE;

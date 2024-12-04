@@ -47,7 +47,7 @@ foreach ($sushiServicesArray as $sushiService){
 
 
 //if more than one run, send email
-if (count($sushiServicesArray) > 0) {
+if (is_array($sushiServicesArray) && count($sushiServicesArray) > 0) {
 	// TODO: i18n placeholders
 	$emailLog .= "<br /><br />" . _("Log in to ") . "<a href='" . $util->getPageURL() . "sushi.php'>" . _("Sushi Administration") . "</a>" . _(" for more information.");
 
@@ -59,7 +59,7 @@ if (count($sushiServicesArray) > 0) {
 		$emailAddresses[] = $emailAddress['emailAddress'];
 	}
 
-	if (count($emailAddresses) > 0){
+	if (is_array($emailAddresses) && count($emailAddresses) > 0) {
 		$email = new Email();
 		$email->to 			= implode(", ", $emailAddresses);
 		// TODO: i18n placeholders

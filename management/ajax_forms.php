@@ -212,7 +212,7 @@ switch ($_GET['action']) {
 		$document = new Document(new NamedArguments(array('primaryKey' => $documentID)));
 		$license = new License(new NamedArguments(array('primaryKey' => $licenseID)));
 
-		if (count($license->getDocumentsWithoutParents('documentID',$documentID)) > 0) {
+		if (is_array($license->getDocumentsWithoutParents('documentID',$documentID)) && count($license->getDocumentsWithoutParents('documentID',$documentID)) > 0) {
 			$blockArchiveCheck = 'disabled';
 		} else {
 			$blockArchiveCheck = '';
@@ -672,7 +672,7 @@ if ($_GET['isArchived'] == 1) {
 
 		<ul class="unstyled">
 		<?php
-		if (count($expressionQualifierArray) > 0){
+		if (is_array($expressionQualifierArray) && count($expressionQualifierArray) > 0) {
 			//loop over all qualifiers available for this expression type
 			foreach ($expressionQualifierArray as $expressionQualifierIns){
 				

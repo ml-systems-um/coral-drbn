@@ -335,7 +335,7 @@ class Organization extends DatabaseObject {
 	//returns array based on search
 	public function search($whereAdd, $orderBy, $limit){
 
-		if (count($whereAdd) > 0){
+		if (is_array($whereAdd) && count($whereAdd) > 0) {
 			$whereStatement = " WHERE " . implode(" AND ", $whereAdd);
 		}else{
 			$whereStatement = "";

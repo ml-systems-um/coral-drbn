@@ -192,7 +192,7 @@ if (!$noteType->shortName){
 array_push($noteArray, $sanitizedInstance);
 }
 
-if (count($noteArray) > 0){
+if (is_array($noteArray) && count($noteArray) > 0) {
 ?>
 	<h3>
 		<?php echo _("Additional Notes");?>

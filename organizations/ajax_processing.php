@@ -315,7 +315,7 @@ switch ($_GET['action']) {
 			}
 		}
 
-		if (count($issueEmails) > 0) {
+		if (is_array($issueEmails) && count($issueEmails) > 0) {
 			foreach ($issueEmails as $email) {
 				if ($email) {
 					$newIssueEmail = new IssueEmail();
@@ -350,7 +350,7 @@ switch ($_GET['action']) {
 			}
 		}
 
-		if (count($issueEmails) > 0) {
+		if (is_array($issueEmails) && count($issueEmails) > 0) {
 			//send emails to CCs
 			foreach ($issueEmails as $email) {
 				mail($email, "New Issue: {$newIssue->subjectText}",$emailMessage);

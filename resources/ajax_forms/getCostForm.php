@@ -179,7 +179,7 @@ foreach ($resourceAcquisition->getResourcePayments() as $instance)
 						</tr>
 					
 						<?php
-							if (count($paymentArray) > 0){
+							if (is_array($paymentArray) && count($paymentArray) > 0) {
 								foreach ($paymentArray as $payment){
 						?>
 							<tr>

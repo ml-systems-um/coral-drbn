@@ -90,7 +90,7 @@
 
 				<?php
 
-				if (count($dsSubjectArray) > 0){
+				if (is_array($dsSubjectArray) && count($dsSubjectArray) > 0) {
 					foreach ($dsSubjectArray as $dsSubject){
 					?>
 						<tr class='newdetailedSubject'>

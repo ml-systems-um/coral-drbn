@@ -139,7 +139,7 @@
 							<label for='authorizedSiteID'><b><?php echo _("Authorized Site(s)");?></b></label>
 									
 							<?php
-							if (count($authorizedSiteArray) > 0){
+							if (is_array($authorizedSiteArray) && count($authorizedSiteArray) > 0) {
 								echo "<ul class='unstyled'>";
 								foreach ($authorizedSiteArray as $authorizedSiteIns){
 									if (in_array($authorizedSiteIns['authorizedSiteID'],$resourceAuthorizedSiteArray)){
@@ -157,7 +157,7 @@
 						<div class="col">
 							<label for='authorizedSiteID'><b><?php echo _("Administering Site(s)");?></b></label>
 								<?php
-								if (count($administeringSiteArray) > 0){
+								if (is_array($administeringSiteArray) && count($administeringSiteArray) > 0) {
 									echo "<ul class='unstyled'>";
 									foreach ($administeringSiteArray as $administeringSiteIns){
 										

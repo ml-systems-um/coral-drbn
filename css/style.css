@@ -783,7 +783,6 @@ fieldset.border {
 }
 
 legend {
-  width: 100%;
   padding: 0;
   margin-block-end: 0.5rem;
   font-size: inherit;

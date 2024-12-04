@@ -23,7 +23,7 @@ if($resourceStepID != ''){
             if ($applyToAll){
                 //get later open steps and restart those.
                 $laterSteps = $step->getLaterOpenSteps();
-                if (count($laterSteps) > 0){
+                if (is_array($laterSteps) && count($laterSteps) > 0) {
                     foreach($laterSteps as $laterStep){
                         $laterStep->userGroupID = $userGroupID;
                         $laterStep->restartReassignedStep();

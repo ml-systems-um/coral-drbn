@@ -127,7 +127,7 @@ switch ($_GET['action']) {
 
     	$organization = new Organization(new NamedArguments(array('primaryKey' => $organizationID)));
 		$contactObjArray = $organization->getUnarchivedContacts();
-		if (count($contactObjArray) > 0) {
+		if (is_array($contactObjArray) && count($contactObjArray) > 0) {
 			foreach ($contactObjArray as $contact) {
 				$isSelected = (!empty($contactIDs) && in_array($contact->contactID, $contactIDs)) ? "selected" : "";
 				echo "<option {$isSelected} value=\"{$contact->contactID}\">{$contact->name}</option>";
@@ -198,7 +198,7 @@ switch ($_GET['action']) {
 		<?php } ?>
 		
 		<dl class='dl-grid'>
-		<?php if (count($parentOrganizationArray) > 0){ ?>
+		<?php if (is_array($parentOrganizationArray) && count($parentOrganizationArray) > 0) { ?>
 			<dt scope="row"><?php echo _("Parent Organization:");?></dt>
 			<dd>
 				<ul class="unstyled">
@@ -215,7 +215,7 @@ switch ($_GET['action']) {
 		}
 
 
-		if (count($childOrganizationArray) > 0){ ?>
+		if (is_array($childOrganizationArray) && count($childOrganizationArray) > 0) { ?>
 			<dt><?php echo _("Child Organizations:");?></dt>
 			<dd>
 				<ul class="unstyled">
@@ -241,7 +241,7 @@ switch ($_GET['action']) {
 		<?php
 		}
 
-		if (count($organizationRoleArray) > 0){ ?>
+		if (is_array($organizationRoleArray) && count($organizationRoleArray) > 0) { ?>
 			<dt scope="row"><?php echo _("Role(s):");?></dt>
 			<dd><?php echo implode(", ", $organizationRoleArray); ?></dd>
 			
@@ -329,7 +329,7 @@ switch ($_GET['action']) {
 
 
 		?>
-		<?php if (count($aliasArray) > 0){ ?>
+		<?php if (is_array($aliasArray) && count($aliasArray) > 0) { ?>
 			<table class='table-border table-striped'>
 			<thead>
 			<tr>
@@ -389,7 +389,7 @@ switch ($_GET['action']) {
  		if ((isset($archiveInd)) && ($archiveInd == "1")){
  			//if we want archives to be displayed
  			if ($showArchivesInd == "1"){
- 				if (count($organization->getArchivedContacts()) > 0){
+ 				if (is_array($organization->getArchivedContacts()) && count($organization->getArchivedContacts()) > 0) {
  					echo "<i><b>"._("The following are archived contacts:")."</b></i>";
  				}
  				$contactObjArray = $organization->getArchivedContacts();
@@ -418,7 +418,7 @@ switch ($_GET['action']) {
  			array_push($contactArray, $sanitizedInstance);
 		}
 
-		if (count($contactArray) > 0){
+		if (is_array($contactArray) && count($contactArray) > 0) {
 			foreach ($contactArray as $contact){
 			?>
 				<table class='table-border table-striped'>
@@ -559,7 +559,7 @@ switch ($_GET['action']) {
  			array_push($externalLoginArray, $sanitizedInstance);
 		}
 
-		if (count($externalLoginArray) > 0){
+		if (is_array($externalLoginArray) && count($externalLoginArray) > 0) {
 			foreach ($externalLoginArray as $externalLogin){
 			?>
 				<table class='table-border table-striped'>
@@ -747,7 +747,7 @@ switch ($_GET['action']) {
 
 		$charsToRemove = array("*", "_");
 
-		if (count($issueLogArray) > 0){
+		if (is_array($issueLogArray) && count($issueLogArray) > 0) {
 		?>
 		<table class='table-border table-striped'>
 		<thead>
@@ -836,7 +836,7 @@ switch ($_GET['action']) {
 			try {
 				$licenseArray = $organization->getLicenses();
 
-				if (count($licenseArray) > 0){ ?>
+				if (is_array($licenseArray) && count($licenseArray) > 0) { ?>
 					<table class='table-border table-striped'>
 					<thead>
 					<tr>

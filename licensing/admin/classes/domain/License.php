@@ -287,7 +287,7 @@ class License extends DatabaseObject {
 	}
 
   public function searchQuery($whereAdd, $orderBy = '', $limit = '', $count = false) {
-    if (count($whereAdd) > 0){
+    if (is_array($whereAdd) && count($whereAdd) > 0) {
 			$whereStatement = " AND " . implode(" AND ", $whereAdd);
 		}else{
 			$whereStatement = "";

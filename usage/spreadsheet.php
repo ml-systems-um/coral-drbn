@@ -277,7 +277,7 @@ $monthlyCount = 1;
 $monthlyStats = array('test');
 do {
   $monthlyStats = $obj->getMonthlyStatsByLayout($layoutID, $year, $limit, $offset);
-  if (count($monthlyStats) > 0) {
+  if (is_array($monthlyStats) && count($monthlyStats) > 0) {
     $report = compileStats($monthlyStats);
     foreach ($report as $row) {
       if ($download && $download == 'csv') {

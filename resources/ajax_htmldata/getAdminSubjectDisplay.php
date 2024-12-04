@@ -11,7 +11,7 @@
 			<div class='addElement'><?php echo "<a href='javascript:void(0)' onclick='javascript:myDialog(\"ajax_forms.php?action=getGeneralSubjectUpdateForm&className=" . "GeneralSubject" . "&updateID=\",245,360)' class='thickbox'><img id='addNewGeneralSubject' src='images/plus.gif' title='"._("add new general subject")."'/></a>";?></div>
 		</div>
 		<?php
-		if (count($generalSubjectArray) > 0){
+		if (is_array($generalSubjectArray) && count($generalSubjectArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>
@@ -59,7 +59,7 @@
 		</div>
 
 		<?php
-		if (count($detailedSubjectArray) > 0){
+		if (is_array($detailedSubjectArray) && count($detailedSubjectArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>
@@ -97,7 +97,7 @@
 
 		echo "<h3 class='adminRightHeader'>" . _("Subject Relationships") . "</h3>";
 
-		if (count($generalSubjectArray) > 0){
+		if (is_array($generalSubjectArray) && count($generalSubjectArray) > 0) {
 			?>
 			<table class='linedDataTable table-border table-striped'>
 				<thead>

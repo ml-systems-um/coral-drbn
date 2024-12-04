@@ -19,7 +19,7 @@ include 'templates/header.php';
 	$platform = array();
 	$platformArray = $platforms->getPlatformArray();
 
-	if (count($platformArray) > 0){
+	if (is_array($platformArray) && count($platformArray) > 0) {
 		foreach($platformArray as $platform) {
 			echo "<div class='header'><h3 class='PlatformText'>" . $platform['name'] . "</h3> <a href='publisherPlatform.php?platformID=" . $platform['platformID'] . "' class='addElement'>" . _("view / edit") . "</a></div>";
 			echo "<details>";

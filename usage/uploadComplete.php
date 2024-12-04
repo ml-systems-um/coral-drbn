@@ -636,7 +636,7 @@ while (!feof($file_handle)) {
 
     $outlierID = '0';
     // calculate the outlier
-    if (count($outlier) > 0){
+    if (is_array($outlier) && count($outlier) > 0) {
       // figure out which months to pull - start with this month previous year
       $prevYear = $year-1;
       $prevMonths='';
@@ -869,7 +869,7 @@ $util = new Utility();
 $Base_URL = $util->getCORALURL() . "usage/";
 
 $mailOutput='';
-if (count($emailAddresses) > 0){
+if (is_array($emailAddresses) && count($emailAddresses) > 0) {
 	$email = new Email();
 	$email->to 			= implode(", ", $emailAddresses);
   // TODO: i18n placeholders

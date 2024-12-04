@@ -288,7 +288,7 @@ if ($resource->titleText){
 		<?php
 		}
 
-		if (count($aliasArray) > 0){
+		if (is_array($aliasArray) && count($aliasArray) > 0) {
 		?>
 		<tr>
 		<td><?php echo _("Aliases:");?></td>
@@ -304,7 +304,7 @@ if ($resource->titleText){
 		}
 
 
-		if (count($orgArray) > 0){
+		if (is_array($orgArray) && count($orgArray) > 0) {
 		?>
 
 		<tr>
@@ -388,7 +388,7 @@ if ($resource->titleText){
 		array_push($noteArray, $sanitizedInstance);
 	}
 
-	if (count($noteArray) > 0){
+	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
 		<table class='table-border'>
 			<tr>
@@ -438,14 +438,14 @@ if ($resource->titleText){
 		</tr>
 	<?php } ?>
 
-	<?php if (count($purchaseSiteArray) > 0) { ?>
+	<?php if (is_array($purchaseSiteArray) && count($purchaseSiteArray) > 0) { ?>
 		<tr>
 		<td><?php echo _("Purchasing Site:");?></td>
 		<td><?php echo implode(", ", $purchaseSiteArray); ?></td>
 		</tr>
 	<?php } ?>
 
-	<?php if (count($authorizedSiteArray) > 0) { ?>
+	<?php if (is_array($authorizedSiteArray) && count($authorizedSiteArray) > 0) { ?>
 		<tr>
 		<td><?php echo _("Authorized Sites:");?></td>
 		<td><?php echo implode(", ", $authorizedSiteArray); ?></td>
@@ -480,7 +480,7 @@ if ($resource->titleText){
 	</tr>
 
 	<?php
-	if (count($paymentArray) > 0){
+	if (is_array($paymentArray) && count($paymentArray) > 0) {
             foreach ($paymentArray as $payment){ ?>
               <tr><td colspan='2'></td></tr>
             <?php if ($enhancedCostFlag){ ?>
@@ -565,7 +565,7 @@ if ($resource->titleText){
 	<td>
 
 	<?php
-	if (count($licenseStatusArray) > 0){
+	if (is_array($licenseStatusArray) && count($licenseStatusArray) > 0) {
 		foreach ($licenseStatusArray as $licenseStatus){
 			echo $licenseStatus['licenseStatus'] . _(" on ")."<i>" . format_date($licenseStatus['licenseStatusChangeDate']) . _(" by ") . $licenseStatus['changeName'] . "</i><br />";
 		}
@@ -582,7 +582,7 @@ if ($resource->titleText){
 	<td>
 	<?php
 
-	if (count($licenseArray) > 0){
+	if (is_array($licenseArray) && count($licenseArray) > 0) {
 		foreach ($licenseArray as $license){
 			echo $license['license'] . "<br />";
 		}
@@ -630,7 +630,7 @@ if ($resource->titleText){
 		array_push($noteArray, $sanitizedInstance);
 	}
 
-	if (count($noteArray) > 0){
+	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
 		<table class='table-border'>
 			<tr>
@@ -665,7 +665,7 @@ if ($resource->titleText){
 		}
 	?>
 
-	<?php if (count($administeringSiteArray) > 0) { ?>
+	<?php if (is_array($administeringSiteArray) && count($administeringSiteArray) > 0) { ?>
 		<tr>
 		<th scope="row"><?php echo _("Administering Sites:");?></th>
 		<td><?php echo implode(", ", $administeringSiteArray); ?></td>
@@ -750,7 +750,7 @@ if ($resource->titleText){
 		array_push($noteArray, $sanitizedInstance);
 	}
 
-	if (count($noteArray) > 0){
+	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
 		<table class='table-border'>
 			<tr>
@@ -861,7 +861,7 @@ if ($resource->titleText){
 		array_push($noteArray, $sanitizedInstance);
 	}
 
-	if (count($noteArray) > 0){
+	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
 		<table class='table-border'>
 			<tr>

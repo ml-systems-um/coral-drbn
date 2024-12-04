@@ -104,7 +104,7 @@ if ($organization->name){
 		</th>
 		</tr>
 
-		<?php if (count($parentOrganizationArray) > 0){ ?>
+		<?php if (is_array($parentOrganizationArray) && count($parentOrganizationArray) > 0) { ?>
 			<tr>
 			<th scope="row"><?php echo _("Parent Organization:");?></th>
 			<td>
@@ -120,7 +120,7 @@ if ($organization->name){
 		}
 
 
-		if (count($childOrganizationArray) > 0){ ?>
+		if (is_array($childOrganizationArray) && count($childOrganizationArray) > 0) { ?>
 			<tr>
 			<th scope="row"><?php echo _("Child Organizations:");?></th>
 			<td>
@@ -144,7 +144,7 @@ if ($organization->name){
 		<?php
 		}
 
-		if (count($organizationRoleArray) > 0){ ?>
+		if (is_array($organizationRoleArray) && count($organizationRoleArray) > 0) { ?>
 			<tr>
 			<th scope="row"><?php echo _("Role(s):");?></th>
 			<td><?php echo implode(", ", $organizationRoleArray); ?></td>
@@ -260,7 +260,7 @@ if ($organization->name){
  		if ((isset($archiveInd)) && ($archiveInd == "1")){
  			//if we want archives to be displayed
  			if ($showArchivesInd == "1"){
- 				if (count($organization->getArchivedContacts()) > 0){
+ 				if (is_array($organization->getArchivedContacts()) && count($organization->getArchivedContacts()) > 0) {
  					echo "<i><b>"._("The following are archived contacts:")."</b></i>";
  				}
  				$contactObjArray = $organization->getArchivedContacts();
@@ -522,7 +522,7 @@ if ($organization->name){
 
 		<?php
 
-		if (count($issueLogArray) > 0){
+		if (is_array($issueLogArray) && count($issueLogArray) > 0) {
 		?>
 		
 		<tr>
@@ -573,7 +573,7 @@ if ($organization->name){
 
 
 				<?php				
-				if (count($licenseArray) > 0){ ?>
+				if (is_array($licenseArray) && count($licenseArray) > 0) { ?>
 					<tr>
 					<th>&nbsp;</th>
 					<th><?php echo _("Consortium");?></th>

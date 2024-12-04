@@ -80,7 +80,7 @@ if ($resourceAcquisitionID) {
 				<dd><?php echo $resourceAcquisition->libraryNumber; ?></dd>
 			<?php } ?>
 
-			<?php if (count($purchaseSiteArray) > 0) { ?>
+			<?php if (is_array($purchaseSiteArray) && count($purchaseSiteArray) > 0) { ?>
 				<dt><?php echo _("Purchasing Sites:");?></dt>
 				<dd><?php echo implode(", ", $purchaseSiteArray); ?></dd>
 			<?php } ?>

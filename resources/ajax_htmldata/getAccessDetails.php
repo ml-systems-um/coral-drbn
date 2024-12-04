@@ -41,14 +41,14 @@
 			else { ?>
 			<dl class='dl-grid'>
 			
-			<?php if (count($administeringSiteArray) > 0) { ?>
+			<?php if (is_array($administeringSiteArray) && count($administeringSiteArray) > 0) { ?>
 				
 				<dt><?php echo _("Administering Sites:");?></dt>
 				<dd><?php echo implode(", ", $administeringSiteArray); ?></dd>
 				
 			<?php } ?>
 
-			<?php if (count($authorizedSiteArray) > 0) { ?>
+			<?php if (is_array($authorizedSiteArray) && count($authorizedSiteArray) > 0) { ?>
 				
 				<dt><?php echo _("Authorized Sites:");?></dt>
 				<dd><?php echo implode(", ", $authorizedSiteArray); ?></dd>
@@ -151,7 +151,7 @@
 			array_push($noteArray, $sanitizedInstance);
 		}
 
-		if (count($noteArray) > 0){
+		if (is_array($noteArray) && count($noteArray) > 0) {
 		?>
 			<table class='linedFormTable table-border table-striped'>
 				

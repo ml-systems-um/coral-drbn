@@ -130,7 +130,7 @@ include 'templates/header.php';
         foreach (glob("counterstore/*$globname*.xml") as $filename) {
           $files[] = '<li>' . str_replace('counterstore/', '', $filename) . '</li>';
         }
-        if (count($files) > 0) {
+        if (is_array($files) && count($files) > 0) {
           echo '<h4>'. _('SUSHI XML Files') . '</h4>';
           echo '<ul>' . implode($files) . '</ul>';
         }
@@ -141,7 +141,7 @@ include 'templates/header.php';
         <!-- Stats -->
         <?php
         $statsArray = $obj->getFullStatsDetails();
-        if (count($statsArray) > 0){
+        if (is_array($statsArray) && count($statsArray) > 0) {
           // TODO: i18n placeholders
           echo '<h4>' . _('Statistics') . ' <small><em>* - ' . _('has outliers') . '</em></small></h4>';
           $holdYear = "";

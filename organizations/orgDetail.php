@@ -150,7 +150,7 @@ if ($config->settings->resourcesIssues == "Y") {
             usort($org_roles, function ($a, $b) { return strcmp($a["shortName"], $b["shortName"]); });
             foreach ($org_roles as $role) {
                 $resources = $organization->getResources($role["organizationRoleID"]);
-                if (count($resources) > 0) {
+                if (is_array($resources) && count($resources) > 0) {
                     ?>
 						<!-- TODO: i18n placeholders -->
             <h4><?php echo $role["shortName"]. _(" of:");?></h4>
