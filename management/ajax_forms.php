@@ -156,7 +156,7 @@ switch ($_GET['action']) {
 			echo "			<span id='div_uploadFile'><input type='file' name='upload_button' id='upload_button' aria-describedby='div_file_message span_error_licenseuploadDocument'></span>";
 	}
 ?>
-		<p id='div_file_message' class='error'></p>
+		<p id='div_file_message'></p>
 		<p id='span_error_licenseuploadDocument' class='error'></p>
 		
 		<label for="archiveInd" class="formText"><?php echo _("Archived:");?></label>

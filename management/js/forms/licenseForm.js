@@ -37,7 +37,7 @@ $(function(){
 			 data:       "action=getExistingLicenseName&shortName=" + $("#licenseShortName").val(),
 			 success:    function(exists) {
 				if ((exists == "0") || (exists == $("#editLicenseID").val())){
-					$("#span_error_licenseShortName").html("&nbsp;");
+					$("#span_error_licenseShortName").html("");
 					$("#submitLicense").removeAttr("disabled");
 				}else{
 				  $("#span_error_licenseShortName").html(_("This name is already being used!"));
