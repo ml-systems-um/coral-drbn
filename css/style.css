@@ -302,18 +302,14 @@ footer p {
 }
 
 footer .logo {
-  max-height: 3rem;
   display: block;
   margin-block: 0;
   margin-inline: auto;
+  height: 48px;
+  width: 159px;
 }
 
 /* HEADER */
-
-[data-color-mode="light"] img.logo-light,
-[data-color-mode="dark"] img.logo-dark {
-  display: none;
-}
 
 header {
   display: flex;
@@ -335,6 +331,24 @@ header {
 body:has(#login-form) header,
 body:has(#login-form) nav#main {
   display: none;
+}
+
+.site-title-link {
+  background-image: url("../images/coral-erm.svg");
+  display: block;
+  text-indent: -9999px;
+  height: 60px;
+  width: 200px;
+}
+
+[data-color-mode="dark"] .site-title-link {
+  background-image: url("../images/coral-erm-light.svg");
+}
+
+@media (prefers-color-scheme: dark) {
+  .site-title-link:not([data-color-mode="light"] a) {
+    background-image: url("../images/coral-erm-light.svg");
+  }
 }
 
 #color-mode-toggle {
