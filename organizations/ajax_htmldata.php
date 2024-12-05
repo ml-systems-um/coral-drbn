@@ -421,40 +421,36 @@ switch ($_GET['action']) {
 		if (is_array($contactArray) && count($contactArray) > 0) {
 			foreach ($contactArray as $contact){
 			?>
-				<table class='table-border table-striped'>
-					<thead>
-				<tr>
-				<th scope='row'><?php echo $contact['contactRoles']; ?></th>
-				<td>
-				<?php
+				<dl class='dl-grid contact-list'>
+				<div class="header">
+						<dt>
+							<?php echo _("Name: ") ?>
+						</dt>
+						<dd>
+					<?php
 
-				if ($contact['name']){
-					echo $contact['name'] . "&nbsp;&nbsp;";
-				}
+					if ($contact['name']){
+						echo $contact['name'] . "&nbsp;&nbsp;";
+					}
 
-				if ($user->canEdit()){
-					echo "<a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getContactForm&height=463&width=345&modal=true&organizationID=" . $organizationID . "&contactID=" . $contact['contactID'] . "\",500,354)' class='thickbox'><img src='images/edit.gif' alt='"._("edit")."' title='"._("edit contact")."'></a>";
-					echo "&nbsp;<a href='javascript:removeContact(" . $contact['contactID'] . ")'><img src='images/cross.gif' alt='"._("remove contact")."' title='"._("remove contact")."'></a>";
-				}
+					if ($user->canEdit()){
+						echo "<a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getContactForm&height=463&width=345&modal=true&organizationID=" . $organizationID . "&contactID=" . $contact['contactID'] . "\",500,354)' class='thickbox'><img src='images/edit.gif' alt='"._("edit")."' title='"._("edit contact")."'></a>";
+						echo "&nbsp;<a href='javascript:removeContact(" . $contact['contactID'] . ")'><img src='images/cross.gif' alt='"._("remove contact")."' title='"._("remove contact")."'></a>";
+					}
 
-				?>
-				</td>
-				</tr>
-			</thead>
-			<tbody>
+					?>
+					</dd>
+				</div>
+				
 				<?php if (($contact['archiveDate'] != '0000-00-00') && ($contact['archiveDate'])) { ?>
-				<tr class="archived">
-				<th scope="row"><?php echo _("No longer valid:");?></th>
-				<td><i><?php echo format_date($contact['archiveDate']); ?></i></td>
-				</tr>
+					<dt class="archived"><?php echo _("No longer valid:");?></dt>
+					<dd class="archived"><?php echo format_date($contact['archiveDate']); ?></dd>
 				<?php
 				}
 
 				if ($contact['title']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Title:");?></th>
-				<td><?php echo $contact['title']; ?></td>
-				</tr>
+					<dt><?php echo _("Title:");?></dt>
+					<dd><?php echo $contact['title']; ?></dd>
 				<?php
 				}
 
@@ -467,56 +463,48 @@ switch ($_GET['action']) {
 				}
 
 				if ($contact['phoneNumber']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Phone:");?></th>
-				<td><?php echo $contact['phoneNumber']; ?></td>
-				</tr>
+					<dt><?php echo _("Phone:");?></dt>
+					<dd><?php echo $contact['phoneNumber']; ?></dd>
 				<?php
 				}
 
 				if ($contact['altPhoneNumber']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Alt Phone:");?></th>
-				<td><?php echo $contact['altPhoneNumber']; ?></td>
-				</tr>
+					<dt><?php echo _("Alt Phone:");?></dt>
+					<dd><?php echo $contact['altPhoneNumber']; ?></dd>
 				<?php
 				}
 
 				if ($contact['faxNumber']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Fax:");?></th>
-				<td><?php echo $contact['faxNumber']; ?></td>
-				</tr>
+					<dt><?php echo _("Fax:");?></dt>
+					<dd><?php echo $contact['faxNumber']; ?></dd>
 				<?php
 				}
 
 				if ($contact['emailAddress']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Email:");?></th>
-				<td><a href='mailto:<?php echo $contact['emailAddress']; ?>'><?php echo $contact['emailAddress']; ?></a></td>
-				</tr>
+					<dt><?php echo _("Email:");?></dt>
+					<dd><a href='mailto:<?php echo $contact['emailAddress']; ?>'><?php echo $contact['emailAddress']; ?></a></dd>
 				<?php
 				}
 
 				if ($contact['noteText']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Notes:");?></th>
-				<td><?php echo nl2br($contact['noteText']); ?></td>
-				</tr>
-				<?php
-				}
-
-				if ($contact['lastUpdateDate']) { ?>
-				<tr>
-				<th scope="row"><?php echo _("Last Updated:");?></th>
-				<td><i><?php echo format_date($contact['lastUpdateDate']); ?></i></td>
-				</tr>
+					<dt><?php echo _("Notes:");?></dt>
+					<dd><?php echo nl2br($contact['noteText']); ?></dd>
 				<?php
 				}
 				?>
 
-				</table>
-				<br />
+				<dt><?php echo _('Roles: ') ?></dt>
+				<dd><?php echo $contact['contactRoles']; ?></dd>
+
+				<?php
+				if ($contact['lastUpdateDate']) { ?>
+					<dt><?php echo _("Last Updated:");?></dt>
+					<dd><i><?php echo format_date($contact['lastUpdateDate']); ?></i></dd>
+				<?php
+				}
+				?>
+
+				</dl>
 			<?php
 			}
 		} else {

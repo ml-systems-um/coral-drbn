@@ -1448,11 +1448,28 @@ ul.inline li {
 
 .dl-grid {
   display: grid;
-  gap: 1rem 1ch;
+  gap: 1rem 0.5rem;
   grid-template-columns: minmax(min-content, max-content) 1fr;
 }
 
-dt {
+.dl-grid.contact-list {
+  gap: 0 0.5rem;
+  margin-block: 1rem;
+}
+
+.dl-grid.contact-list + .dl-grid.contact-list {
+  margin-block-start: 2rem;
+}
+
+.dl-grid.contact-list .header {
+  background: var(--table-header-bg);
+  display: grid;
+  font-weight: bold;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+dt:not(.header dt) {
   font-weight: 600;
 }
 

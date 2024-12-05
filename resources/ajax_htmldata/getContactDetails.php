@@ -52,45 +52,46 @@
 
 				?>
 
-				<dl class='dl-grid'>
-				<dt>
-					<?php echo $contact['contactRoles']; ?>
-				</dt>
-				<dd>
+				<dl class='dl-grid contact-list'>
+					<div class="header">
+						<dt>
+							<?php echo _("Name: ") ?>
+						</dt>
+						<dd>
 				
-				<?php if ($contact['name']) { echo $contact['name']; }else{ echo "&nbsp;"; } ?>
+						<?php if ($contact['name']) { echo $contact['name']; } ?>
 
-					<span class="actions">
-					<?php
-						if (($user->canEdit()) && (!isset($contact['organizationName']))){
-							echo "<a href='javascript:void(0);' onclick='javascript:myDialog(\"ajax_forms.php?action=getContactForm&type=named&resourceID=" . $resourceID . "&contactID=" . $contact['contactID'] . "\",400,800)'  class='thickbox'><img src='images/edit.gif' alt='"._("edit")."' title='"._("edit contact")."'></a>";
-							echo "&nbsp;&nbsp;<a href='javascript:void(0)' class='removeContact' id='" . $contact['contactID'] . "'><img src='images/cross.gif' alt='"._("remove note")."' title='"._("remove contact")."'></a>";
-						}else{
-							echo "&nbsp;";
-						}
+							<span class="actions">
+							<?php
+								if (($user->canEdit()) && (!isset($contact['organizationName']))){
+									echo "<a href='javascript:void(0);' onclick='javascript:myDialog(\"ajax_forms.php?action=getContactForm&type=named&resourceID=" . $resourceID . "&contactID=" . $contact['contactID'] . "\",400,800)'  class='thickbox'><img src='images/edit.gif' alt='"._("edit")."' title='"._("edit contact")."'></a>";
+									echo "&nbsp;&nbsp;<a href='javascript:void(0)' class='removeContact' id='" . $contact['contactID'] . "'><img src='images/cross.gif' alt='"._("remove note")."' title='"._("remove contact")."'></a>";
+								}else{
+									echo "&nbsp;";
+								}
 
-					?>
-					</span>
-				</dd>
-				
+							?>
+							</span>
+						</dd>
+					</div>
 				<?php
 				if (isset($contact['organizationName'])){ ?>
 
-				<dt><?php echo _("Organization:");?></dt>
-				<dd><?php echo $contact['organizationName'] . "&nbsp;&nbsp;<a href='" . $util->getCORALURL() . "organizations/orgDetail.php?showTab=contacts&organizationID=" . $contact['organizationID'] . "' target='_blank'><img src='images/arrow-up-right.gif' alt='"._("Visit Contact in Organizations Module")."' title='"._("Visit Contact in Organizations Module")."' style='vertical-align:top;'></a>"; ?></dd>
+					<dt><?php echo _("Organization:");?></dt>
+					<dd><?php echo $contact['organizationName'] . "&nbsp;&nbsp;<a href='" . $util->getCORALURL() . "organizations/orgDetail.php?showTab=contacts&organizationID=" . $contact['organizationID'] . "' target='_blank'><img src='images/arrow-up-right.gif' alt='"._("Visit Contact in Organizations Module")."' title='"._("Visit Contact in Organizations Module")."' style='vertical-align:top;'></a>"; ?></dd>
 				
 				<?php
 				}
 
 				if (($contact['archiveDate'] != '0000-00-00') && ($contact['archiveDate'])) { ?>
-				<dt class="archived"><?php echo _("No longer valid:");?></dt>
-				<dd class="archived"><i><?php echo format_date($contact['archiveDate']); ?></i></dd>
+					<dt class="archived"><?php echo _("No longer valid:");?></dt>
+					<dd class="archived"><i><?php echo format_date($contact['archiveDate']); ?></i></dd>
 				<?php
 				}
 
 				if ($contact['title']) { ?>
-				<dt><?php echo _("Title:");?></dt>
-				<dd><?php echo $contact['title']; ?></dd>
+					<dt><?php echo _("Title:");?></dt>
+					<dd><?php echo $contact['title']; ?></dd>
 				<?php
 				}
 
@@ -117,41 +118,45 @@
 				}
 
 				if ($contact['phoneNumber']) { ?>
-				<dt><?php echo _("Phone:");?></dt>
-				<dd><?php echo $contact['phoneNumber']; ?></dd>
+					<dt><?php echo _("Phone:");?></dt>
+					<dd><?php echo $contact['phoneNumber']; ?></dd>
 				<?php
 				}
 
 				if ($contact['altPhoneNumber']) { ?>
-				<dt><?php echo _("Alt Phone:");?></dt>
-				<dd><?php echo $contact['altPhoneNumber']; ?></dd>
+					<dt><?php echo _("Alt Phone:");?></dt>
+					<dd><?php echo $contact['altPhoneNumber']; ?></dd>
 				<?php
 				}
 
 				if ($contact['faxNumber']) { ?>
-				<dt><?php echo _("Fax:");?></dt>
-				<dd><?php echo $contact['faxNumber']; ?></dd>
+					<dt><?php echo _("Fax:");?></dt>
+					<dd><?php echo $contact['faxNumber']; ?></dd>
 				<?php
 				}
 
 				if ($contact['emailAddress']) { ?>
-				<dt><?php echo _("Email:");?></dt>
-				<dd><a href='mailto:<?php echo $contact['emailAddress']; ?>'><?php echo $contact['emailAddress']; ?></a></dd>
+					<dt><?php echo _("Email:");?></dt>
+					<dd><a href='mailto:<?php echo $contact['emailAddress']; ?>'><?php echo $contact['emailAddress']; ?></a></dd>
 				<?php
 				}
 
 				if ($contact['noteText']) { ?>
-				<dt><?php echo _("Notes:");?></dt>
-				<dd><?php echo nl2br($contact['noteText']); ?></dd>
+					<dt><?php echo _("Notes:");?></dt>
+					<dd><?php echo nl2br($contact['noteText']); ?></dd>
 				<?php
 				}
+				?>
 
+					<dt><?php echo _('Roles: ') ?></dt>
+					<dd><?php echo $contact['contactRoles']; ?></dd>
+
+				<?php
 				if ($contact['lastUpdateDate']) { ?>
-				<dt><?php echo _("Last Updated:");?></dt>
-				<dd><i><?php echo format_date($contact['lastUpdateDate']); ?></i></dd>
+					<dt><?php echo _("Last Updated:");?></dt>
+					<dd><i><?php echo format_date($contact['lastUpdateDate']); ?></i></dd>
 				<?php
 				}
-
 				?>
 
 				</dl>
