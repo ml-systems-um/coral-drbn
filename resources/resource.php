@@ -142,7 +142,7 @@ if ($resource->titleText){
 
 		<p>
 		<?php if ($config->settings->feedbackEmailAddress != '') {?>
-						<a href="mailto: <?php echo $config->settings->feedbackEmailAddress; ?>?subject=<?php echo $resource->titleText . ' (Resource ID: ' . $resource->resourceID . ')'; ?>" class='helpfulLink btn secondary'><?php echo _("Send feedback on this resource");?></a>
+						<a href="mailto: <?php echo $config->settings->feedbackEmailAddress; ?>?subject=<?php echo $resource->titleText . ' (Resource ID: ' . $resource->resourceID . ')'; ?>" class='btn secondary'><?php echo _("Send feedback on this resource");?></a>
 		<?php } ?>
 		</p>
 

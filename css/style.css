@@ -997,7 +997,8 @@ Usage:
 
 /* BUTTONS */
 
-button {
+button,
+a.btn {
   border-radius: 0.25rem;
 }
 
@@ -1031,6 +1032,8 @@ button.link,
 }
 
 a.btn {
+  display: block;
+  text-align: center;
   text-decoration: none;
 }
 
