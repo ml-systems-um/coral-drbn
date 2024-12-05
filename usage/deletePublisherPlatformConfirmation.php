@@ -178,7 +178,7 @@ include 'templates/header.php';
       </div>
 
       <p class="center">
-        <a href="deletePublisherPlatform.php?<?php echo $deleteParam; ?>" class="save-button">Confirm</a>
+        <a href="deletePublisherPlatform.php?<?php echo $deleteParam; ?>"><?php echo _('Confirm') ?></a>
       </p>
   </article>
 </main>

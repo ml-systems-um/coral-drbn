@@ -181,8 +181,8 @@
 		</div>
 		<p class="actions">
 			<input type='submit' value='<?php echo _("Submit to Workflow");?>' id='progress' class='submitResource submit-button primary'>
-			<input type='button' value='<?php echo _("Save to Queue");?>' id='save' class='submitResource save-button secondary'>
-			<input type='button' value='<?php echo _("Cancel");?>' onclick="myCloseDialog('#NewResourceForm')"  class='cancel-button secondary'>
+			<input type='button' value='<?php echo _("Save to Queue");?>' id='save' class='submitResource secondary'>
+			<input type='button' value='<?php echo _("Cancel");?>' onclick="myCloseDialog('#NewResourceForm')"  class='secondary'>
 		</p>
 		</form>
 		</div>

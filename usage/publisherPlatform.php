@@ -52,7 +52,7 @@ if ($publisherPlatformID) {
 				</button>
 			<?php endif; ?>
 
-			<a href="deletePublisherPlatformConfirmation.php?<?php echo $deleteParam; ?>" class="save-button" style="background-color: #7a0026;"><?php echo $deleteText; ?></a>
+			<a href="deletePublisherPlatformConfirmation.php?<?php echo $deleteParam; ?>"><?php echo $deleteText; ?></a>
 		</span>
 
 		<input type='hidden' name='platformID' id='platformID' value='<?php echo $platformID; ?>'>

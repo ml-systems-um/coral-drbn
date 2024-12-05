@@ -539,7 +539,7 @@ switch ($action) {
       exit;
     }
 
-    echo "<a href=\"deletePublisherPlatformConfirmation.php?$deleteParam&statsOnly=true\" class=\"save-button\" style=\"background-color: #7a0026; float: right;\">". _('Delete All Stats') ."</a>";
+    echo "<a href=\"deletePublisherPlatformConfirmation.php?$deleteParam&statsOnly=true\" class=\"end\">". _('Delete All Stats') ."</a>";
 
 		$nested = array();
 
