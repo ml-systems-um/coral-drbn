@@ -50,7 +50,7 @@ include 'templates/header.php';
 	<article>
 			<h2><?php echo _("SUSHI Administration");?></h2>
 			
-			<button type="button" onclick='myDialog("ajax_forms.php?action=getAddPlatformForm&height=150&width=325&modal=true",150,325)' class='thickbox primary' id='uploadDocument'><?php echo _("Add new platform for SUSHI");?></button>
+			<button type="button" onclick='myDialog("ajax_forms.php?action=getAddPlatformForm&height=500&width=800&modal=true",500,800)' class='thickbox primary' id='uploadDocument'><?php echo _("Add new platform for SUSHI");?></button>
 
 			<div id="div_run_feedback"><?php
 				if (isset($_SESSION['sushi_log'])) {
