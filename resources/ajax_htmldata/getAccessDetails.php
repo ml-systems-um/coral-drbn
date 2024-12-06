@@ -153,27 +153,25 @@
 
 		if (is_array($noteArray) && count($noteArray) > 0) {
 		?>
+			<h3><?php echo _("Additional Notes");?></h3>
 			<table class='linedFormTable table-border table-striped'>
-				
-				 <th><?php echo _("Additional Notes");?></th>
-				<th>
-
-				<?php if ($user->canEdit()){?>
-			 <a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Access&entityID=<?php echo $resourceAcquisitionID; ?>&resourceNoteID=",300,500)' class='thickbox addElement'><?php echo "<div class= 'addIconTab'><img id='Add' class='addIcon' src='images/plus.gif' title= '"._("Add")."' /></div>";?></a> 
-				<?php }?>
-				</th>
-				
-				<?php foreach ($noteArray as $resourceNote){ ?>
+				<tbody>
+					<?php foreach ($noteArray as $resourceNote){ ?>
 					
-					<th><?php echo $resourceNote['noteTypeName']; ?><br />
-							<a  href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Access&entityID=<?php echo $resourceAcquisitionID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",300, 500)' class='thickbox'><img src='images/edit.gif' alt='<?php echo _("edit");?>' title='<?php echo _("edit note");?>'></a>
-							<a  href='javascript:void(0);' class='removeNote' id='<?php echo $resourceNote['resourceNoteID']; ?>' tab='Access'><img src='images/cross.gif' alt='<?php echo _("remove note");?>' title='<?php echo _("remove note");?>'></a>
-					</th>
-					<dd><?php echo nl2br($resourceNote['noteText']); ?><br />
-					<!-- TODO: i18n placeholders -->
-					<i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></dd>
-					
-				<?php } ?>
+						<th><?php echo $resourceNote['noteTypeName']; ?></th>
+						<td>
+							<?php echo nl2br($resourceNote['noteText']); ?>
+							<p><i><?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?></i></p>
+						</td>
+						<td class="actions">
+								<?php if ($user->canEdit()){?>
+									<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Access&entityID=<?php echo $resourceAcquisitionID; ?>&resourceNoteID=",300,500)' class='thickbox addElement'><?php echo "<div class= 'addIconTab'><img id='Add' class='addIcon' src='images/plus.gif' title= '"._("Add")."' /></div>";?></a> 
+								<?php } ?>
+								<a  href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Access&entityID=<?php echo $resourceAcquisitionID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",300, 500)' class='thickbox'><img src='images/edit.gif' alt='<?php echo _("edit");?>' title='<?php echo _("edit note");?>'></a>
+								<a  href='javascript:void(0);' class='removeNote' id='<?php echo $resourceNote['resourceNoteID']; ?>' tab='Access'><img src='images/cross.gif' alt='<?php echo _("remove note");?>' title='<?php echo _("remove note");?>'></a>
+						</td>
+					<?php } ?>
+				</tbody>
 			</table>
 		<?php
 		}else{
