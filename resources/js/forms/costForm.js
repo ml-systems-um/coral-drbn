@@ -94,24 +94,26 @@ $(function(){
 	});
 
 	$(".priceTaxExcluded").change(function() {
+			parentRow = $(this).closest('tr');
     	pte = $(this).val();
-    	taxRate = $(this).parent().next().children(".taxRate").val();
+    	taxRate = parentRow.find(".taxRate").val();
     	if (pte && taxRate) {
-            amount = calcPriceTaxIncluded(pte, taxRate);
-            amount = numberFormat(amount);
-      		$(this).parent().next().next().children(".priceTaxIncluded").val(amount);
-      		$(this).parent().next().next().next().children(".paymentAmount").val(amount);
+				amount = calcPriceTaxIncluded(pte, taxRate);
+				amount = numberFormat(amount);
+				parentRow.find(".priceTaxIncluded").val(amount);
+				parentRow.find(".paymentAmount").val(amount);
     	}
 	});
 
 	$(".taxRate").change(function() {
+			parentRow = $(this).closest('tr');
     	taxRate = $(this).val();
-    	pte = $(this).parent().prev().children(".priceTaxExcluded").val();
+    	pte = parentRow.find(".priceTaxExcluded").val();
     	if (pte && taxRate) {
-            amount = calcPriceTaxIncluded(pte, taxRate);
-            amount = numberFormat(amount);
-      		$(this).parent().next().children(".priceTaxIncluded").val(amount);
-      		$(this).parent().next().next().children(".paymentAmount").val(amount);
+				amount = calcPriceTaxIncluded(pte, taxRate);
+				amount = numberFormat(amount);
+				parentRow.find(".priceTaxIncluded").val(amount);
+				parentRow.find(".paymentAmount").val(amount);
 	    }
 	});
 
