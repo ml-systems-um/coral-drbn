@@ -30,6 +30,8 @@
 <script>
   const CORAL_ILS_LINK=<?php echo $config->ils->ilsConnector ? 1 : 0; ?>;
   Date.format = '<?php echo return_datepicker_date_format(); ?>';
+  const CORAL_NUMBER_LOCALE='<?php echo str_replace('_', '-', return_number_locale()); ?>';
+  const CORAL_NUMBER_DECIMALS='<?php echo return_number_decimals(); ?>';
 </script>
 
 <?php

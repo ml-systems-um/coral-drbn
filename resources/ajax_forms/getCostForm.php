@@ -302,7 +302,7 @@ foreach ($resourceAcquisition->getResourcePayments() as $instance)
 								</td>
 								<?php } ?>
 								<td class='costHistoryAction actions'>
-									<button type="button" class="btn">
+									<button type="button" class="btn remove">
 										<img src='images/cross.gif' alt='remove this payment' title='remove this payment' class='remove' />
 									</button>
 								</td>
@@ -310,6 +310,11 @@ foreach ($resourceAcquisition->getResourcePayments() as $instance)
 						<tbody>
 
 						<?php }} ?>
+						<tfoot>
+							<tr>
+								<td colspan="<?php if ($enhancedCostFlag) echo '11'; else echo '6'; ?>"><div class="error div_errorPayment"></div></td>
+							</tr>
+						</tfoot>
 					</table>
 					
 		<p class='actions'>
