@@ -136,6 +136,8 @@ print media query
   --text-link-focus: light-dark(var(--blue-800), var(--blue-400));
   --text-link-light: white;
   --text-link-light-focus: var(--yellow-200);
+  --text-link-destroy: light-dark(var(--red-800), var(--red-400));
+  --text-link-destroy-focus: light-dark(var(--red-700), var(--red-500));
   --body-focus-outline: light-dark(var(--blue-700), var(--blue-500));
   --brand-focus-outline: var(--yellow-300);
 
@@ -165,9 +167,9 @@ print media query
   --btn-secondary-bg: light-dark(var(--stone-300), var(--stone-700));
   --btn-secondary-border: light-dark(var(--stone-600), var(--stone-400));
   --btn-secondary-bg-hover: light-dark(var(--stone-400), var(--stone-600));
-  --btn-destroy-bg: light-dark(var(--red-800), var(--red-200));
-  --btn-destroy-border: light-dark(var(--red-950), var(--red-100));
-  --btn-destroy-bg-hover: light-dark(var(--red-700), var(--red-300));
+  --btn-destroy-bg: var(--red-800);
+  --btn-destroy-border: light-dark(var(--red-950), var(--red-700));
+  --btn-destroy-bg-hover: var(--red-700);
 
   --table-stripe-bg: light-dark(var(--stone-100), var(--zinc-900));
   --table-header-bg: light-dark(var(--stone-200), var(--zinc-800));
@@ -1305,6 +1307,14 @@ a.light:is(:active, :hover, :focus, :focus-visible, :visited) {
   color: var(--text-link-light-focus);
 }
 
+a.destroy {
+  color: var(--text-link-destroy);
+}
+
+a.destroy:is(:active, :hover, :focus, :focus-visible, :visited) {
+  color: var(--text-link-destroy-focus);
+}
+
 a.skip {
   background-color: var(--brand-dark-bg);
   color: var(--text-link-light);
@@ -1393,11 +1403,17 @@ h2 {
 }
 
 .header .addElement,
-.header .importElement {
+.header .importElement,
+.header .deleteElement {
   display: inline-block;
   height: 1lh;
   margin-inline-start: 0.5ch;
   vertical-align: baseline;
+}
+
+.header .deleteElement {
+  margin-inline-start: auto;
+
 }
 
 p {

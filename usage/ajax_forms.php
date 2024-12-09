@@ -788,7 +788,7 @@ switch ($action) {
 			<p id='span_error_Platform' class='error'></p>
 			
 			<p class="actions">
-				<input type='button' value='<?php echo _("submit");?>' name='submitPlatformForm' id ='submitPlatformForm' class='submit-button primary'>
+				<input type='submit' value='<?php echo _("submit");?>' name='submitPlatformForm' id ='submitPlatformForm' class='submit-button primary'>
 				<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" id='cancel-button' class='cancel-button secondary'>
 			</p>
 		</div>

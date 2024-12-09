@@ -22,21 +22,21 @@ define('BASE_DIR', dirname(__FILE__) . '/');
 
 require_once "../common/common_directory.php";
 
+$links = array(
+  'imports' => _("Imports"),
+  'titles' => _("Titles"),
+  'statistics' => _("Statistics"),
+  'logins' => _("Logins"),
+  'sushi' => _("SUSHI"),
+);
 
 //Watched function to catch the strings being passed into resource_sidemenu for translation
 function watchString($string) {
   return $string;
 }
 
-function usage_sidemenu($selected_link = '') {
+function usage_sidemenu($links, $selected_link = '') {
   global $user;
-  $links = array(
-    'imports' => _("Imports"),
-    'titles' => _("Titles"),
-    'statistics' => _("Statistics"),
-    'logins' => _("Logins"),
-    'sushi' => _("Sushi"),
-  );
 
   foreach ($links as $key => $value) {
     $name = mb_convert_case($key, MB_CASE_TITLE, "UTF-8");
@@ -54,7 +54,7 @@ function usage_sidemenu($selected_link = '') {
     if ($key != 'accounts' || $user->accountTabIndicator == '1' || $user->isAdmin) {
     ?>
     <li class="<?php echo $class; ?>">
-      <a href="<?php echo $href; ?>" class='show<?php echo $name; ?>' $ariaCurrent><?php echo $value; ?></a>
+      <a href="?<?php echo $href; ?>" <?php echo $ariaCurrent ?>><?php echo $value; ?></a>
     </li>
     <?php
     }
