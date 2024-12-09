@@ -36,7 +36,6 @@ if ($publisherPlatformID) {
 }
 ?>
 
-<!-- TODO: check this layout -->
 <main id="main-content">
 	<nav id="side" aria-label="<?php echo _("Publisher / Platform Tools"); ?>" class="sidemenu">
 		<ul class="nav side">
