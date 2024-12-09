@@ -102,6 +102,17 @@ function getCheckboxValue(field){
 	}
 }
 
+function validateRequiredCheckboxes(field, alerttxt) {
+	fieldValues = $('input[checked][name="' + field + '"]');
+	if (!fieldValues.length) {
+		$("#span_error_" + field).html(alerttxt);
+		return false;
+	} else {
+		$("#span_error_" + field).html('');
+		return true;
+	}
+}
+
 function validateRequired(field,alerttxt){
 	fieldValue=$("#" + field).val();
 

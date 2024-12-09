@@ -324,7 +324,7 @@ function validateForm (){
 	myReturn=0;
 
 	if (!validateRequired('licenseShortName',_('Document Name is required.'))) myReturn="1";
-	if (!validateRequired('licenseConsortiumID',_('A Category is required.'))) myReturn="1";
+	if (!validateRequiredCheckboxes('licenseConsortiumID',_('A category is required.'))) myReturn="1";
 //	if (!validateRequired('organizationName','Provider is required.')) myReturn="1";
 
 		if ($("#headerText").text().indexOf(_("Edit")) == -1) {
@@ -395,9 +395,9 @@ function uploadFile() {
         processData: false,
         data: form_data,
         success: function(result) {
-            $("#div_file_message").html("<img src='images/paperclip.gif'>" + file_name + _(" successfully uploaded."));
+            $("#div_file_message").html("<span class='success'><img src='images/paperclip.gif'>" + sprintf(_("%s successfully uploaded.", file_name)) + '</span>');
             $("#span_error_licenseuploadDocument").html('');
-            $("#div_uploadFile").html("<br />");
+            $("#div_uploadFile").html("");
             fileName = file_name;
         },
         error: function(result) {

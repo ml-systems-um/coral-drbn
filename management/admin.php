@@ -47,7 +47,7 @@ if (!$user->isAdmin()) {
 
 		<div class="header">
 			<h3><?php echo _("Document Types");?></h3>
-			<span id='span_newDocumentType' class='adminAddInput addElement'><a href='javascript:showAdd("DocumentType", <?php echo _('New document type') ?>);'><?php echo "<img id='Add' class='addIcon' src='images/plus.gif' title= '"._("Add")."' />";?></a></span>
+			<span id='span_newDocumentType' class='adminAddInput addElement'><a href='javascript:showAdd("DocumentType", "<?php echo _('New document type') ?>");'><?php echo "<img id='Add' class='addIcon' src='images/plus.gif' title= '"._("Add")."' />";?></a></span>
 		</div>
 
 		<span id='span_DocumentType_response'></span>

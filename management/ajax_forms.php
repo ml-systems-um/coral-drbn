@@ -55,8 +55,7 @@ switch ($_GET['action']) {
 			<form id='licenseForm'>
 				<input type='hidden' id='editLicenseID' name='editLicenseID' value='<?php echo $licenseID; ?>'>
 				<input type='hidden' id='editLicenseForm' name='editLicenseForm' value='Y'>
-				<!-- TODO: i18n placeholders -->
-				<h2 id='headerText' class='headerText'><?php if ($licenseID) echo _("Edit "); else echo _("New ")?><?php echo _("Document");?></h2>
+				<h2 id='headerText' class='headerText'><?php if ($licenseID) echo _("Edit Document"); else echo _("New Document")?></h2>
 				
 				<div class="form-grid">
 					<label for="licenseShortName" class="formText"><?php echo _("Name:");?></label>
@@ -106,8 +105,9 @@ switch ($_GET['action']) {
 							}
 					?>
 
-					<label for="licenseConsortiumID" class="formText"><?php echo _("Categories:");?></label>
-					<span id='span_consortium' class="form-group">
+				<fieldset>
+					<legend for="licenseConsortiumID" class="formText"><?php echo _("Categories:");?></legend>
+					<div id='span_consortium' class="form-group">
 					<?php
 						try{
 							$consortiaArray = array();
@@ -118,19 +118,17 @@ switch ($_GET['action']) {
 
 							foreach($consortiaArray as $display) {
 								if (is_array($licenseconsortiumids) && in_array($display['consortiumID'],$licenseconsortiumids)) {
-									echo "<label><input type='checkbox' value='" . $display['consortiumID'] . "' checked>" . $display['name'] . "</label>";
+									echo "<label><input type='checkbox' name='licenseConsortiumID' value='" . $display['consortiumID'] . "' checked>" . $display['name'] . "</label>";
 								}else{
-									echo "<label><input type='checkbox' value='" . $display['consortiumID'] . "'>" . $display['name'] . "</label>";
+									echo "<label><input type='checkbox' name='licenseConsortiumID' value='" . $display['consortiumID'] . "'>" . $display['name'] . "</label>";
 								}
 							}
 							}catch(Exception $e){
-								echo "</select>";
 								echo "				<span class='error'>" . _("There was an error processing this request - please verify configuration.ini is set up for organizations correctly and the database and tables have been created.") . "</span>";
 							}
 						?>
 						<p id='span_error_licenseConsortiumID' class='error'></p>
-						
-
+					
 						<?php
 								$config = new Configuration;
 
@@ -141,7 +139,8 @@ switch ($_GET['action']) {
 						<?php
 								}
 						?>
-					</span>
+					</div>
+				</fieldset>
 <?php
 		//if editing
 		if ($licenseID) {
@@ -193,7 +192,7 @@ switch ($_GET['action']) {
 		}
 ?>
 				<p class="actions">
-					<input type='button' value='<?php echo _("submit");?>' name='submitLicense' id ='submitLicense' class='btn primary'>
+					<input type='submit' value='<?php echo _("submit");?>' name='submitLicense' id ='submitLicense' class='btn primary'>
 					<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='btn secondary'>
 				</p>
 
