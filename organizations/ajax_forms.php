@@ -586,65 +586,70 @@ switch ($_GET['action']) {
 
 ?>
 
-<form id='newDowntimeForm'>
+<form id='newDowntimeForm' class="form-grid">
 	<input type="hidden" name="sourceOrganizationID" value="<?php echo $organization->organizationID;?>" />
-	<!-- TODO: check display of this form -->
-	<h2> <?php echo _("Resource Downtime Report");?></h2>
+	<h2 class='headerText'> <?php echo _("Resource Downtime Report");?></h2>
 	
-	<h3><?php echo _("Downtime Start:");?></h3>
-	<p>
-					<label for="startDate"><?php echo _("Date");?></label>
-					<input class="date-pick" type="text" name="startDate" id="startDate" aria-describedby="span_error_startDate">
-					<span id='span_error_startDate' class='error addDowntimeError'></span>
-		</p>
-				<p>
-			<!-- TODO: replace 3-part time form with native <input>? -->
-			<p><b><?php echo _("Time");?></b>
-					<?php
-					echo buildTimeForm("startTime");
-					?>
-					<span id='span_error_startTime' class='error addDowntimeError'></span>
-		</p>
-			
-		<h3><?php echo _("Downtime Resolution:");?></h3>
-		<p>
-					<label for="endDate"><?php echo _("Date");?></label>
-					<input class="date-pick" type="text" name="endDate" id="endDate" aria-describedby="span_error_endDate">
-					<span id='span_error_endDate' class='error addDowntimeError'></span>
-		</p>
+	<h3 class="wide"><?php echo _("Downtime Start:");?></h3>
+	
+	<label for="startDate"><?php echo _("Date");?></label>
+	<input class="date-pick" type="text" name="startDate" id="startDate" aria-describedby="span_error_startDate" placeholder='mm/dd/yyyy' />
+	<span id='span_error_startDate' class='error addDowntimeError'></span>
+
+	<fieldset class="subgrid">
+		<legend><?php echo _("Time");?></legend>
+		<div class="form-group">
+			<?php
+			echo buildTimeForm("startTime");
+			?>
+			<span id='span_error_startTime' class='error addDowntimeError'></span>
+		</div>
+	</fieldset>	
+
+	<h3 class="wide"><?php echo _("Downtime Resolution:");?></h3>
+	
+	<label for="endDate"><?php echo _("Date");?></label>
+	<div class="form-group">
+		<input class="date-pick" type="text" name="endDate" id="endDate" aria-describedby="span_error_endDate" placeholder='mm/dd/yyyy' />
+		<span id='span_error_endDate' class='error addDowntimeError'></span>
+	</div>
 				
-					<p><b><?php echo _("Time");?></b>
-<?php
-echo buildTimeForm("endTime");
-?>
-					<span id='span_error_endTime' class='error addDowntimeError'></span>
-				</p>
-					<label for="downtimeType"><?php echo _("Problem Type:");?></label>
-					<select class="downtimeType" name="downtimeType" id="downtimeType">
-<?php
+	<fieldset class="subgrid">
+		<legend><?php echo _("Time");?></legend>
+		<div class="form-group">
+			<?php
+			echo buildTimeForm("endTime");
+			?>
+			<span id='span_error_endTime' class='error addDowntimeError'></span>
+		</div>
+	</fieldset>
+	
+	<label for="downtimeType"><?php echo _("Problem Type:");?></label>
+	<select class="downtimeType" name="downtimeType" id="downtimeType">
+	<?php
 			foreach ($downtimeTypeNames as $downtimeType) {
 				echo "<option value=".$downtimeType["downtimeTypeID"].">".$downtimeType["shortName"]."</option>";
 			}
-?>
-				</select>
+		?>
+	</select>
 				
-<?php
-if ($issues) {
-?>
+	<?php
+	if ($issues) {
+	?>
 		<label for="issueID"><?php echo _("Link to open issue:");?></label>
-		
-				<select class="issueID" name="issueID">
-					<option value=""><?php echo _("none");?></option>
-<?php
-			foreach ($issues as $issue) {
-				echo "<option".(($issueID == $issue->issueID) ? ' selected':'')." value=".$issue->issueID.">".$issue->subjectText."</option>";
-			}
-?>
-				</select>
-<?php
-}
-?>
-<label for="note"><?php echo _("Note:");?></label>
+		<select class="issueID" name="issueID">
+			<option value=""><?php echo _("none");?></option>
+			<?php
+				foreach ($issues as $issue) {
+					echo "<option".(($issueID == $issue->issueID) ? ' selected':'')." value=".$issue->issueID.">".$issue->subjectText."</option>";
+				}
+			?>
+		</select>
+	<?php
+	}
+	?>
+
+	<label for="note"><?php echo _("Note:");?></label>
 	<textarea name="note" id="note"></textarea>
 
 	<p class="actions">
@@ -683,7 +688,7 @@ if ($issues) {
 		<input type='hidden' name='editOrganizationID' id='editOrganizationID' value='<?php echo $organizationID; ?>'>
 		<input type='hidden' name='editIssueLogID' id='editIssueLogID' value='<?php echo $issueLogID; ?>'>
 	
-		<h2><?php if ($issueLogID){ echo _("Edit Issue"); } else { echo _("Add Issue"); } ?></h2>
+		<h2 class="headerText"><?php if ($issueLogID){ echo _("Edit Issue"); } else { echo _("Add Issue"); } ?></h2>
 		<p id='span_errors' class='error'></p>
 		
 		<div class="form-grid end">
@@ -701,38 +706,24 @@ if ($issues) {
       }
       ?>
       </select>
-    </td>
-    </tr>
+   
+		<label for='issueStartDate'><?php echo _("Start date:");?></label>
+		<div class="form-group">
+			<input class='date-pick' id='issueStartDate' name='issueStartDate' value='<?php echo $issueStartDate; ?>' placeholder='mm/dd/yyyy' />
+		</div>
 
-		<tr>
-		<td><label for='issueStartDate'><?php echo _("Start date:");?></label></td>
-		<td>
-		<input class='date-pick' id='issueStartDate' name='issueStartDate' value='<?php echo $issueStartDate; ?>' />
-		</td>
-		</tr>
-
-    <tr>
-		<td><label for='issueEndDate'><?php echo _("End date:");?></label></td>
-		<td>
-		<input class='date-pick' id='issueEndDate' name='issueEndDate' value='<?php echo $issueEndDate; ?>' />
-		</td>
-		</tr>
-
-
-		<tr>
-		<td><label for='noteText'><?php echo _("Notes:");?></label></td>
-		<td><textarea rows='3' id='noteText' name='noteText'><?php echo $issueLog->noteText; ?></textarea></td>
-		</tr>
-
-		<tr>
-			<td class="actions" colspan="2">
+		<label for='issueEndDate'><?php echo _("End date:");?></label>
+		<div class="form-group">
+			<input class='date-pick' id='issueEndDate' name='issueEndDate' value='<?php echo $issueEndDate; ?>' placeholder='mm/dd/yyyy' />
+		</div>
+		
+		<label for='noteText'><?php echo _("Notes:");?></label>
+		<textarea rows='3' id='noteText' name='noteText'><?php echo $issueLog->noteText; ?></textarea></td>
+		
+			<p class="actions">
 				<input type='submit' value='<?php echo _("submit");?>' name='submitIssueLogForm' id ='submitIssueLogForm' class='submit-button primary'>
 				<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button secondary'>
-			</td>
-		</tr>
-
-		</table>
-
+			</p>
 		</form>
 		</div>
 

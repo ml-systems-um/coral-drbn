@@ -74,7 +74,7 @@ function generateIssueHTML($issue,$associatedEntities=null) {
 $organizationArray = $resource->getOrganizationArray();
 
 if (is_array($organizationArray) && count($organizationArray) > 0) {
-	echo '<h3 class="text-center">' . _("Organizational") . '</h3>';
+	echo '<h2 class="headerText">' . _("Organizational") . '</h2>';
 
 	$issuedOrgs = array();
 	foreach ($organizationArray as $orgData) {
@@ -93,13 +93,13 @@ if (is_array($organizationArray) && count($organizationArray) > 0) {
 		}
 	}
 	if (count($issuedOrgs) < 1) {
-		echo "<br><p>" . _("There are no organization level issues.") . "</p><br>";
+		echo "<p>" . _("There are no organization level issues.") . "</p>";
 	}
 }
 
 //display any resource level issues for the resource (shows any other resources associated with the issue, too)
 $resourceIssues = $resourceAcquisition->getIssues($archivedFlag);
-echo '<h3 class="text-center">' . _("Resources") . '</h3>';
+echo '<h2 class="headerText">' . _("Resources") . '</h2>';
 if(count($resourceIssues) > 0) {
 	foreach ($resourceIssues as $issue) {
 		$associatedEntities = array();
@@ -111,6 +111,6 @@ if(count($resourceIssues) > 0) {
 		echo generateIssueHTML($issue,$associatedEntities);
 	}
 } else {
-	echo "<br><p>" . _("There are no order level issues.") . "</p><br>";
+	echo "<p>" . _("There are no order level issues.") . "</p>";
 }
 ?>

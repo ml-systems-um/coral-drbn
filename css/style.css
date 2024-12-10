@@ -767,6 +767,11 @@ select {
   word-wrap: normal;
 }
 
+select[multiple] {
+  display: block;
+  width: 100%;
+}
+
 select:disabled {
   opacity: 1;
 }
@@ -958,6 +963,11 @@ Usage:
 
 .form-grid fieldset.subgrid legend {
   grid-column: 1;
+}
+
+/* eliminate uneven start to things in .form-group */
+.form-grid fieldset.subgrid:has(.form-group) legend {
+  float: left;
 }
 
 .form-grid fieldset.subgrid .form-group {
