@@ -896,6 +896,10 @@ label,
   width: 100%;
 }
 
+.block-form input.date-pick {
+  display: inline-block;
+}
+
 .block-form .checkbox label {
   display: inline;
 }

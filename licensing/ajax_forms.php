@@ -490,11 +490,11 @@ switch ($_GET['action']) {
 
 
 		?>
-		<div id='div_expressionForm'>
+		<div id='div_expressionForm' class="form-grid">
 		<input type='hidden' id='expressionID' name='expressionID' value='<?php echo $expressionID; ?>'>
 
 		
-		<h2><?php echo _("Expressions");?></h2>
+		<h2 class="headerText"><?php echo _("Expressions");?></h2>
 		<span id='span_errors' class='error'></span>
 		
 		<label for="documentID" class="formText"><?php echo _("Document:");?></label>
@@ -516,7 +516,7 @@ switch ($_GET['action']) {
 		</select>
 		
 		<label for="expressionTypeID" class="formText"><?php echo _("Expression Type:");?></label>
-		<span id='span_expressionType'>
+		<div class="form-group" id='span_expressionType'>
 		<select name='expressionTypeID' id='expressionTypeID'>
 		<?php
 
@@ -533,33 +533,32 @@ switch ($_GET['action']) {
 
 		?>
 		</select>
-	</p>
-		
-		<span id='span_newExpressionType'><button type="button" class="btn" onclick="newExpressionType();"><?php echo _("add expression type");?></button></span>
-
+		<p class="wide" id='span_newExpressionType'>
+			<button type="button" class="btn link" onclick="newExpressionType();"><?php echo _("add expression type");?></button>
+		</p>
+	</div>
 
 		<?php if (count($expressionQualifierArray) == 0) { ?>
-		<label for="qualifierID" class="formText"><?php echo _("Qualifier:");?></label>
-		<div id='div_Qualifiers'>
+			<fieldset class="subgrid">
+			<legend><?php echo _("Qualifier:");?></legend>
+			<div class="form-group" id='div_Qualifiers'>
 
-		<?php
-		if (is_array($expressionQualifierArray) && count($expressionQualifierArray) > 0) {
-			echo '<ul class="unstyled">';
-			//loop over all qualifiers available for this expression type
-			foreach ($expressionQualifierArray as $expressionQualifierIns){
-				$checked = '';
-				if (in_array($expressionQualifierIns->qualifierID,$expressionQualifierProfileArray)){
-					$checked = ' checked ';
+			<?php
+			if (is_array($expressionQualifierArray) && count($expressionQualifierArray) > 0) {
+				echo '<ul class="unstyled">';
+				//loop over all qualifiers available for this expression type
+				foreach ($expressionQualifierArray as $expressionQualifierIns){
+					$checked = '';
+					if (in_array($expressionQualifierIns->qualifierID,$expressionQualifierProfileArray)){
+						$checked = ' checked ';
+					}
+					echo "<li class='checkbox'><input class='check_Qualifiers' type='checkbox' name='qualifierID' id='" . $expressionQualifierIns->qualifierID . "' value='" . $expressionQualifierIns->qualifierID . "' ".$checked." /><label for='" . $expressionQualifierIns->qualifierID . "'>" . $expressionQualifierIns->shortName . "</label></li>";
 				}
-				echo "<li class='checkbox'><input class='check_Qualifiers' type='checkbox' name='" . $expressionQualifierIns->qualifierID . "' id='" . $expressionQualifierIns->qualifierID . "' value='" . $expressionQualifierIns->qualifierID . "' ".$checked." /><label for='" . $expressionQualifierIns->qualifierID . "'>" . $expressionQualifierIns->shortName . "</label></li>";
+				echo '</ul>';
 			}
-			echo '</ul>';
-		}
-		?>
-
-
+			?>
+			</fieldset>
 		<?php } ?>
-		
 
 		<label for="documentText" class="formText"><?php echo _("Document Text:");?></label>
 		<textarea name='documentText' id = 'documentText' rows='10'><?php echo $expression->documentText; ?></textarea>
@@ -596,8 +595,7 @@ switch ($_GET['action']) {
 		?>
 		<div id='div_expressionNotesForm'>
 		<input type='hidden' name='expressionID' id='expressionID' value='<?php echo $expressionID; ?>'>
-		<!-- TODO: i18n placeholders -->
-		<h2><?php echo ucfirst($noteType); ?> <?php echo _("Notes");?>
+		<h2><?php printf(_("%s Notes"), ucfirst($noteType));?></h2>
 		<b><?php echo _("For Document Text:");?></b>  
 		<p><?php echo $documentText; ?></p>
 		<p id='span_errors' class='error'></p>
@@ -607,8 +605,7 @@ switch ($_GET['action']) {
 		<thead>
 		<tr>
 		<th>&nbsp;</th>
-		<!-- TODO: i18n placeholders -->
-		<th><?php echo ucfirst($noteType); ?> <?php echo _("Notes");?></th>
+		<th><?php printf(_("%s Notes"), ucfirst($noteType));?></th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 		</tr>
@@ -721,7 +718,7 @@ switch ($_GET['action']) {
 		
 		<label for="sentDate" class="formText"><?php echo _("Date:");?></label>
 		<input class='date-pick' id='sentDate' name='sentDate' value='<?php echo $sentDate; ?>' />
-
+		
 		<label for="attachmentText" class="formText"><?php echo _("Details:");?></label>
 		<textarea name='attachmentText' id = 'attachmentText' rows='10'><?php echo $attachment->attachmentText; ?></textarea>
 		
@@ -814,17 +811,16 @@ switch ($_GET['action']) {
 		if (isset($_GET['loginID'])) $loginID = $_GET['loginID']; else $loginID = '';
 
 		if ($loginID != ''){
-			$update=_('Edit');
+			$update=_('Edit User');
 			$updateUser = new User(new NamedArguments(array('primaryKey' => $loginID)));
 		}else{
-			$update=_('Add');
+			$update=_('Add User');
 		}
 
 		$util = new Utility();
 
 		?>
-		<!-- TODO: i18n placeholders -->
-		<h2><?php echo $update.' '. _("User"); ?></h2>
+		<h2><?php echo $update ?></h2>
 		<div id='div_updateForm' class="form-grid">
 			<p id='span_errors' class='error'></p>
 			
@@ -893,16 +889,15 @@ switch ($_GET['action']) {
 		if (isset($_GET['expressionTypeID'])) $expressionTypeID = $_GET['expressionTypeID']; else $expressionTypeID = '';
 
 		if ($expressionTypeID){
-			$update=_('Edit');
+			$update=_('Edit Expression Type');
 			$expressionType = new ExpressionType(new NamedArguments(array('primaryKey' => $expressionTypeID)));
 		}else{
-			$update=_('Add');
+			$update=_('Add Expression Type');
 		}
 
 
 		?>
-		<!-- TODO: i18n placeholders -->
-		<h2><?php echo $update.' '. _("Expression Type");?></h2>
+		<h2><?php echo $update; ?></h2>
 		<div id='div_updateForm' class="form-grid">
 		<input type='hidden' name='expressionTypeID' id='expressionTypeID' value='<?php echo $expressionTypeID; ?>' />
 		
@@ -937,7 +932,7 @@ switch ($_GET['action']) {
 		if (isset($_GET['calendarSettingsID'])) $calendarSettingsID = $_GET['calendarSettingsID']; else $calendarSettingsID = '';
 
 		if ($calendarSettingsID){
-			$update=_('Edit');
+			$update=_('Edit Calendar Settings');
 			$calendarSettings = new CalendarSettings(new NamedArguments(array('primaryKey' => $calendarSettingsID)));
 		}
 
@@ -945,8 +940,7 @@ switch ($_GET['action']) {
 		?>
 		<div id='div_updateForm'>
 		<input type='hidden' name='calendarSettingsID' id='calendarSettingsID' value='<?php echo $calendarSettingsID; ?>' />
-		<!-- TODO: i18n placeholders -->
-		<h2><?php echo $update.' '._("Calendar Settings"); ?></h2>
+		<h2><?php echo $update; ?></h2>
 		<?php
 
 		if (strtolower($calendarSettings->shortName) == strtolower('Resource Type(s)')) { ?>
