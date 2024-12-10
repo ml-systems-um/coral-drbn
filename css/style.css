@@ -875,6 +875,7 @@ label,
 
 .label {
   font-weight: normal;
+  font-size: inherit;
   margin: 0;
 }
 
