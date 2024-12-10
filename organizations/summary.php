@@ -179,8 +179,7 @@ if ($organization->name){
 		$createUser = new User(new NamedArguments(array('primaryKey' => $organization->createLoginID)));
 		$updateUser = new User(new NamedArguments(array('primaryKey' => $organization->updateLoginID)));
 
-		// TODO: i18n placeholders
-		echo "<i>"._("Created: ") . format_date($organization->createDate);
+		echo "<i>".sprintf(_("Created: %s"), format_date($organization->createDate));
 		//since organizations can be created by other modules the user may or may not be set and may or may not have a user entry in this db
 		if ($createUser->primaryKey){
 			echo _(" by ");
@@ -539,8 +538,7 @@ if ($organization->name){
 			}
 			?>
 			<tr>
-			<!-- TODO: i18n placeholders -->
-			<td><?php echo format_date($issueLog['updateDate']); ?><br /><?php echo _("by ");?><i><?php echo $issueLog['updateUser']; ?></i></td>
+			<td><?php printf(_("%s<br> by <i>%s</i>"), format_date($issueLog['updateDate'], $issueLog['updateUser']));?></td>
 			<td><?php echo $issueDate ?></td>
 			<td><?php echo nl2br(str_replace($charsToRemove, "", $issueLog['noteText'])); ?></td>
 			</tr>

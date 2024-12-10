@@ -73,8 +73,7 @@ switch ($_GET['action']) {
 
 
 	default:
-	// TODO: i18n placeholders
-       echo _("Action ") . $action . _(" not set up!");
+       printf(_("Action %s not set up!"), $action);
        break;
 
 

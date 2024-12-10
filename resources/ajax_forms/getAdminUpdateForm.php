@@ -12,8 +12,7 @@
 
 		<input type='hidden' id='editClassName' value='<?php echo $className; ?>'>
 		<input type='hidden' id='editUpdateID' value='<?php echo $updateID; ?>'>
-	<!-- TODO: i18n placeholders -->
-		<div class='formTitle'><h2 class='headerText' id='updateValueLabel'><?php if ($updateID){ echo _("Edit ") . _(trim(preg_replace("/[A-Z]/", " \\0" , $className))); } else { echo _("Add ") . _(trim(preg_replace("/[A-Z]/", " \\0" , $className))); } ?></h2></div>
+		<div class='formTitle'><h2 class='headerText' id='updateValueLabel'><?php if ($updateID){ printf(_("Edit %s"), trim(preg_replace("/[A-Z]/", " \\0" , $className))); } else { printf(_("Add %s"), trim(preg_replace("/[A-Z]/", " \\0" , $className))); } ?></h2></div>
 
 		<span class='error' id='span_errors'></span>
 

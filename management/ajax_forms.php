@@ -737,8 +737,7 @@ if ($_GET['isArchived'] == 1) {
 		<table class='dataTable'>
 		<tr>
 		<th style='width:19px;'>&nbsp;</th>
-		<!-- TODO: i18n placeholders -->
-		<th id='noteLabel'><h3><?php echo ucfirst($noteType) . ' ' . _("Notes");?></h3></th>
+		<th id='noteLabel'><h3><?php printf(_("%s Notes"), ucfirst($noteType));?></h3></th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 		</tr>
@@ -1016,18 +1015,17 @@ if ($_GET['isArchived'] == 1) {
 		if (isset($_GET['loginID'])) $loginID = $_GET['loginID']; else $loginID = '';
 
 		if ($loginID != ''){
-			$update=_('Edit');
+			$update=_('Edit User');
 			$updateUser = new User(new NamedArguments(array('primaryKey' => $loginID)));
 		}else{
-			$update=_('Add');
+			$update=_('Add User');
 		}
 
 		$util = new Utility();
 
 		?>
 		<div id='div_updateForm' class="block-form">
-			<!-- TODO: i18n placeholders -->
-			<h2><?php echo $update.' '._("User");?></h2>
+			<h2><?php echo $update;?></h2>
 			<p id='span_errors' class='error'></p>
 			
 			<p>
@@ -1103,10 +1101,10 @@ if ($_GET['isArchived'] == 1) {
 		if (isset($_GET['expressionTypeID'])) $expressionTypeID = $_GET['expressionTypeID']; else $expressionTypeID = '';
 
 		if ($expressionTypeID){
-			$update=_('Edit');
+			$update=_('Edit Expression Type');
 			$expressionType = new ExpressionType(new NamedArguments(array('primaryKey' => $expressionTypeID)));
 		}else{
-			$update=_('Add');
+			$update=_('Add Expression Type');
 		}
 
 
@@ -1114,8 +1112,7 @@ if ($_GET['isArchived'] == 1) {
 		<div id='div_updateForm' class="block-form">
 		<input type='hidden' name='expressionTypeID' id='expressionTypeID' value='<?php echo $expressionTypeID; ?>' />
 		
-		<!-- TODO: i18n -->
-		<h2 class='headerText'><?php echo $update . ' ' . _("Expression Type");?></h2>
+		<h2 class='headerText'><?php echo $update;?></h2>
 		
 		<label for='shortName'><?php echo _("Expression Type");?></label>
 		<input type='text' id='shortName' name='shortName' value='<?php if (isset($expressionType)) echo $expressionType->shortName; ?>'/>

@@ -160,12 +160,10 @@
 				<dd>
 				<i>
 				<?php
-					echo format_date($resource->updateDate);
-					// TODO: i18n placeholders
 					if ($updateUser->getDisplayName){
-						echo _(" by ") . $updateUser->getDisplayName;
+						printf(_("%s by %s"), format_date($resource->updateDate), $updateUser->getDisplayName);
 					}else if ($resource->updateLoginID){
-						echo _(" by ") . $resource->updateLoginID;
+						printf(_("%s by %s"), format_date($resource->updateDate), $resource->updateLoginID);
 					}
 				?>
 				</i>

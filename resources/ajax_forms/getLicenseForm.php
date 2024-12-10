@@ -166,10 +166,11 @@
 
 				<?php
 				if (is_array($resourceLicenseStatusArray) && count($resourceLicenseStatusArray) > 0) {
+					echo '<ul class="unstyled">';
 					foreach ($resourceLicenseStatusArray as $licenseStatus){
-						// TODO: i18n placeholders
-						echo $licenseStatus['licenseStatus'] . " - <i>" . format_date($licenseStatus['licenseStatusChangeDate']) . _(" by ") . $licenseStatus['changeName'] . "</i><br />";
+						printf(_("<li>%s - <i>%s</i></li>"), $licenseStatus['licenseStatus'], format_date($licenseStatus['licenseStatusChangeDate']), $licenseStatus['changeName']);
 					}
+					echo '</ul>';
 				}else{
 					echo "<i>"._("No license status information available.")."</i>";
 				}

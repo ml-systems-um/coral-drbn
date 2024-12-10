@@ -70,10 +70,9 @@
 				<?php
 					if ($resourceStep->stepEndDate) {
 						if (($eUser->firstName) || ($eUser->lastName)){
-							// TODO: i18n placeholders
-							echo format_date($resourceStep->stepEndDate) . _(" by ") . $eUser->firstName . " " . $eUser->lastName;
+							printf(_("%s by %s"), format_date($resourceStep->stepEndDate), $eUser->firstName . " " . $eUser->lastName);
 						}else{
-							echo format_date($resourceStep->stepEndDate) . _(" by ") . $resourceStep->endLoginID;
+							printf(_("%s by %s"), format_date($resourceStep->stepEndDate), $resourceStep->endLoginID);
 						}
 					}else{
 						//add if user is in group or an admin and resource is not completed or archived

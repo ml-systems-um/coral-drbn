@@ -148,8 +148,7 @@ if ($orgModule) {
                                     </div>
                                     <?php if($orgModule): ?>
                                     <div id="providerOption-help-alias">
-                                        <!-- TODO: i18n placeholders -->
-                                        <p>Import <strong><?php echo $package->vendorName; ?></strong> as an alias to the selected provider:</p>
+                                        <p><?php printf(_('Import <strong>%s</strong> as an alias to the selected provider:'), $package->vendorName); ?></p>
                                         <p id="span_error_aliasType" class="error"></p>
                                         <label for="aliasTypeId"><?php echo _('Alias Type'); ?></label>
                                         <select name="aliasTypeId" id="aliasTypeId" aria-describedby='span_error_aliasType'>
@@ -159,8 +158,7 @@ if ($orgModule) {
                                         </select>
                                     </div>
                                     <div id="providerOption-help-parentChild">
-                                        <!-- TODO: i18n placeholders -->
-                                        <p>Import <strong><?php echo $package->vendorName; ?></strong> as a parent or child of the selected provider:</p>
+                                        <p><?php printf(_('Import <strong>%s</strong> as a parent or child of the selected provider:'), $package->vendorName); ?></p>
                                         <p id="span_error_parentOrChild" class="error"></p>
                                         <label for="providerIsChild">
                                             <input type="radio" name="providerParentOrChild" value="child" id="providerIsChild" aria-describedby="span_error_parentOrChild" checked> <?php echo _('Child'); ?>

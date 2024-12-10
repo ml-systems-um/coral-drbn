@@ -896,8 +896,7 @@ switch ($_GET['action']) {
 		if ($numberOfChildren > 0){
 			$type = ($className == 'Consortium') ? 'category':strtolower(preg_replace("/[A-Z]/", " \\0" , lcfirst($className)));
 			//print out a friendly message...
-			// TODO: i18n placeholders
-			echo _("Unable to delete  - this ") . $type . _(" is in use.  Please make sure no documents are set up with this information.");
+			printf(_("Unable to delete  - this %s is in use.  Please make sure no documents are set up with this information."), $type);
 		}else{
 			try {
 				$instance->delete();

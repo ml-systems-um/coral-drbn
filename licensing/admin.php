@@ -58,7 +58,7 @@ if ($user->isAdmin()){
 		
 		<div class="header">
 			<h3><?php echo _("Expression Types");?></h3>
-			<span id='span_newExpressionType' class='adminAddInput addElement'><button type="button" class="btn" onclick='myDialog("ajax_forms.php?action=getExpressionTypeForm",225,350)' class='thickbox' id='expressionType'><?php echo "<img id='addExpressionType' src='images/plus.gif' title='"._("add expression type")."' />";?></button></span>
+			<span id='span_newExpressionType' class='adminAddInput addElement'><button type="button" onclick='myDialog("ajax_forms.php?action=getExpressionTypeForm",225,350)' class='btn thickbox' id='expressionType'><?php echo "<img id='addExpressionType' src='images/plus.gif' title='"._("add expression type")."' />";?></button></span>
 		</div>
 
 		<p id='span_ExpressionType_response'></p>

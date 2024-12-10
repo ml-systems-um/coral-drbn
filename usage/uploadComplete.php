@@ -872,17 +872,14 @@ $mailOutput='';
 if (is_array($emailAddresses) && count($emailAddresses) > 0) {
 	$email = new Email();
 	$email->to 			= implode(", ", $emailAddresses);
-  // TODO: i18n placeholders
-	$email->subject		= _("Log Output for ") . $fileInfo['basename'];
-	$email->message		= _("Usage Statistics File Import Run!") . "\n\n" . _("Please find log file: ") . "\n\n" . $Base_URL . $logfile;
+  $email->subject		= sprintf(_("Log Output for %s"), $fileInfo['basename']);
+	$email->message		= sprintf(_("Usage Statistics File Import Run! \n\n Please find log file: \n\n %s"), $Base_URL . $logfile);
 
 
 	if ($email->send()) {
-    // TODO: i18n placeholders
-		$mailOutput = _("Log has been emailed to ") . implode(", ", $emailAddresses);
+    $mailOutput = sprintf(_("Log has been emailed to %s"), implode(", ", $emailAddresses));
 	}else{
-    // TODO: i18n placeholders
-		$mailOutput = _("Email to ") . implode(", ", $emailAddresses) . _(" Failed!");
+    $mailOutput = sprintf(_("Email to %s failed!"), implode(", ", $emailAddresses));
 	}
 }
 
@@ -895,8 +892,7 @@ if ($fromSushi){
 	$importLog = new ImportLog(new NamedArguments(array('primaryKey' => $importLogID)));
 	$importLog->fileName = $importLog->fileName;
 	$importLog->archiveFileURL = $importLog->fileName;
-  // TODO: i18n placeholders
-	$importLog->details = $importLog->details . "\n" . $rownumber . _(" rows processed.") . $logSummary;
+	$importLog->details = $importLog->details . "\n" . sprintf(_("%d rows processed."), $rownumber) . $logSummary;
 	$archvieFileName = $importLog->fileName;
 }else{
   // copy the uploaded file to the archive
@@ -906,8 +902,7 @@ if ($fromSushi){
 	$importLog->importLogID = '';
 	$importLog->fileName = $fileInfo['basename'];
 	$importLog->archiveFileURL = $archvieFileName;
-  // TODO: i18n placeholders
-	$importLog->details = $rownumber . _(" rows processed.") . $logSummary;
+ 	$importLog->details = sprintf(_("%d rows processed."), $rownumber) . $logSummary;
 }
 
 $importLog->loginID = $user->loginID;

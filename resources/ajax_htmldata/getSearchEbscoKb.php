@@ -72,9 +72,8 @@ if(!empty($params['vendorId'])){
 
 <?php if(!empty($vendor) && !empty($package)): ?>
     <div>
-        <!-- TODO: i18n placeholders -->
         <h2>
-            <?php echo _('Title list from') . ' ' .  $package->packageName; ?><br />
+            <?php printf(_('Title list from %s'), $package->packageName) ?><br />
             <small style="padding-left: 5px;"><?php echo _('Vendor:'); ?> <?php echo $vendor->vendorName; ?></small>
         </h2>
     </div>

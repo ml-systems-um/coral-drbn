@@ -152,17 +152,17 @@ if ($config->settings->resourcesIssues == "Y") {
                 $resources = $organization->getResources($role["organizationRoleID"]);
                 if (is_array($resources) && count($resources) > 0) {
                     ?>
-						<!-- TODO: i18n placeholders -->
-            <h4><?php echo $role["shortName"]. _(" of:");?></h4>
+            <h4><?php printf(_("%s of:"), $issueStartDate);?></h4>
             <ul id="org-name" class="unstyled">
             <?php
             foreach ($resources as $resource) {
                 $classes = "";
+								echo "<li>";
                 if ($resource['archived']) {
                     echo "<span class='archived'>"._("(archived)")." </span>";
 										$classes = "archived";
                 }
-                echo "<li><a href='" . $util->getResourceRecordURL() . $resource['resourceID'] . "' target='_BLANK' class='$classes'>" .  $resource['titleText'] . "</a></li>";
+                echo "<a href='" . $util->getResourceRecordURL() . $resource['resourceID'] . "' target='_BLANK' class='$classes'>" .  $resource['titleText'] . "</a></li>";
             }
             ?>
             </ul>

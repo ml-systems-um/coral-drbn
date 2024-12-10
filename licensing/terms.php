@@ -90,7 +90,6 @@ include 'templates/header.php';
         <?php foreach($expressionTypes as $expressionType): ?>
         <h2><?php printf(_('%1$s Terms for %2$s', $expressionType->shortName, $termsToolObj->getTitle())); ?></h2>
         <!-- TODO: redo display of this div; remove terms.css and friends -->
-        <!-- TODO: i18n placeholders (as above) -->
         <div id="the-terms">
             <?php foreach($expressionType->reorderTargets($targetsArray) as $i => $targetArray): ?>
                 <span class="titleText"><?php echo $targetArray['public_name']; ?></span>
@@ -98,14 +97,12 @@ include 'templates/header.php';
                 <?php $expressionArray = $expressionType->getExpressionsByResource($targetArray['public_name']); ?>
 
                 <?php if (empty($expressionArray)): ?>
-                    <p>No <?php echo $expressionType->shortName; ?> terms defined.</p>
+                    <p><?php sprintf(_('No %s terms defined.'), $expressionType->shortName) ?></p>
                 <?php else: ?>
                     <?php foreach ($expressionArray as $expression): ?>
                         <p>
-                            Terms as of <?php echo format_date($expression->getLastUpdateDate); ?> — the following terms apply
-                            ONLY to articles accessed via <a href="<?php echo $targetArray['target_url']; ?>" target="_blank">
-                                <?php echo $targetArray['public_name']; ?>
-                            </a>
+                            <?php sprintf(_("Terms as of %s — the following terms apply
+                            ONLY to articles accessed via <a href='%s' target='_blank'>%s</a>"), format_date($expression->getLastUpdateDate), $targetArray['target_url'], $targetArray['public_name']); ?>
                         </p>
                         <div style="margin:0 0 30px 0;">
                             <div class="shaded" style="width:850px; padding:3px;">
@@ -131,7 +128,7 @@ include 'templates/header.php';
                                 <strong><?php echo $expressionType->shortName; ?> Notes:</strong> <?php if($icon): ?><img src="<?php echo $icon; ?>"><?php endif; ?>
                                 <ul style="margin-left: 20px;">
                                 <?php if (!empty($qualifierArray)): ?>
-                                    <li>Qualifier: <?php echo implode(", ", $qualifierArray); ?></li>
+                                    <li><?php echo _('Qualifier:'); ?> <?php echo implode(", ", $qualifierArray); ?></li>
                                 <?php endif; ?>
                                 <?php foreach ($expression->getExpressionNotes as $expressionNote): ?>
                                     <li><?php echo $expressionNote->note; ?></li>
@@ -140,7 +137,7 @@ include 'templates/header.php';
                             </div>
                             <?php if ($expression->documentText): ?>
                                 <div style="width:850px;">
-                                    <p><strong>From the license agreement <?php echo get_effective_date($expression->documentID); ?>:</strong></p>
+                                    <p><strong><?php printf(_('From the license agreement %s:'),  get_effective_date($expression->documentID)) ?></strong></p>
                                     <p><em><?php echo nl2br($expression->documentText); ?></em></p>
                                 </div>
                             <?php endif; ?>

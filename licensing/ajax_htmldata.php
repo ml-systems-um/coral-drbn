@@ -515,8 +515,7 @@ switch ($_GET['action']) {
 
 					if ($user->canEdit()){
 						 echo "\n<ul class='inline unstyled comparison-links'><li><a href='license.php?licenseID=" . $expressionTypeArray['licenseID'] . "' target='_BLANK'>"._("view / edit license")."</a></li>";
-						 // TODO: i18n placeholders
-						 echo "<a href='javascript:void(0)' onclick='javascript:myDialog(\"ajax_forms.php?action=getExpressionNotesForm&org=compare&expressionID=" . $expressionTypeArray['expressionID'] . "\", 350,605)' class='thickbox' id='ExpressionNotes'>"._("view / edit ") . strtolower($expressionType->noteType) . _(" notes")."</a></li>";
+						 echo "<a href='javascript:void(0)' onclick='javascript:myDialog(\"ajax_forms.php?action=getExpressionNotesForm&org=compare&expressionID=" . $expressionTypeArray['expressionID'] . "\", 350,605)' class='thickbox' id='ExpressionNotes'>".sprintf(_("view / edit %s notes"), strtolower($expressionType->noteType))."</a></li>";
 						 echo "<a href='documents/" . $expressionTypeArray['documentURL'] . "' target='_BLANK'>"._("view document")."</a></li></ul>";
 
 					}else{
@@ -613,8 +612,7 @@ switch ($_GET['action']) {
 				<thead>
 				<tr>
 				<th scope="col"><?php echo _("License");?></th>
-				<!-- TODO: i18n placeholders -->
-				<th scope="col"><?php echo ucfirst($expressionType->noteType); ?> <?php echo _("Notes");?></th>
+				<th scope="col"><?php printf(_("%s Notes"), ucfirst($expressionType->noteType));?></th>
 				<th scope="col"><?php echo _("Document Text");?></th>
 				</tr>
 				</thead>
@@ -798,8 +796,7 @@ switch ($_GET['action']) {
 				}
 
 				if (($document->expirationDate != "0000-00-00") && ($document->expirationDate != "")){
-					// TODO: i18n placeholders
-					$displayExpirationDate = _("archived on: ") . format_date($document->expirationDate);
+					$displayExpirationDate = sprintf(_("archived on: %s"), format_date($document->expirationDate));
 				}else{
 					$displayExpirationDate = '';
 				}
@@ -867,21 +864,20 @@ switch ($_GET['action']) {
 				}
 				echo "</tr>";
 
-				// TODO: i18n placeholders for this section
 				$numberOfChildren = $document->getNumberOfChildren();
 				if ($numberOfChildren > 0) {
 					//if display for this child is turned off
 					if ((($showChildrenDocumentID) && ($showChildrenDocumentID != $document->documentID)) || !($showChildrenDocumentID)) {
 						if ($displayArchiveInd == '1') {
-							echo "<tr><td colspan='6'><i>"._("This document has ") . $numberOfChildren . _(" children document(s) not displayed.")."  <a href='javascript:updateArchivedDocuments(\"\"," . $document->documentID . ")'>"._("show all documents for this parent")."</a></i></td></tr>";
+							echo "<tr><td colspan='6'><i>".sprintf(_("This document has %d children document(s) not displayed."), $numberOfChildren)."  <a href='javascript:updateArchivedDocuments(\"\"," . $document->documentID . ")'>"._("show all documents for this parent")."</a></i></td></tr>";
 						}else{
-							echo "<tr><td colspan='6'><i>"._("This document has ") . $numberOfChildren . _(" children document(s) not displayed.")."  <a href='javascript:updateDocuments(" . $document->documentID . ")'>"._("show all documents for this parent")."</a></i></td></tr>";
+							echo "<tr><td colspan='6'><i>".sprintf(_("This document has %d children document(s) not displayed."), $numberOfChildren)."  <a href='javascript:updateDocuments(" . $document->documentID . ")'>"._("show all documents for this parent")."</a></i></td></tr>";
 						}
 					}else{
 						if ($displayArchiveInd == '1') {
-							echo "<tr><td colspan='6'><i>"._("The following ") . $numberOfChildren . _(" document(s) belong to ") . $document->shortName . ".  <a href='javascript:updateArchivedDocuments(\"\",\"\")'>"._("hide children documents for this parent")."</a></i></td></tr>";
+							echo "<tr><td colspan='6'><i>".sprintf(_("The following %d document(s) belong to %s."), $numberOfChildren, $document->shortName) . "  <a href='javascript:updateArchivedDocuments(\"\",\"\")'>"._("hide children documents for this parent")."</a></i></td></tr>";
 						}else{
-							echo "<tr><td colspan='6'><i>"._("The following ") . $numberOfChildren . _(" document(s) belong to ") . $document->shortName . ".  <a href='javascript:updateDocuments(\"\")'>"._("hide children documents for this parent")."</a></i></td></tr>";
+							echo "<tr><td colspan='6'><i>".sprintf(_("The following %d document(s) belong to %s."),$numberOfChildren, $document->shortName) . "  <a href='javascript:updateDocuments(\"\")'>"._("hide children documents for this parent")."</a></i></td></tr>";
 						}
 
 						?>
@@ -922,8 +918,7 @@ switch ($_GET['action']) {
 							if ((($childDocument->expirationDate == "0000-00-00") || ($childDocument->expirationDate == "")) && ($user->canEdit())){
 								$displayExpirationDate = "<a href='javascript:archiveDocument(" . $childDocument->documentID . ");'>"._("archive document")."</a>";
 							}else{
-								// TODO: i18n placeholders
-								$displayExpirationDate = _("archived on: ") . format_date($childDocument->expirationDate);
+								$displayExpirationDate = sprintf(_("archived on: %s"), format_date($childDocument->expirationDate));
 							}
 
 

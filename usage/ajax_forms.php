@@ -107,12 +107,12 @@ switch ($action) {
 				
 				<label for='startDate'><?php echo _("Start Date:");?></label>
 				<!-- TODO: i18n placeholder date format -->
-				<input type='text' id='startDate' name='startDate' value="<?php echo $sushiService->startDate; ?>" placeholder="<?php echo _("(yyyy-mm-dd)");?>" aria-describedby="span_error_startDate" />
+				<input type='text' class='date-pick' id='startDate' name='startDate' value="<?php echo $sushiService->startDate; ?>" placeholder="<?php echo _("(yyyy-mm-dd)");?>" aria-describedby="span_error_startDate" />
 				<p id='span_error_startDate' class='error'></p>
 				
 				<label for='endDate'><?php echo _("End Date:");?></label>
 				<!-- TODO: i18n placeholder date format -->
-				<input type='text' id='endDate' name='endDate' value="<?php echo $sushiService->endDate; ?>" placeholder="<?php echo _("(yyyy-mm-dd)");?>" aria-describedby="span_error_endDate" />
+				<input type='text' class='date-pick' id='endDate' name='endDate' value="<?php echo $sushiService->endDate; ?>" placeholder="<?php echo _("(yyyy-mm-dd)");?>" aria-describedby="span_error_endDate" />
 				<p id='span_error_endDate' class='error'></p>
 
 				<p class="checkbox">

@@ -201,8 +201,7 @@
 			if (is_array($licenseStatusArray) && count($licenseStatusArray) > 0) {
 				echo "<ul>";
 				foreach ($licenseStatusArray as $licenseStatus){
-					// TODO: i18n placeholders
-					echo "<li>". $licenseStatus['licenseStatus'] . _(" on ")."<i>" . format_date($licenseStatus['licenseStatusChangeDate']) . _(" by ") . $licenseStatus['changeName'] . "</i></li>";
+					echo "<li>" . sprintf(_("%s on %s by %s"), $licenseStatus['licenseStatus'], format_date($licenseStatus['licenseStatusChangeDate']), $licenseStatus['changeName']) . "</i></li>";
 				}
 				echo "</ul>";
 			}else{
@@ -292,8 +291,7 @@
 				</h4>
 				<div class="form-group">
 					<?php echo nl2br($resourceNote['noteText']); ?>
-					<!-- TODO: i18n placeholders -->
-					<p class="small"><i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></p>
+					<p class="small"><i><?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?></i></p>
 					<?php } ?>
 			</div>
 		<?php

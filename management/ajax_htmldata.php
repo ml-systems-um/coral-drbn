@@ -1117,13 +1117,12 @@ switch ($_GET['action']) {
 
 		<?php
 		}else{
-			// TODO: i18n placeholders and pluralization
 			if ($displayArchiveInd == ""){
 				echo _("(none found)");
 			}else if (($displayArchiveInd == "1") || ($numRows == "0")){
 				//echo "(no archived documents found)";
 			}else{
-				echo "<i>" . $numRows . _(" archive(s) available.") . "  <a href='javascript:updateArchivedDocuments(1)'>" . _("show archives") . "</a></i><br /><br />";
+				echo "<i>" . sprintf(_("%d archive(s) available."), $numRows) . "  <a href='javascript:updateArchivedDocuments(1)'>" . _("show archives") . "</a></i><br /><br />";
 			}
 		}
 

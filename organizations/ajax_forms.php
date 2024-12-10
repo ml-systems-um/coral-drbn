@@ -489,13 +489,11 @@ switch ($_GET['action']) {
 				<!-- TODO: a11y: use the same name attribute for these checkboxes and add required attribute to both -->
 				<p class="checkbox">
 					<input type="checkbox" class="issueResources" id="organizationID" name="organizationID" value="<?php echo $organization->organizationID;?>"> 
-					<!-- TODO: i18n placeholders -->
-					<label for="organizationID"><?php echo _("Applies to all ");?><?php echo $organization->name; ?> <?php echo _("resources");?></label>
+					<label for="organizationID"><?php printf(_("Applies to all %s resources"), $organization->name);?></label>
 				</p>
 				<p class="checkbox">
 					<input type="checkbox" class="issueResources" id="otherResources">
-					<!-- TODO: i18n placeholders -->
-					<label for="otherResources"> <?php echo _("Applies to selected ");?><?php echo $organization->name; ?> <?php echo _("resources");?></label>
+					<label for="otherResources"> <?php printf(_("Applies to selected %s resources"), $organization->name);?></label>
 				</p>
 				<select multiple id="resourceIDs" name="resourceIDs[]" aria-label="<?php echo _('Select resources');?>" aria-describedby="span_error_entities">
 <?php

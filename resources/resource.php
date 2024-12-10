@@ -87,15 +87,14 @@ if ($resource->titleText){
                             }
                         }
                         echo ">";
-												// TODO: i18n placeholders
                         if ($resourceAcquisition->subscriptionStartDate && $resourceAcquisition->subscriptionEndDate) {
                             echo "$resourceAcquisition->subscriptionStartDate - $resourceAcquisition->subscriptionEndDate";
                         } elseif ($resourceAcquisition->subscriptionStartDate) {
-                            echo _("Start date") . ": " . $resourceAcquisition->subscriptionStartDate;
+                            printf(_("Start date: %s"), $resourceAcquisition->subscriptionStartDate);
                         } elseif ($resourceAcquisition->subscriptionEndDate) {
-                            echo _("End date") . ": " . $resourceAcquisition->subscriptionEndDate;
+                            printf(_("End date: %s"), $resourceAcquisition->subscriptionEndDate);
                         } else {
-                            echo _("Order") . " " . $resourceAcquisition->resourceAcquisitionID;
+                            printf(_("Order %s"), $resourceAcquisition->resourceAcquisitionID);
                         }
                         $organization = $resourceAcquisition->getOrganization();
                         if ($organization) {

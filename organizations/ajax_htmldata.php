@@ -204,9 +204,8 @@ switch ($_GET['action']) {
 				<ul class="unstyled">
 					<?php
 					foreach ($parentOrganizationArray as $parentOrganization){
-						// TODO: i18n placeholders
-						echo $parentOrganization['name'] . "&nbsp;&nbsp;";
-						echo "<a href='orgDetail.php?organizationID=" . $parentOrganization['organizationID'] . "'><img src='images/arrow-up-right.gif' alt='"._("view organization")."' title='"._("View")."' style='vertical-align:top;'></a><br />";
+						echo "<li>" . $parentOrganization['name'] . "&nbsp;&nbsp;";
+						echo "<a href='orgDetail.php?organizationID=" . $parentOrganization['organizationID'] . "'><img src='images/arrow-up-right.gif' alt='"._("view organization")."' title='"._("View")."'></a></li>";
 					}
 					?>
 				</ul>
@@ -762,17 +761,15 @@ switch ($_GET['action']) {
 			?>
 			<tr>
 			<th scope="row">
-				<!-- TODO: i18n placeholders -->
-				<?php echo format_date($issueLog['updateDate']); ?><br />
-				<?php echo _("by ");?><i><?php echo $issueLog['updateUser']; ?></i>
+				<?php printf(_("%s <br />by <i>%s</i>"), format_date($issueLog['updateDate'], $issueLog['updateUser']));?>
 			</th>
 			<td><?php
         if ($issueStartDate && $issueEndDate) {
-          echo $issueStartDate._(" to ").$issueEndDate;
+          printf(_("%s to %s"), $issueStartDate, $issueEndDate);
         } elseif ($issueStartDate) {
-          echo _("start: ").$issueStartDate;
+          printf(_("start: %s"), $issueStartDate);
         } elseif ($issueEndDate) {
-          echo _("end: ").$issueEndDate;
+          printf(_("end: %s"), $issueEndDate);
         }
       ?>
       </td>
