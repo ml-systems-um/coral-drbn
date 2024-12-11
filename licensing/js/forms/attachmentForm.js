@@ -83,7 +83,7 @@ function uploadFile() {
         success: function(result) {
             arrayLocation = URLArray.length;
             URLArray.push(file_name);
-            $("#div_file_success").append("<div id='div_" + arrayLocation + "'><img src='images/paperclip.gif'>" + file_name + _(" successfully uploaded.")+"  <button type='button smallLink' class='btn' onclick='removeFile(\"" + arrayLocation + "\");'>"+_("remove")+"</button><br /></div>");
+            $("#div_file_success").append("<div id='div_" + arrayLocation + "'><img src='images/paperclip.gif'>" + _("%s successfully uploaded.", file_name)+"  <button type='button smallLink' class='btn' onclick='removeFile(\"" + arrayLocation + "\");'>"+_("remove")+"</button><br /></div>");
             fileName = file_name;
         },
         error: function(result) {

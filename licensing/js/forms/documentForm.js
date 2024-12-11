@@ -139,7 +139,7 @@ function uploadFile() {
         processData: false,
         data: form_data,
         success: function(result) {
-            $("#div_file_message").html("<img src='images/paperclip.gif'>" + file_name + _(" successfully uploaded."));
+            $("#div_file_message").html("<img src='images/paperclip.gif'>" + _("%s successfully uploaded.", file_name));
             $("#div_uploadFile").html("<br />");
             fileName = file_name;
         },

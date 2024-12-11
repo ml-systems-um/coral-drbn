@@ -564,7 +564,7 @@ switch ($_GET['action']) {
 				<p class="error"><?php echo $e->getMessage(); ?>
 				<p><?php echo _(" Please make sure everything is filled out correctly.");?></p>
 				
-				<p class="actions"><a href='#' onclick='myCloseDialog(); return false'><?php echo _("Continue");?></a>
+				<p class="actions"><a href='#' onclick='myCloseDialog()'><?php echo _("Continue");?></a>
 				<?php
 			}
 		}else{
@@ -574,7 +574,7 @@ switch ($_GET['action']) {
 			<p class="error"><?php echo $e->getMessage(); ?>
 			<p><?php echo _(" Please make sure everything is filled out correctly.");?></p>
 				
-			<p class="actions"><a href='#' onclick='myCloseDialog(); return false'><?php echo _("Continue");?></a></p>
+			<p class="actions"><a href='#' onclick='myCloseDialog()'><?php echo _("Continue");?></a></p>
 			<?php
 		}
 

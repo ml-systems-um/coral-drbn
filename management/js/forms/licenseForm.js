@@ -395,7 +395,7 @@ function uploadFile() {
         processData: false,
         data: form_data,
         success: function(result) {
-            $("#div_file_message").html("<span class='success'><img src='images/paperclip.gif'>" + file_name + _(" successfully uploaded.") + '</span>');
+            $("#div_file_message").html("<span class='success'><img src='images/paperclip.gif'>" + _("%s successfully uploaded.", file_name) + '</span>');
             $("#span_error_licenseuploadDocument").html('');
             $("#div_uploadFile").html("");
             fileName = file_name;
