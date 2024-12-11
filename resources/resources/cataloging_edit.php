@@ -114,7 +114,7 @@ $catalogingStatus = new CatalogingStatus();
 $catalogingType = new CatalogingType();
 ?>
 <div id='div_catalogingForm'>
-<form id='catalogingForm' method="post" action="resources/cataloging_update.php">
+<form id='catalogingForm' method="post" action="resources/cataloging_update.php" class="large">
 <input type='hidden' name='resourceID' id='resourceID' value='<?php echo $resourceID; ?>'>
 <input type='hidden' name='resourceAcquisitionID' id='resourceAcquisitionID' value='<?php echo $resourceAcquisitionID; ?>'>
 

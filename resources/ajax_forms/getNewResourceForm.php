@@ -68,7 +68,7 @@
 		}
 ?>
 		<div id='div_resourceSubmitForm'>
-		<form id='resourcePromptForm'>
+		<form id='resourcePromptForm' class="large">
 
 
 		<input type='hidden' id='organizationID' value='<?php echo $orgID; ?>' />

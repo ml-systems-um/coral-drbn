@@ -187,7 +187,6 @@ print media query
 
   @media screen and (min-width: 960px) {
     --margin-y: 3rem;
-    --row-gap: 1rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -226,6 +225,12 @@ dialog {
   margin-inline: auto;
   overflow-y: scroll;
   width: min-content !important;
+}
+
+dialog:has(form.large),
+.ui-dialog:has(form.large) {
+  left: 10vw !important;
+  min-width: 80vw;
 }
 
 /* LAYOUT */

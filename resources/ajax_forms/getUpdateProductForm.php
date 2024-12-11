@@ -66,7 +66,7 @@
 		$orgArray = $resource->getOrganizationArray();
 ?>
 		<div id='div_resourceForm'>
-		<form id='resourceForm'>
+		<form id='resourceForm' class="large">
 		<input type='hidden' name='editResourceID' id='editResourceID' value='<?php echo $resourceID; ?>'>
 
 		<div class='formTitle'><h2 class='headerText'><?php echo _("Edit Resource");?></h2></div>

@@ -55,7 +55,7 @@
 	}
 ?>
 		<div id='div_accessForm'>
-		<form id='accessForm'>
+		<form id='accessForm' class="large">
 		<input type='hidden' name='editResourceID' id='editResourceID' value='<?php echo $resourceID; ?>'>
 		<input type='hidden' name='editResourceAcquisitionID' id='editResourceAcquisitionID' value='<?php echo $resourceAcquisitionID; ?>'>
 
