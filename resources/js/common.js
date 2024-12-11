@@ -302,29 +302,20 @@ function isValidDate(dateString) {
 }
 
 function myDialog(loadForm, h,w){
-       if (h < 800) h = 'auto';
-       if (w < 800) w = w * 1.2;
-
-       $('<div/>').dialog({
-            modal: true,
-            open: function ()
-            {
-            if ($(this).is(':empty')) {
-                $(this).load(loadForm, function() {
-									$('.ui-dialog-title').prepend($('.ui-dialog-content h2'));
-								});
-                }
-            },
-            height: h,
-            width: w
-        });
-				$('.ui-dialog').removeAttr('aria-describedby');
+	$('<div/>').dialog({
+			modal: true,
+			open: function () {
+				if ($(this).is(':empty')) {
+						$(this).load(loadForm, function() {
+							$('.ui-dialog-title').prepend($('.ui-dialog-content h2'));
+						});
+				}
+			}
+	});
+	$('.ui-dialog').removeAttr('aria-describedby');
 }
 
 function myCloseDialog() {
-  //$(this).dialog('close')
-//$(this).closest('.ui-dialog-content').dialog('close');
-//      $(formName).dialog( "close" )
   $('.ui-dialog-content').dialog('destroy');
 }
 
@@ -332,21 +323,5 @@ function myDialogPOST() {
   return setTimeout(function () {
     $('.ui-dialog-content').dialog('destroy')
   }, 0);
-  /*
-          $.ajax({
-                type: "POST",
-                 url: ajaxcall,
-                  //data: "{name: '" + $("#txtName").val() + "'}",
-                  //contentType: "application/json; charset=utf-8",
-                  //              enctype="multipart/form-data,
-                  //dataType: "json",
-                  success: function (r) {
-                      //$("#imgLoader").css("visibility", "hidden");
-                      $(".ui-dialog-content").dialog("destroy");
-                  }
-          });
-
-  */
-
 }
 

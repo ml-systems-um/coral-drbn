@@ -211,7 +211,8 @@ switch ($_GET['action']) {
 
 		//if editing
 		if ($documentID){
-			echo "<div id='div_uploadFile'>" . $document->documentURL . "<br /><button type='button' class='btn' onclick='replaceFile();'>"._("replace with new file")."</button>";
+			echo "<div id='div_uploadFile'><div class='url'>" . $document->documentURL . "</div>";
+			echo "<button type='button' class='btn link' onclick='replaceFile();'>"._("replace with new file")."</button>";
 			echo "<input type='hidden' id='upload_button' name='upload_button' value='" . $document->documentURL . "'></div>";
 
 		//if adding
@@ -226,8 +227,10 @@ switch ($_GET['action']) {
 		
 		<?php if (($document->parentDocumentID == "0") || ($document->parentDocumentID == "")){ ?>
 		
-		<label for="archiveInd" class="formText"><?php echo _("Archived");?></label>
-		<input type='checkbox' id='archiveInd' name='archiveInd' <?php echo $archiveChecked; ?> />
+		<p class="checkbox indent">
+			<input type='checkbox' id='archiveInd' name='archiveInd' <?php echo $archiveChecked; ?> />
+			<label for="archiveInd"><?php echo _("Archived");?></label>
+		</p>
 		
 		<?php } ?>
 
