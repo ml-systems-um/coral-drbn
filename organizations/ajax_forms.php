@@ -278,8 +278,10 @@ switch ($_GET['action']) {
 		<label for='emailAddress'><?php echo _("Email:");?></label>
 		<input type='text' id='emailAddress' name='emailAddress' value = '<?php echo $contact->emailAddress; ?>'>
 		
-		<input type='checkbox' id='invalidInd' name='invalidInd' <?php echo $invalidChecked; ?>>
-		<label for='invalidInd'><?php echo _("Archived:");?></label>	
+		<p class="checkbox indent">
+			<input type='checkbox' id='invalidInd' name='invalidInd' <?php echo $invalidChecked; ?>>
+			<label for='invalidInd'><?php echo _("Archived");?></label>	
+		</p>
 		
 		<label for='addressText'><?php echo _("Address:");?></label>
 		<textarea rows='3' id='addressText' name='addressText'><?php echo $contact->addressText; ?></textarea>

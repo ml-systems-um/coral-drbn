@@ -61,9 +61,11 @@
 		<label for='addressText'><?php echo _("Address:");?></label>
 		<textarea rows='3' id='addressText'><?php echo $contact->addressText; ?></textarea>
 		
-		<label for='invalidInd'><?php echo _("Archived:");?></label>
-		<input type='checkbox' id='invalidInd' name='invalidInd' <?php echo $invalidChecked; ?> />
-		
+		<p class="checkbox indent">
+			<input type='checkbox' id='invalidInd' name='invalidInd' <?php echo $invalidChecked; ?> />
+			<label for='invalidInd'><?php echo _("Archived");?></label>
+		</p>
+
 		<fieldset class="subgrid">
 			<legend><?php echo _("Role(s):");?></legend>
 			<div class="form-group">

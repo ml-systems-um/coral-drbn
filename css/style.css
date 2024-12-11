@@ -944,7 +944,7 @@ input[type="radio"] {
 }
 
 .form-grid label:not(:is(.checkbox label)),
-.form-grid .checkbox {
+.form-grid p.checkbox {
   margin-block-start: 1rem;
 }
 

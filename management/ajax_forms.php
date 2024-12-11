@@ -106,7 +106,7 @@ switch ($_GET['action']) {
 					?>
 
 				<fieldset>
-					<legend for="licenseConsortiumID" class="formText"><?php echo _("Categories:");?></legend>
+					<legend><?php echo _("Categories:");?></legend>
 					<div id='span_consortium' class="form-group">
 					<?php
 						try{
@@ -118,9 +118,9 @@ switch ($_GET['action']) {
 
 							foreach($consortiaArray as $display) {
 								if (is_array($licenseconsortiumids) && in_array($display['consortiumID'],$licenseconsortiumids)) {
-									echo "<label><input type='checkbox' name='licenseConsortiumID' value='" . $display['consortiumID'] . "' checked>" . $display['name'] . "</label>";
+									echo "<label><input type='checkbox' name='consortiumID' value='" . $display['consortiumID'] . "' checked>" . $display['name'] . "</label>";
 								}else{
-									echo "<label><input type='checkbox' name='licenseConsortiumID' value='" . $display['consortiumID'] . "'>" . $display['name'] . "</label>";
+									echo "<label><input type='checkbox' name='consortiumID' value='" . $display['consortiumID'] . "'>" . $display['name'] . "</label>";
 								}
 							}
 							}catch(Exception $e){
@@ -155,11 +155,13 @@ switch ($_GET['action']) {
 			echo "			<span id='div_uploadFile'><input type='file' name='upload_button' id='upload_button' aria-describedby='div_file_message span_error_licenseuploadDocument'></span>";
 	}
 ?>
-		<p id='div_file_message'></p>
+		<p id='div_file_message' class='wide indent'></p>
 		<p id='span_error_licenseuploadDocument' class='error'></p>
-		
-		<label for="archiveInd" class="formText"><?php echo _("Archived:");?></label>
-		<input type='checkbox' id='archiveInd' name='archiveInd' value='1' />
+
+		<p class="checkbox indent">
+			<input type='checkbox' id='archiveInd' name='archiveInd' value='1' />
+			<label for="archiveInd"><?php echo _("Archived");?></label>
+		</p>
 <?php
 		//only show the new note option if we're creating a new document
 		if (!$licenseID) {
@@ -169,7 +171,7 @@ switch ($_GET['action']) {
 		<p id='span_errors' class="error"></p>
 		
 		<label for="noteBody" class="formText"><?php echo _("Note:");?></label>
-		<textarea name='note[body]' id = 'noteBody' rows='10'></textarea>
+		<textarea name='note[body]' id = 'noteBody' rows='5'></textarea>
 			
 		<label for="noteDocumentNoteTypeID" class="formText"><?php echo _("Note Type:");?></label>
 		<p id='span_noteType' class="form-group">
@@ -335,24 +337,25 @@ switch ($_GET['action']) {
 
 
 		?>
-		<p id='div_file_message'></p>
+		<p id='div_file_message' class='wide indent'></p>
 		
 		
 		<?php if (($document->parentDocumentID == "0") || ($document->parentDocumentID == "")){ ?>
-		
-		<label for="archiveInd" class="formText" id="archiveDummyLabel"><?php echo _("Archived:");?></label>
-<?php
-if ($_GET['isArchived'] == 1) {
-?>
-				<input type='checkbox' name='archiveDummy' checked="checked" disabled="disabled" aria-labelledby="archiveDummyLabel" />
-				<input type="hidden" id="archiveInd" name="archiveInd" value="1" />
-<?php
-} else {
-?>
-				<input type='checkbox' id='archiveInd' name='archiveInd' <?php echo $archiveChecked; ?> <?php echo $blockArchiveCheck; ?> />
-<?php
-}
-?>
+			<p class="checkbox indent">
+			<label for="archiveInd" class="formText" id="archiveDummyLabel"><?php echo _("Archived");?></label>
+				<?php
+				if ($_GET['isArchived'] == 1) {
+				?>
+					<input type='checkbox' name='archiveDummy' checked="checked" disabled="disabled" aria-labelledby="archiveDummyLabel" />
+					<input type="hidden" id="archiveInd" name="archiveInd" value="1" />
+				<?php
+				} else {
+				?>
+					<input type='checkbox' id='archiveInd' name='archiveInd' <?php echo $archiveChecked; ?> <?php echo $blockArchiveCheck; ?> />
+				<?php
+				}
+				?>
+			</p>
 		<?php } ?>
 
 		<p class="actions">
