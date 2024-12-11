@@ -31,7 +31,8 @@
 
 
 $(function(){
-	$('.date-pick').datePicker({startDate:'01/01/1996'});
+	$('.date-pick').datePicker({startDate:'01/01/2025'});
+	$('.date-pick').attr('placeholder', Date.format);
 
 	//preload images
 	jQuery.preLoadImages("images/menu/menu-home-over.gif", "images/menu/menu-newlicense-over.gif", "images/menu/menu-licensesinprogress-over.gif", "images/menu/menu-expressioncomparison-over.gif", "images/menu/menu-termstoolreport-over.gif", "images/menu/menu-admin-over.gif", "images/menu/menu-end-over.gif");

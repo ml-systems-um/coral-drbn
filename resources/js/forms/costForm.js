@@ -18,7 +18,7 @@
 $(function(){
 
 
-	$('.date-pick').datePicker({startDate:'01/01/1996'});
+	$('.date-pick').datePicker({startDate:'01/01/2025'});
 	$('.date-pick').attr('placeholder', Date.format);
 
 	//bind all of the inputs
@@ -82,7 +82,7 @@ $(function(){
 			});
 			duplicateTR.removeClass('newPaymentTR'); //remove newPaymentTR class from duplicate
 			duplicateTR.find('.dp-choose-date').remove(); //remove date pickers from clone
-			duplicateTR.find('.date-pick').datePicker({startDate:'01/01/1996'}); //add new date pickers to clone
+			duplicateTR.find('.date-pick').datePicker({startDate:'01/01/2025'}); //add new date pickers to clone
 			replaceInputWithImage=duplicateTR.find('.addPayment');
 			replaceInputWithImage.replaceWith("<img src='images/cross.gif' class='remove' alt='" + _("remove this payment") + "' title='" + _("remove this payment") + "'/>");
 

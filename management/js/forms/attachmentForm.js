@@ -19,7 +19,8 @@
 
 $( document ).ready(function() {
 	$("#upload_attachment_button").change(uploadFile);
-	$('.date-pick').datePicker({startDate:'01/01/1996'});
+	$('.date-pick').datePicker({startDate:'01/01/2025'});
+	$('.date-pick').attr('placeholder', Date.format);
 });
 
 

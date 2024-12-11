@@ -122,7 +122,8 @@ $(function(){
 });
 
 function refreshContext() {
-	$('.date-pick').datePicker({startDate:'01/01/1996'});
+	$('.date-pick').datePicker({startDate:'01/01/2025'});
+	$('.date-pick').attr('placeholder', Date.format);
 }
 
 function validateEmail(email) {
