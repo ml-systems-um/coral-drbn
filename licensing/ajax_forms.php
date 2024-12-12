@@ -1029,15 +1029,15 @@ switch ($_GET['action']) {
 		if (isset($_GET['qualifierID'])) $qualifierID = $_GET['qualifierID']; else $qualifierID = '';
 
 		if ($qualifierID){
-			$update=_('Edit');
+			$update=_('Edit Qualifier');
 			$qualifier = new Qualifier(new NamedArguments(array('primaryKey' => $qualifierID)));
 		}else{
-			$update=_('Add');
+			$update=_('Add Qualifier');
 		}
 
 
 		?>
-		<h2><?php echo $update.' '. _("Qualifier"); ?></h2>
+		<h2><?php echo $update; ?></h2>
 		<div id='div_updateForm' class="form-grid">
 		<input type='hidden' name='qualifierID' id='qualifierID' value='<?php echo $qualifierID; ?>' />
 		
@@ -1191,7 +1191,7 @@ switch ($_GET['action']) {
 
         break;
 	default:
-       echo _("Action ") . $action . _(" not set up!");
+       printf(_("Action %s not set up!"), $action);
        break;
 
 

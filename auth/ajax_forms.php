@@ -47,7 +47,7 @@ switch ($_GET['action']) {
 
 		<span class='error' id='span_errors'></span>
 
-		<input type='hidden' id='editLoginID' value='<?php echo $loginID; ?>' />
+		<input type='hidden' id='editLoginID' value='<?php echo (int)$loginID; ?>' />
 
 		<div class="block-form">
 		
@@ -57,16 +57,17 @@ switch ($_GET['action']) {
 				<?php if ($loginID) { ?><p class='error'><?php echo _("Enter password for changes only")?></p> <?php } ?>
 	</p>
 	<p>
-				<label for='password'><b><?php if ($loginID) { echo _("New "); } echo _("Password");?></b></label>&nbsp;
+				<label for='password'><b><?php if ($loginID) { echo _("New Password"); } else { echo _("Password"); }?></b></label>
+				
 				<input type='password' id='password' value="" />
 				</p>
 				<p>
 				<label for='passwordReenter'><?php echo _("Reenter Password");?></label>
 				<input type='password' id='passwordReenter' value="" />
 				</p>
-				<p>
-				<label for='adminInd' class='formLabel'><b><?php echo _("Admin?");?></b></label>&nbsp;
+				<p class="checkbox">
 				<input type='checkbox' id='adminInd' value='Y' <?php echo $adminInd; ?> />
+				<label for='adminInd' class='formLabel'><b><?php echo _("Admin?");?></b></label>
 				</p>
 			</div>
 
@@ -83,7 +84,7 @@ switch ($_GET['action']) {
 		break;
 
 	default:
-       echo _("Action ") . $action . _(" not set up!");
+       printf(_("Action %s not set up!"), $action);
        break;
 
 
