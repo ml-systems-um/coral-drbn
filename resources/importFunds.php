@@ -50,18 +50,22 @@
 					$row++;
 				}
 				print "<h2>" . _("Results") . "</h2>";
-				print "<p> $row " . _("rows have been processed.") . "</p>";
+				print "<p>" . sprintf(_("%d rows have been processed."), $row) . "</p>";
 			}
 		}
 	} else {
 		?>
 			<form enctype="multipart/form-data" action="importFunds.php" method="post" id="importForm">
-				<div id='div_updateForm'>
-					<div class='formTitle' style='width:245px;'><b><?php echo _("Import Funds");?></b></div><br/>
+				<div id='div_updateForm' class="form-grid">
+					<h2 class="headerText"><?php echo _("Import Funds");?></h2>
+
 					<label for="uploadFile"><?php echo _("Select File");?></label>
-					<input type="file" name="uploadFile" id="uploadFile"/><br/><br/>
-					<input type="submit" name="submit" value='<?php echo _("import");?>' id="import-fund-button" class='submit-button' />
-					<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog(); return false;" id="cancel-fund-button" class='cancel-button' />
+					<input type="file" name="uploadFile" id="uploadFile"/>
+					
+					<p class="actions">
+						<input type="submit" name="submit" value='<?php echo _("import");?>' id="import-fund-button" class='submit-button primary' />
+						<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog(); return false;" id="cancel-fund-button" class='cancel-button secondary' />
+					</p>
 				</div>
 			</form>
 		<?php

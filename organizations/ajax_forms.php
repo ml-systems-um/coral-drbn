@@ -781,42 +781,20 @@ switch ($_GET['action']) {
 		$instance = new $className(new NamedArguments(array('primaryKey' => $updateId)));
 
 		?>
-		<div id='div_updateForm'>
-		<table class="thickboxTable">
-		<tr>
-		<td colspan='3'><h2 class='headerText'><?php echo _("Edit");?></h2>
-		<p id='span_errors' class="error"></p></td>
-		</tr>
-		<tr>
+		<div id='div_updateForm' class="block-form">
+		<h2 class='headerText'><?php echo _("Edit");?></h2>
+		<p id='span_errors' class="error"></p>
 
-		</tr>
-		<tr>
+		<p>
+			<input type='text' id='updateVal' name='updateVal' value='<?php echo $instance->shortName ?>' aria-label='<?php echo _('Name') ?>'/>
+		</p>
 
-		<td>
-		<?php
-		echo "<input type='text' id='updateVal' name='updateVal' value='" . $instance->shortName . "'aria-label='"._('Name')."'/></td><td><button type='button' class='btn' onclick='updateData(\"" . $className . "\", \"" . $updateId . "\");' id='updateButton' class='submit-button'>"._("Edit")."</button>";
+		<p class="actions">
+			<input type='submit' onclick='updateData("<?php echo $className; ?>", "<?php echo $updateId; ?>")' id='updateButton' value="<?php echo _("Update") ?>" />	
+			<input type="button" onclick='myCloseDialog()' id='closeButton' class='cancel-button secondary' value="<?php echo _("Cancel");?>" />
+		</p>
 
-		?>
-
-
-		</td>
-		<td colspan='2'><p><a href='#' onclick='myCloseDialog(); return false' id='closeButton' class='cancel-button'><?php echo _("Close");?></a></td>
-		</tr>
-		</table>
 		</div>
-
-
-		<script type="text/javascript">
-		   //attach enter key event to new input and call add data when hit
-		   $('#updateVal').keyup(function(e) {
-
-				   if(e.keyCode == 13) {
-					   updateData("<?php echo $className; ?>", "<?php echo $updateId; ?>");
-				   }
-        	});
-
-        </script>
-
 
 		<?php
 

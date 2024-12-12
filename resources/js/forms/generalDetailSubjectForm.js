@@ -17,68 +17,6 @@
 
 
 $(document).ready(function(){
-
-
-
-	 $("#submitDetailSubjectForm").click(function () {
-		submitDetailSubject();
-	 });
-
-
-	//do submit if enter is hit
-	$('#shortName').keyup(function(e) {
-	      if(e.keyCode == 13) {
-		submitDetailSubject();
-	      }
-	});
-
-
-	//the following are all to change the look of the inputs when they're clicked
-	$('.changeDefault').on('focus', function(e) {
-		if (this.value == this.defaultValue){
-			this.value = '';
-		}
-	});
-
-	 $('.changeDefault').on('blur', function() {
-		if(this.value == ''){
-			this.value = this.defaultValue;
-		}
-	 });
-
-
-    	$('.changeInput').addClass("idleField");
-
-	$('.changeInput').on('focus', function() {
-
-
-		$(this).removeClass("idleField").addClass("focusField");
-
-		if(this.value != this.defaultValue){
-			this.select();
-		}
-
-	 });
-
-
-	 $('.changeInput').on('blur', function() {
-		$(this).removeClass("focusField").addClass("idleField");
-	 });
-
-
-
-
-	$('select').addClass("idleField");
-	$('select').on('focus', function() {
-		$(this).removeClass("idleField").addClass("focusField");
-
-	});
-
-	$('select').on('blur', function() {
-		$(this).removeClass("focusField").addClass("idleField");
-	});
-
-
 	$(".adddetailedSubject").on('click', function () {
 
 		var detailedSubjectID = $('.newdetailedSubjectTable .detailedSubjectID').val();
@@ -153,20 +91,11 @@ $(document).ready(function(){
 
 
 	$(".remove").on('click', function () {
-	    $(this).parent().parent().parent().fadeTo(400, 0, function () {
-		$(this).remove();
+	    $(this).closest('tr').fadeTo(400, 0, function () {
+				$(this).remove();
 	    });
 	    return false;
 	});
-
-
-
-
-
-
-
-
-
  });
 
 
@@ -223,14 +152,6 @@ function submitDetailSubject(){
 
 //kill all binds done by jquery live
 function kill(){
-
 	$('.adddetailedSubject').die('click');
-	$('.changeDefault').die('blur');
-	$('.changeDefault').die('focus');
-	$('.changeInput').die('blur');
-	$('.changeInput').die('focus');
-	$('.select').die('blur');
-	$('.select').die('focus');
 	$('.remove').die('click');
-
 }

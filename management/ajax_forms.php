@@ -569,7 +569,7 @@ switch ($_GET['action']) {
 		</table>
 		</td>
 		</tr>
-		<tr><td style='text-align:center;width:100%;'><br /><br /><a href='#' onclick='window.parent.updateDocuments();  window.parent.updateArchivedDocuments(); myCloseDialog(); return false' class='cancel-button'><?php echo _("Close");?></a></td></tr>
+		<tr><td style='text-align:center;width:100%;'><br /><br /><a href='#' onclick='window.parent.updateDocuments();  window.parent.updateArchivedDocuments(); myCloseDialog(); return false' class='cancel-button secondary'><?php echo _("Close");?></a></td></tr>
 		</table>
 		<input type="hidden" id='documentID' name='documentID' value='<?php echo $documentID; ?>'>
 

@@ -149,40 +149,25 @@ switch ($action) {
 
 
 		?>
-		<div id='div_updateForm'>
-		<input type='hidden' id='updateOutlierID' name='updateOutlierID' value='<?php echo $outlierID; ?>'>
-		<table class="thickboxTable" style="width:300px;padding:2px;">
-		<tr><td colspan='2'><span class='headerText'><?php echo _("Edit Outlier");?> - <b><?php echo _("Level");?> <?php echo $outlier->outlierLevel; ?></b></span><br /><br /></td></tr>
-		<tr><td class="end"><label for='overageCount'><b><?php echo _("Count Over");?></b></label></td><td><input type='text' id='overageCount' name='overageCount' value="<?php echo $outlier->overageCount; ?>" aria-describedby='span_error_overageCount' /><span id='span_error_overageCount' class='error'></span></td></tr>
-		<tr><td class="end"><label for='overagePercent'><b><?php echo _("% Over prior 12 months");?></b></label></td><td><input type='text' id='overagePercent' name='overagePercent' value="<?php echo $outlier->overagePercent; ?>" aria-describedby='span_error_overagePercent' /><span id='span_error_overagePercent' class='error'></span></td></tr>
+		<form onsubmit='window.parent.updateOutlier()'>
+			<div id='div_updateForm' class="form-grid">
+				<input type='hidden' id='updateOutlierID' name='updateOutlierID' value='<?php echo $outlierID; ?>'>
+				<h2 class='headerText'><?php printf(_("Edit Outlier - <b>Level %s</b>"), $outlier->outlierLevel); ?></h2>
+				
+				<label for='overageCount'><?php echo _("Count Over");?></label>
+				<input type='text' id='overageCount' name='overageCount' value="<?php echo $outlier->overageCount; ?>" aria-describedby='span_error_overageCount' />
+				<span id='span_error_overageCount' class='error'></span>
+			
+				<label for='overagePercent'><?php echo _("% Over prior 12 months");?></label>
+				<input type='text' id='overagePercent' name='overagePercent' value="<?php echo $outlier->overagePercent; ?>" aria-describedby='span_error_overagePercent' />
+				<span id='span_error_overagePercent' class='error'></span>
 
-		<tr style="vertical-align:middle;">
-		<td style="width:60px;"><input type='button' value='<?php echo _("Edit");?>' onclick='javascript:window.parent.updateOutlier();' class='submit-button'></td>
-		<td><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog(); return false" class='cancel-button'></td>
-		</tr>
-
-		</table>
-
-		</div>
-
-		<script type="text/javascript">
-		   //attach enter key event to new input and call add data when hit
-			$('#overageCount').keyup(function(e) {
-				  if(e.keyCode == 13) {
-					window.parent.updateOutlier();
-				  }
-			});
-
-
-			//do submit if enter is hit
-			$('#overagePercent').keyup(function(e) {
-				  if(e.keyCode == 13) {
-					window.parent.updateOutlier();
-				  }
-			});
-
-		</script>
-
+				<p class="actions">
+					<input type='submit' value='<?php echo _("Edit");?>' class='submit-button primary'>
+					<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button secondary'>
+				</p>
+			</div>
+		</form>
 		<?php
 
 		break;
@@ -202,40 +187,23 @@ switch ($action) {
 
 
 		?>
-		<div id='div_updateForm'>
-		<input type='hidden' id='updateID' name='updateID' value='<?php echo $updateID; ?>'>
-		<input type='hidden' id='type' name='type' value='<?php echo $_GET['type']; ?>'>
-		<table class="thickboxTable" style="width:230px;">
-		<tr>
-		<td colspan='3'><h2 class='headerText' id="reportDisplayNameLabel"><?php echo _("Edit Report Display Name");?></h2><br /><p id='span_errors' class='error'></p></td>
-		</tr>
-		<tr>
-		<td>
-		<?php
-		echo "<input type='text' id='reportDisplayName' name='reportDisplayName' value='" . $obj->reportDisplayName . "' aria-labelledby='reportDisplayNameLabel' /></td><td><a href='javascript:updateReportDisplayName();' class='submit-button'>" . _("Edit") . "</a>";
-		?>
-
-
-		</td>
-
-		<td colspan='2'><a href='#' onclick='myCloseDialog(); return false' class='cancel-button'><?php echo _("Close");?></a></td>
-		</tr>
-		</table>
-		</div>
-
-
-		<script type="text/javascript">
-		   //attach enter key event to new input and call add data when hit
-		   $('#reportDisplayName').keyup(function(e) {
-
-				   if(e.keyCode == 13) {
-					   updateReportDisplayName();
-				   }
-		   });
-
-		</script>
-
-
+		<form onsubmit="updateReportDisplayName()">
+			<div id='div_updateForm' class="block-form">
+				<input type='hidden' id='updateID' name='updateID' value='<?php echo $updateID; ?>'>
+				<input type='hidden' id='type' name='type' value='<?php echo $_GET['type']; ?>'>
+				
+				<h2 class='headerText' id="reportDisplayNameLabel"><?php echo _("Edit Report Display Name");?></h2>
+				<p id='span_errors' class='error'></p>
+				
+				<label for="reportDisplayName"><?php echo _("Report Display Name");?></label>
+				<input type='text' id='reportDisplayName' name='reportDisplayName' value='<?php echo $obj->reportDisplayName ?>' />
+				
+				<p class="actions">
+					<input type="submit" class='submit-button primary' value="<?php echo _("Update") ?>" />
+					<input type="button" onclick='myCloseDialog()' class='cancel-button secondary' value="<?php echo _("Close");?>" />
+				</p>
+			</div>
+		</form>
 		<?php
 
 		break;
@@ -289,21 +257,23 @@ switch ($action) {
 			<p id='span_errors' class='error'></p>
 		
 			<div class="form-grid">
-				<label for='startYear'><b><?php echo _("Start Year:");?></b></label>
+				<label for='startYear'><?php echo _("Start Year:");?></label>
 				<input type='text' id='startYear' name='startYear' value="<?php echo $platformNote->startYear; ?>" aria-describedby="span_error_startYear" />
 				<p id='span_error_startYear' class='error'></p>
 			
-				<label for='endYear'><b><?php echo _("End Year:");?></b></label>
+				<label for='endYear'><?php echo _("End Year:");?></label>
 				<input type='text' id='endYear' name='endYear' value="<?php echo $endYear; ?>" aria-describedby="span_error_endYear" />
 					<p id='span_error_endYear' class='error'></p>
 			
-				<b><?php echo _("Counter Compliant?");?></b>
-				<p class="form-group form-inline checkbox">
-					<label><input type='radio' name='counterCompliantInd' value='1' <?php echo $counterCompliant; ?> /> <?php echo _("Yes"); ?></label>
-					<label><input type='radio' name='counterCompliantInd' value='0' <?php echo $notCounterCompliant; ?> /> <?php echo _("No"); ?></label>
-				</p>
+				<fieldset class="subgrid">
+					<legend><?php echo _("Counter Compliant?");?></legend>
+					<p class="form-group form-inline checkbox">
+						<label><input type='radio' name='counterCompliantInd' value='1' <?php echo $counterCompliant; ?> /> <?php echo _("Yes"); ?></label>
+						<label><input type='radio' name='counterCompliantInd' value='0' <?php echo $notCounterCompliant; ?> /> <?php echo _("No"); ?></label>
+					</p>
+				</fieldset>
 			
-				<label for='noteText'><b><?php echo _("Interface Notes:");?></b></label>
+				<label for='noteText'><?php echo _("Interface Notes:");?></label>
 				<textarea rows='4' id='noteText' name='noteText'><?php echo $noteText; ?></textarea>
 			
 				
@@ -357,15 +327,15 @@ switch ($action) {
 			<p id='span_errors' class='error'></p>
 			
 			<div class="form-grid">
-				<label for='startYear'><b><?php echo _("Start Year:");?></b></label>
+				<label for='startYear'><?php echo _("Start Year:");?></label>
 				<input type='text' id='startYear' name='startYear' value="<?php echo $publisherPlatformNote->startYear; ?>" aria-describedby="span_error_startYear" />
 				<span id='span_error_startYear' class='error'></span>
 			
-				<label for='endYear'><b><?php echo _("End Year:");?></b></label>
+				<label for='endYear'><?php echo _("End Year:");?></label>
 				<input type='text' id='endYear' name='endYear' value="<?php echo $endYear; ?>" aria-describedby="span_error_endYear" />
 				<p id='span_error_endYear' class='error'></p>
 				
-				<label for='noteText'><b><?php echo _("Publisher Notes:");?></b></label>
+				<label for='noteText'><?php echo _("Publisher Notes:");?></label>
 				<textarea rows='4' id='noteText' name='noteText'><?php echo $publisherPlatformNote->noteText; ?></textarea>
 
 				<p class='actions'>
@@ -412,19 +382,19 @@ switch ($action) {
 		<h2 class='headerText'><?php echo $addUpdate;?></h2>
 		<p id='span_errors' error="error"></p>
 		
-		<label for='username'><b><?php echo _("Username:");?></b></label>
+		<label for='username'><?php echo _("Username:");?></label>
 		<input type='text' id='username' name='username' value="<?php if ($externalLoginID) echo $externalLogin->username; ?>" aria-describedby="span_error_loginID" />
 		<p id='span_error_loginID' class='error'></p>
 		
-		<label for='password'><b><?php echo _("Password:");?></b></label>
+		<label for='password'><?php echo _("Password:");?></label>
 		<input type='text' id='password' name='password' value="<?php if ($externalLoginID) echo $externalLogin->password; ?>" aria-describedby="span_error_password" />
 		<p id='span_error_password' class='error'></p>
 	
-		<label for='loginURL'><b><?php echo _("URL:");?></b></label>
+		<label for='loginURL'><?php echo _("URL:");?></label>
 		<input type='text' id='loginURL' name='loginURL' value="<?php if ($externalLoginID) echo $externalLogin->loginURL; ?>" aria-describedby="span_error_url" />
 		<p id='span_error_url' class='error'></p>
 		
-		<label for='noteText'><b><?php echo _("Login Notes:");?></b></label>
+		<label for='noteText'><?php echo _("Login Notes:");?></label>
 		<textarea rows='4' id='noteText' name='noteText'><?php if ($externalLoginID) echo $externalLogin->noteText; ?></textarea>
 	
 		<p class="actions">
@@ -467,18 +437,18 @@ switch ($action) {
 		
 		<div class="form-grid">
 
-		<label for='serviceURL'><b><?php echo _("Service/Endpoint URL:");?></b></label>
+		<label for='serviceURL'><?php echo _("Service/Endpoint URL:");?></label>
 		<input type='url' id='serviceURL' name='serviceURL' value="<?php if ($sushiServiceID) echo $sushiService->serviceURL; ?>" aria-describedby="span_error_serviceURL" />
-		<!-- TODO: i18n dash -->
-		<p class="form-text"> - <?php echo _("if using COUNTER's WSDL or Release 5");?></p>
+
+		<p class="form-text"><?php echo _(" - if using COUNTER's WSDL or Release 5");?></p>
 		<p id='span_error_serviceURL' class="error"></p>
 			
-		<label for='wsdlURL'><b> - <?php echo _("or - WSDL URL:");?></b></label>
+		<label for='wsdlURL'><?php echo _(" - or - WSDL URL:");?></label>
 		<input type='url' id='wsdlURL' name='wsdlURL' value="<?php if ($sushiServiceID) echo $sushiService->wsdlURL; ?>" />
-		<!-- TODO: i18n dash -->
-		<p class="form-text"> - <?php echo _("if not using COUNTER's WSDL (not applicable for Release 5)");?></p>
+
+		<p class="form-text"><?php echo _(" - if not using COUNTER's WSDL (not applicable for Release 5)");?></p>
 		
-		<label for='reportLayouts'><b><?php echo _("Report Type(s):");?></b></label>
+		<label for='reportLayouts'><?php echo _("Report Type(s):");?></label>
 		<div class="form-group">
 		<input type='text' id='reportLayouts' name='reportLayouts' value="<?php if ($sushiServiceID) echo $sushiService->reportLayouts; ?>" aria-describedby="span_error_reportLayouts" />
 		<p class="form-text"><?php echo _("separate report types with semi-colon, e.g. JR1;BR1");?></p>
@@ -486,38 +456,38 @@ switch ($action) {
 		
 		<p id='span_error_reportLayouts' class='error'></p>
 		
-		<label for='releaseNumber'><b><?php echo _("COUNTER Release:");?></b></label>
+		<label for='releaseNumber'><?php echo _("COUNTER Release:");?></label>
 		<select id='releaseNumber' name='releaseNumber'>
 			<option value='4' <?php if ($sushiService->releaseNumber == "4"){ echo "selected"; } ?>>4</option>
       <option value='5' <?php if ($sushiService->releaseNumber == "5"){ echo "selected"; } ?>>5</option>
 		</select>
 		
-		<label for='requestorID'><b><?php echo _("Requestor ID:");?></b></label>
+		<label for='requestorID'><?php echo _("Requestor ID:");?></label>
 		<input type='text' id='requestorID' name='requestorID' value="<?php if ($sushiServiceID) echo $sushiService->requestorID; ?>" />
 		
-		<label for='apiKey'><b><?php echo _("API Key:");?></b></label>
+		<label for='apiKey'><?php echo _("API Key:");?></label>
 		<div class="form-group">
 			<input type='text' id='apiKey' name='apiKey' value="<?php if ($sushiServiceID) echo $sushiService->apiKey; ?>" />
     	<p class="form-text"><?php echo _("for Release 5, some vendors use an API Key for authentication.");?></p>
 		</div>
 		
-		<label for='customerID'><b><?php echo _("Customer ID:");?></b></label>
+		<label for='customerID'><?php echo _("Customer ID:");?></label>
 		<input type='text' id='customerID' name='customerID' value="<?php if ($sushiServiceID) echo $sushiService->customerID; ?>" />
 		
-		<label for='platform'><b><?php echo _("Platform:");?></b></label>
+		<label for='platform'><?php echo _("Platform:");?></label>
 		<div class="form-group">
 			<input type='text' id='platform' name='platform' value="<?php if ($sushiServiceID) echo $sushiService->platform; ?>" />
 			<p class="error"><?php echo _("(optional)") . " " . _("only needed when required by vendor");?></p>
 		</div>
 		
-		<label for='security'><b><?php echo _("Security Type:");?></b></label>
+		<label for='security'><?php echo _("Security Type:");?></label>
 		<div class="form-group">
 			<input type='text' id='security' name='security' value="<?php if ($sushiServiceID) echo $sushiService->security; ?>" aria-describedby="span_error_security" />
 			<p class="form-text"><?php echo _("(optional)");?><br /><?php echo _("can be: HTTP Basic, WSSE Authentication");?></p>
 			<span id='span_error_security' class='error'></span>
 		</div>
 		
-		<label for='login'><b><?php echo _("Login:");?></b></label>
+		<label for='login'><?php echo _("Login:");?></label>
 		<div class="form-group">
 			<input type='text' id='login' name='login' value="<?php if ($sushiServiceID) echo $sushiService->login; ?>" aria-describedby="span_error_login" />
 			<!-- TODO: i18n placeholders -->
@@ -525,7 +495,7 @@ switch ($action) {
 			<p id='span_error_login' class='error'></p>
 		</div>
 		
-		<label for='password'><b><?php echo _("Password:");?></b></label>
+		<label for='password'><?php echo _("Password:");?></label>
 		<div class="form-group">
 			<input type='text' id='password' name='password' value="<?php if ($sushiServiceID) echo $sushiService->password; ?>" aria-describedby="span_error_password" />
 			<!-- TODO: i18n placeholders -->
@@ -533,7 +503,7 @@ switch ($action) {
 			<p id='span_error_password' class='error'></p>
 		</div>
 		
-		<label for='serviceDayOfMonth'><b><?php echo _("Service Day:");?></b></label>
+		<label for='serviceDayOfMonth'><?php echo _("Service Day:");?></label>
 		<div class="form-group">
 			<input type='text' id='serviceDayOfMonth' name='serviceDayOfMonth' value="<?php if ($sushiServiceID) echo $sushiService->serviceDayOfMonth; ?>" aria-describedby="span_error_serviceDay" />
 			<!-- TODO: i18n placeholders -->			
@@ -541,7 +511,7 @@ switch ($action) {
 			<p id='span_error_serviceDay' class='error'></p>
 		</div>
 		
-		<label for='noteText'><b><?php echo _("Sushi Notes:");?></b></label>
+		<label for='noteText'><?php echo _("Sushi Notes:");?></label>
 		<textarea rows='4' id='noteText' name='noteText'><?php if ($sushiServiceID) echo $sushiService->noteText; ?></textarea>
 	
 		<p class='actions'>
@@ -970,7 +940,7 @@ switch ($action) {
     <div id='div_updateForm' class="block-form">
       <input type='hidden' id='platformID' name='platformID' value='<?php echo $platformID; ?>'>
       
-			<label for='platformName'><b><?php echo _("Platform Name:");?></b></label>
+			<label for='platformName'><?php echo _("Platform Name:");?></label>
 			<input type='text' id='platformName' name='platformName' value="<?php echo $obj->name; ?>" />
       
 			<p class="actions">

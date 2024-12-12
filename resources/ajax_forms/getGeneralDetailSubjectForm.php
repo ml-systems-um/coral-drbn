@@ -123,15 +123,10 @@
 		</tr>
 		</table>
 
-
-		<hr style='width:283px;margin-top:15px; margin-bottom:10px;' />
-
-		<table class='noBorderTable' style='width:125px;'>
-			<tr>
-				<td style='text-align:left'><input type='button' value='<?php echo _("submit");?>' name='submitDetailSubjectForm' id ='submitDetailSubjectForm' class='submit-button'></td>
-				<td style='text-align:right'><input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button'></td>
-			</tr>
-		</table>
+			<p class="actions">
+				<input type='button' value='<?php echo _("submit");?>' onclick="submitDetailSubject()" name='submitDetailSubjectForm' id ='submitDetailSubjectForm' class='submit-button primary'>
+				<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button secondary'>
+			</p>
 
 		</form>
 		</div>

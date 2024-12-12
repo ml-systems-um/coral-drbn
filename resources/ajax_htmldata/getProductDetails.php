@@ -308,6 +308,13 @@
 		?>
 		<h2><?php echo _("Subjects");?></h2>
 			<table class='table-border table-striped'>
+			<thead>
+				<tr>
+				<th scope="col"><?php echo _("General Subject Name");?></th>
+				<th scope="col"><?php echo _("Detail Subject Name");?></th>
+				<th scope="col"><?php echo _("Actions");?></th>
+				</tr>
+				</thead>
 				<tbody>
 				<?php
 					$generalSubjectID = 0;
@@ -347,8 +354,8 @@
 									resourceID='<?php echo $resourceID; ?>'>
 
 									<img src='images/cross.gif'
-										alt='<?php echo _("remove subject");?>'
-										title='<?php echo _("remove subject");?>' /></a>
+										alt='<?php printf(_("remove %s"), $detailedSubject->shortName ? $detailedSubject->shortName : $generalSubject->shortName);?>'
+										title='<?php printf(_("remove %s"), $detailedSubject->shortName ? $detailedSubject->shortName : $generalSubject->shortName);?>' /></a>
 							<?php } ?>
 							</td>
 

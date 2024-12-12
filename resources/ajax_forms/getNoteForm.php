@@ -41,7 +41,7 @@
 					<p class='error' id='span_error_noteText'></p>
 
 					<p class="actions">
-						<input type='button' value='<?php echo _("submit");?>' name='submitResourceNoteForm' id ='submitResourceNoteForm' class='submit-button primary'>
+						<input type='submit' value='<?php echo _("submit");?>' name='submitResourceNoteForm' id ='submitResourceNoteForm' class='submit-button primary'>
 						<input type='button' value='<?php echo _("cancel");?>' onclick="myCloseDialog()" class='cancel-button secondary'>
 					</p>
 				</div>

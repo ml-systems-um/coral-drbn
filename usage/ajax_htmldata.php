@@ -870,10 +870,8 @@ switch ($action) {
 			echo "<h3>" . _("Current Outlier Parameters") . "</h3>";
 
 			foreach($outliers->allAsArray as $outlier) {
-				// TODO: i18n placeholders
-				echo _("Level ") . $outlier['outlierLevel'] . ": " . $outlier['overageCount'] . _(" over plus ") .  $outlier['overagePercent'] . _("% over - displayed ") . $outlier['color'];
-				echo "&nbsp;&nbsp;<a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getOutlierForm&height=162&width=308&outlierID=" . $outlier['outlierID'] . "&modal=true\",170,310)' class='thickbox'>" . _("edit") . "</a>";
-				echo "<br />";
+				printf(_("Level: %s %d over plus %d\% over - displayed %s"), $outlier['outlierLevel'], $outlier['overageCount'], $outlier['overagePercent'], $outlier['color']);
+				echo "<button type='button' onclick='myDialog(\"ajax_forms.php?action=getOutlierForm&height=162&width=308&outlierID=" . $outlier['outlierID'] . "&modal=true\",170,310)' class='thickbox btn btn-sm link'>" . _("edit") . "</button>";
 			}
 		}else{
 			echo _("Outliers are currently disabled in the configuration file.  Contact your technical support to enable them.");

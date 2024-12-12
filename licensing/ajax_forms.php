@@ -680,7 +680,7 @@ switch ($_GET['action']) {
 		</td>
 		</tr>
 <!--		<tr><td style='width:100%;'><br /><br /><button type="button" class="btn" onclick='myCloseDialog('');  window.parent.<?php if ($_GET['org'] == "compare") { echo "updateSearch()"; } else { echo "updateExpressions()"; } ?>; return false' class='cancel-button'><?php echo _("Close");?></button></td></tr> -->
-                <tr><td style='width:100%;'><br /><br /><button type="button" class="btn" onclick='myCloseDialog("");  window.parent.<?php if ($_GET['org'] == "compare") { echo "updateSearch()"; } else { echo "updateExpressions()"; } ?>; return false' class='cancel-button'><?php echo _("Close");?></button></td></tr>
+                <tr><td style='width:100%;'><br /><br /><button type="button" class="btn" onclick='myCloseDialog("");  window.parent.<?php if ($_GET['org'] == "compare") { echo "updateSearch()"; } else { echo "updateExpressions()"; } ?>; return false' class='cancel-button secondary'><?php echo _("Close");?></button></td></tr>
 
 		</table>
 		<input type="hidden" id='documentID' name='documentID' value='<?php echo $documentID; ?>'>
@@ -877,8 +877,8 @@ switch ($_GET['action']) {
 			}?>
 
 			<p class="actions">
-				<input type='submit' value='<?php echo $update; ?>' onclick='window.parent.submitUserData("<?php echo $loginID; ?>");myDialogPOST("");' class='submit-button'>
-				<input type='button' value="<?php echo _("Close");?>" onclick="myCloseDialog('')"; return false" id='update-user-cancel' class='cancel-button'>
+				<input type='submit' value='<?php echo $update; ?>' onclick='window.parent.submitUserData("<?php echo $loginID; ?>");myDialogPOST("");' class='submit-button primary'>
+				<input type='button' value="<?php echo _("Close");?>" onclick="myCloseDialog()" id='update-user-cancel' class='cancel-button secondary'>
 			</p>
 		</div>
 

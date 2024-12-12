@@ -624,7 +624,7 @@ ul.nav li button:is(:active, :hover, :focus, :focus-visible),
 
 table {
   border: none;
-  caption-side: block-end;
+  caption-side: block-start;
   border-collapse: collapse;
   font-variant-numeric: lining-nums tabular-nums;
   margin-block: 0.5rem 1.5rem;
@@ -1125,6 +1125,10 @@ input[type="submit"] {
   color: var(--text-light);
   font-weight: bold;
   padding: 0.5rem 0.8rem;
+}
+
+.actions input[type="submit"] + input[type="button"] {
+  margin-inline: 1rem;
 }
 
 button.primary:is(:active, :hover, :focus, :focus-visible),

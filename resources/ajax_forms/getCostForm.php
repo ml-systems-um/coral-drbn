@@ -42,7 +42,7 @@ foreach ($resourceAcquisition->getResourcePayments() as $instance)
 ?>
 
 		<div id='div_resourceForm'>
-		<form id='resourceForm'>
+		<form id='resourceForm' class="large">
 		<input type='hidden' name='editResourceID' id='editResourceID' value='<?php echo $resourceID; ?>'>
 		<input type='hidden' name='editResourceAcquisitionID' id='editResourceAcquisitionID' value='<?php echo $resourceAcquisitionID; ?>'>
 
