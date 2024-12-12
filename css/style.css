@@ -1560,8 +1560,10 @@ dd.archived {
   font-style: italic;
 }
 
-.dl-grid.dl-border > dt, 
-.dl-grid.dl-border > dd {
+.dl-grid.dl-border > dt,
+.dl-grid.dl-border > div > dt,
+.dl-grid.dl-border > dd,
+.dl-grid.dl-border > div > dd {
   border-block-end: 1px solid var(--table-border-inner);
   margin-block: 0;
   margin-inline: 0;
@@ -1569,7 +1571,8 @@ dd.archived {
   padding-inline: 0.5rem;
 }
 
-.dl-grid.dl-border > dt {
+.dl-grid.dl-border > dt,
+.dl-grid.dl-border > div dt {
   border-inline-end: 1px solid var(--table-border-inner);
 }
 
