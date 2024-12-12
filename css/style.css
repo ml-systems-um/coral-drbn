@@ -1785,9 +1785,26 @@ body .ui-widget :is(input, select, textarea, button) {
   font-size: inherit;
 }
 
+/* autosuggest */
+body .ac_results {
+  background-color: var(--brand-dark-bg);
+}
+
 body .ac_results li {
+  background-color: var(--brand-dark-bg);
+  color: var(--text-light);
   font-size: 1.2rem;
   line-height: 1.4;
+  padding: 0.25rem 0.5rem;
+}
+
+body .ac_results li.ac_over {
+  background-color: var(--brand-dark-bg-highlight);
+  color: var(--text-light);
+}
+
+body .ac_loading {
+  background: revert;
 }
 
 body .ui-widget-content a {

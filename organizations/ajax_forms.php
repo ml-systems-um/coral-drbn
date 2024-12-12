@@ -355,7 +355,7 @@ switch ($_GET['action']) {
 		<h2><?php if ($externalLoginID){ echo _("Edit Login"); } else { echo _("Add Login"); } ?></h2>
 		<p id='span_errors' class='error'></p>
 		
-		<div class="form-grid end">
+		<div class="form-grid">
 		<label for='externalLoginTypeID'><?php echo _("Login Type:");?></label>
 		<select name='externalLoginTypeID' id='externalLoginTypeID'>
 		<?php
@@ -691,7 +691,7 @@ switch ($_GET['action']) {
 		<h2 class="headerText"><?php if ($issueLogID){ echo _("Edit Issue"); } else { echo _("Add Issue"); } ?></h2>
 		<p id='span_errors' class='error'></p>
 		
-		<div class="form-grid end">
+		<div class="form-grid">
 
 		<label for='issueLogTypeID'><?php echo _("Type:");?></label>
 		<select name='issueLogTypeID' id='issueLogTypeID'>
