@@ -88,7 +88,7 @@
 									<?php } ?>
 							</span>
 					</p>
-					<dl class="dl-grid">
+					<dl class="dl-grid dl-border">
 						<?php if ($acquisitionType->shortName) { ?>
 							<dt><?php echo _('Acquisition Type:'); ?></dt>
 							<dd><?php echo $acquisitionType->shortName; ?></dd>
@@ -114,17 +114,13 @@
 				</dt>
 				<dd class="archived">
 				<i>
-
 				<?php
-					echo format_date($resource->archiveDate);
-					// TODO: i18n placeholders
 					if ($archiveUser->getDisplayName){
-						echo _(" by ") . $archiveUser->getDisplayName;
+						printf(_("%s by %s"), format_date($resource->createDate), $archiveUser->getDisplayName);
 					}else if ($resource->archiveLoginID){
-						echo _(" by ") . $resource->archiveLoginID;
+						printf(_("%s by %s"), format_date($resource->createDate), $resource->archiveLoginID);
 					}
 				?>
-
 				</i>
 				</dd>
 			<?php
@@ -136,17 +132,13 @@
 			</dt>
 			<dd>
 			<i>
-
 				<?php
-					echo format_date($resource->createDate);
-					// TODO: i18n placeholders
 					if ($createUser->getDisplayName){
-						echo _(" by ") . $createUser->getDisplayName;
+						printf(_("%s by %s"), format_date($resource->createDate), $createUser->getDisplayName);
 					}else if ($resource->createLoginID){
-						echo _(" by ") . $resource->createLoginID;
+						printf(_("%s by %s"), format_date($resource->createDate), $createUser->createLoginID);
 					}
 				?>
-
 			</i>
 			</dd>
 
@@ -230,12 +222,13 @@
 			?>
 			<dt><?php echo _("Aliases:");?></dt>
 			<dd>
-				<ul class='unstyled'>
+				<dl class="dl-grid">
 			<?php
 				foreach ($aliasArray as $resourceAlias){
-					echo "\n<li><b>" . $resourceAlias['aliasTypeShortName'] . ":</b> " . $resourceAlias['shortName'] . "</li>";
+					echo "\n<dt>" . $resourceAlias['aliasTypeShortName'] . ":</dt><dd>" . $resourceAlias['shortName'] . "</dd>";
 				}
 			?>
+				</dl>
 			</dd>
 			<?php
 			}
@@ -246,18 +239,18 @@
 
 			<dt><?php echo _("Organizations:");?></dt>
 			<dd>
-				<ul class='unstyled' id="relatedOrgs">
+				<dl class='dl-grid' id="relatedOrgs">
 				<?php
 				foreach ($orgArray as $organization){
 					//if organizations is installed provide a link
 					if ($config->settings->organizationsModule == 'Y'){
-						echo "<li><b>" . $organization['organizationRole'] . ":</b> <a href='" . $util->getOrganizationURL() . $organization['organizationID'] . "' target='_blank'>" . $organization['organization'] . "</a></li>";
+						echo "<dt>" . $organization['organizationRole'] . ":</dt><dd> <a href='" . $util->getOrganizationURL() . $organization['organizationID'] . "' target='_blank'>" . $organization['organization'] . "</a></dd>";
 					}else{
-						echo "<li><b>" . $organization['organizationRole'] . ":</b> " . $organization['organization'] . "</li>";
+						echo "<dt>" . $organization['organizationRole'] . ":</dt><dd> " . $organization['organization'] . "</dd>";
 					}
 				}
 				?>
-				</ul>
+				</dl>
 			</dd>
 
 			<?php

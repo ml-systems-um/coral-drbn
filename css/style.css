@@ -1540,6 +1540,11 @@ ul.inline li {
   grid-template-columns: subgrid;
 }
 
+.dl-grid.dl-border {
+  gap: 0;
+  border: 1px solid var(--table-border-outer);
+}
+
 dt:not(.header dt) {
   font-weight: 600;
 }
@@ -1553,6 +1558,19 @@ dt.archived,
 dd.archived {
   background-color: var(--table-stripe-bg);
   font-style: italic;
+}
+
+.dl-grid.dl-border > dt, 
+.dl-grid.dl-border > dd {
+  border-block-end: 1px solid var(--table-border-inner);
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0.25rem;
+  padding-inline: 0.5rem;
+}
+
+.dl-grid.dl-border > dt {
+  border-inline-end: 1px solid var(--table-border-inner);
 }
 
 blockquote {
