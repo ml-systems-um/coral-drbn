@@ -158,8 +158,8 @@ print media query
 
   --msg: light-dark(var(--blue-700), var(--blue-300));
   --msg-bg: light-dark(var(--blue-100), var(--blue-900));
-  --warning: light-dark(var(--yellow-100), var(--yellow-900));
-  --warning-bg: light-dark(var(--yellow-700), var(--yellow-300));
+  --warning: light-dark(var(--yellow-900), var(--yellow-900));
+  --warning-bg: light-dark(var(--yellow-400), var(--yellow-300));
   --error: light-dark(var(--red-100), var(--red-900));
   --error-bg: light-dark(var(--red-700), var(--red-300));
   --error-border: light-dark(var(--red-600), var(--red-500));
@@ -1358,6 +1358,21 @@ a {
 
 a:is(:active, :hover, :focus, :focus-visible, :visited) {
   color: var(--text-link-focus);
+}
+
+.warning a,
+.warning a:is(:active, :hover, :focus, :focus-visible, :visited) {
+  color: var(--blue-900);
+}
+
+.success a,
+.success a:is(:active, :hover, :focus, :focus-visible, :visited) {
+  color: light-dark(var(--yellow-200), var(--blue-950));
+}
+
+.error a,
+.error a:is(:active, :hover, :focus, :focus-visible, :visited) {
+  color: light-dark(var(--yellow-200), var(--stone-950));
 }
 
 a.light {
