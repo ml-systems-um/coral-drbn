@@ -119,7 +119,7 @@
 						foreach ($resourceLicenseStatusArray as $licenseStatus) { ?>
 							<tr> 
 								<th scope='row'><?php echo $licenseStatus['licenseStatus']; ?></th> 
-								<td><?php echo format_date($licenseStatus['licenseStatusChangeDate']); ?></td> 
+								<td class="date"><?php echo format_date($licenseStatus['licenseStatusChangeDate']); ?></td> 
 								<td><?php echo $licenseStatus['changeName']; ?></td> 
 							</tr>
 						<?php

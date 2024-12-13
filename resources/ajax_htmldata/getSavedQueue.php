@@ -15,9 +15,9 @@
 			<table class='dataTable table-border table-striped'>
 			<thead>
 			<tr>
-				<th scope="col"><?php echo _("ID");?></th>
+				<th scope="col" class="numeric"><?php echo _("ID");?></th>
 				<th scope="col"><?php echo _("Name");?></th>
-				<th scope="col"><?php echo _("Date Created");?></th>
+				<th scope="col" class="date"><?php echo _("Date Created");?></th>
 				<th scope="col"><?php echo _("Status");?></th>
 				<th scope="col"><?php echo _("Actions");?></th>
 			</tr>
@@ -30,13 +30,13 @@
 		?>
 				<tr id='tr_<?php echo $resource['resourceID']; ?>'>
 					<!-- <td><a href='ajax_forms.php?action=getNewResourceForm&height=483&width=775&resourceID=<?php echo $resource['resourceID']; ?>&modal=true' class='thickbox'><?php echo $resource['resourceID']; ?></a></td> -->
-				 	<td><a href='javascript:void(0);' onclick='javascript:myDialog("ajax_forms.php?action=getNewResourceForm&resourceID=<?php echo $resource['resourceID']; ?>", 1000,1000)' class='thickbox'><?php echo $resource['resourceID']; ?></a></td>	
+				 	<td class="numeric"><a href='javascript:void(0);' onclick='javascript:myDialog("ajax_forms.php?action=getNewResourceForm&resourceID=<?php echo $resource['resourceID']; ?>", 1000,1000)' class='thickbox'><?php echo $resource['resourceID']; ?></a></td>	
 
 <!--					<td><a href='ajax_forms.php?action=getNewResourceForm&height=483&width=775&resourceID=<?php echo $resource['resourceID']; ?>&modal=true' class='thickbox'><?php echo $resource['titleText']; ?></a></td> -->
 
 
   				<th scope="row"><a href='javascript:void(0);'  onclick='javascript:myDialog("ajax_forms.php?action=getNewResourceForm&resourceID=<?php echo $resource['resourceID']; ?>", 1000,1000)' class='thickbox'><?php echo $resource['titleText']; ?></a></th>
-					<td><?php echo format_date($resource['createDate']); ?></td>
+					<td class="date"><?php echo format_date($resource['createDate']); ?></td>
 					<td><?php echo $status->shortName; ?></td>
 					<td class="actions">
 					<a  href='javascript:void(0);' onclick='javascript:myDialog("ajax_forms.php?action=getNewResourceForm&resourceID=<?php echo $resource['resourceID']; ?>", 1000,1000)' class='thickbox'><img src='images/edit.gif' alt='<?php echo _("edit");?>' title='<?php echo _("edit request");?>'></a>&nbsp;
