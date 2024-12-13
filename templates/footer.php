@@ -22,9 +22,11 @@
 ?>
 
 <footer class="footer">
-  <?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2024.??<br/>
-  <a href="http://coral-erm.org/" <?php echo getTarget(); ?> class="site-title-link logo"><?php echo _('CORAL eRM project website'); ?></a>
-  <a href="https://github.com/coral-erm/coral/issues" <?php echo getTarget(); ?> id="report-issue"><?php echo _("Report an Issue");?></a>
+  <p><?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2024.??</p>
+  <p>
+    <a href="http://coral-erm.org/" <?php echo getTarget(); ?> class="site-title-link logo"><?php echo _('CORAL eRM project website'); ?></a>
+    <a href="https://github.com/coral-erm/coral/issues" <?php echo getTarget(); ?> id="report-issue"><?php echo _("Report an Issue");?></a>
+  </p>
 </footer>
 
 <script>

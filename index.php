@@ -120,17 +120,16 @@
 	</main>
 
 	<footer class="footer">
-		<?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2024.??<br/>
-		<a href="http://coral-erm.org/">
-			<img src="images/coral-erm.svg" role="img" class="logo logo-dark" alt="CORAL eRM project website"/> 
-			<img src="images/coral-erm-light.svg" role="img" class="logo logo-light" alt="CORAL eRM project website"/>
-		</a>
-		<a href="https://github.com/coral-erm/coral/issues" id="report-issue"><?php echo _("Report an Issue");?></a>
+		<p><?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2024.??</p>
+		<p>
+			<a href="http://coral-erm.org/" class="site-title-link logo"><?php echo _('CORAL eRM project website'); ?></a>
+			<a href="https://github.com/coral-erm/coral/issues" id="report-issue"><?php echo _("Report an Issue");?></a>
+		</p>	
 	</footer>
 
 	<script>
 		const CORAL_ILS_LINK=<?php echo $config->ils->ilsConnector ? 1 : 0; ?>;
-		Date.format = '<?php echo return_datepicker_date_format(); ?>';
+		Date.format = '<?php if (function_exists('return_datepicker_date_format')) echo return_datepicker_date_format(); else echo "mm/dd/yyyy"; ?>';
 	</script>
 </body>
 </html>
