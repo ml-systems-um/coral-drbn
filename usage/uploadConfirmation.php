@@ -283,7 +283,7 @@ include 'templates/header.php';
 				  <input type="hidden" name="<?php echo $key; ?>" value="<?php echo $value; ?>">
         <?php endforeach; ?>
         <p class="actions">
-          <input type="button" name="submitForm" id="submitForm" value="<?php echo _('Confirm');?>" onclick="updateSubmit();" class="submit-button primary" />
+          <input type="submit" name="submitForm" id="submitForm" value="<?php echo _('Confirm');?>" onclick="updateSubmit();" class="submit-button primary" />
           <input type="button" value="<?php echo _('Cancel');?>" onClick="history.back();" class='cancel-button secondary'>
         </p>
 			</form>
