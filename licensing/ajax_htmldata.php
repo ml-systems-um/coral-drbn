@@ -61,7 +61,7 @@ switch ($_GET['action']) {
 		if ($config->settings->organizationsModule == 'Y'){
 			$util = new Utility();
 
-			echo '<div class="header"><h3>' . $license->getOrganizationName() . "</h3>  <a href='" . $util->getOrganizationURL() . $license->organizationID . "' target='_blank' class='addElement'><img src='images/edit.gif' alt='"._("edit organization")."'></a></div>";
+			echo '<div class="header"><h3>' . $license->getOrganizationName() . "</h3>  <a href='" . $util->getOrganizationURL() . $license->organizationID . getTarget()  . " class='addElement'><img src='images/edit.gif' alt='"._("edit organization")."'></a></div>";
 
 			if ($license->consortiumID) {
 				echo "<p>" . $license->getConsortiumName() . "</p>";
@@ -1637,7 +1637,7 @@ switch ($_GET['action']) {
 				<ul class="unstyled">
 				<?php
 				foreach ($resourceArray as $resource){
-					echo "<li><a href='" . $util->getResourceURL() . $resource['resourceID'] . "' target='_blank' class='helpfulLink'>" . $resource['resource'] . "</a></li>";
+					echo "<li><a href='" . $util->getResourceURL() . $resource['resourceID'] . getTarget()  . " class='helpfulLink'>" . $resource['resource'] . "</a></li>";
 				}
 
 				?>

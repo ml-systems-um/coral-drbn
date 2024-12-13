@@ -39,7 +39,7 @@
 		$licenseArray = $resourceAcquisition->getLicenseArray();
 
 		echo "<div>";
-		echo "<div class='rightPanelLink'><a href='summary.php?resourceID=" . $resource->resourceID . "&resourceAcquisitionID=" . $resourceAcquisitionID . "' target='_blank' class='helpfulLink'>"._("Print View")."</a></div>";
+		echo "<div class='rightPanelLink'><a href='summary.php?resourceID=" . $resource->resourceID . "&resourceAcquisitionID=" . $resourceAcquisitionID . getTarget()  . " class='helpfulLink'>"._("Print View")."</a></div>";
 		if (($resource->systemNumber) && ($config->settings->catalogURL != '')) {
 			echo "<div class='rightPanelLink'><a href='" . $config->settings->catalogURL . $resource->systemNumber . "' target='_blank'>"._("Catalog View")."</a></div>";
 		}
@@ -86,7 +86,7 @@
 
 				<?php
 				foreach ($orgArray as $organization){
-					echo "<div class='rightPanelLink'><a href='" . $util->getOrganizationURL() . $organization['organizationID'] . "' target='_blank' class='helpfulLink'>" . $organization['organization'] . "</a></div>";
+					echo "<div class='rightPanelLink'><a href='" . $util->getOrganizationURL() . $organization['organizationID'] . getTarget()  . " class='helpfulLink'>" . $organization['organization'] . "</a></div>";
 				}
 
 				?>
@@ -102,7 +102,7 @@
 
 				<?php
 				foreach ($licenseArray as $license){
-					echo "<div class='rightPanelLink'><a href='" . $util->getLicensingURL() . $license['licenseID'] . "' target='_blank' class='helpfulLink'>" . $license['license'] . "</a></div>";
+					echo "<div class='rightPanelLink'><a href='" . $util->getLicensingURL() . $license['licenseID'] . getTarget()  . " class='helpfulLink'>" . $license['license'] . "</a></div>";
 				}
 
 				?>

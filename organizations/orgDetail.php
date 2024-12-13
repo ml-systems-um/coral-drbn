@@ -141,7 +141,7 @@ if ($config->settings->resourcesIssues == "Y") {
 					</div>
 
         	<h3 id="side-menu-title"><?php echo _("Helpful Links"); ?></h3>
-            <div class='rightPanelLink'><a href='summary.php?organizationID=<?php echo $organizationID; ?>' target='_blank' class='helpfulLink'><?php echo _("Print View");?></a></div>
+            <div class='rightPanelLink'><a href='summary.php?organizationID=<?php echo $organizationID; ?>' <?php echo getTarget(); ?> class='helpfulLink'><?php echo _("Print View");?></a></div>
 
             <?php
             //get all possible roles, sort by name, get associated resources

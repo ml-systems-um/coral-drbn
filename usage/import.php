@@ -77,7 +77,7 @@ include 'templates/header.php';
         <li><?php echo _("Save file as .txt files in tab delimited format");?></li>
         <li><?php echo _("File may not be larger than 5MB");?></li>
         <li><?php echo _("Ensure column headers conform to Counter's standards for the report type");?></li>
-        <li><?php echo _("More info: ");?><a href="http://www.projectcounter.org/code_practice.html" target="_blank">http://www.projectcounter.org/code_practice.html</a></li>
+        <li><?php echo _("More info: ");?><a href="http://www.projectcounter.org/code_practice.html" <?php echo getTarget(); ?>>http://www.projectcounter.org/code_practice.html</a></li>
       </ul>
       <p>      
         <input type="submit" name="submitFile" id="submitFile" value="<?php echo _('Upload');?>" />

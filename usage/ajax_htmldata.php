@@ -572,7 +572,7 @@ switch ($action) {
         });
         echo "<table class='verticalFormTable'>";
         echo "<tr>";
-        echo "<th colspan='2'><a target='_blank' href='spreadsheet.php?publisherPlatformID=" .  $publisherPlatformID . "&platformID=" . $platformID . "&year=" . $year . "&layoutID=" . $layoutID . "' style='font-size:110%;'>" . _("View Stats") . "</a></td>";
+        echo "<th colspan='2'><a ". getTarget() ." href='spreadsheet.php?publisherPlatformID=" .  $publisherPlatformID . "&platformID=" . $platformID . "&year=" . $year . "&layoutID=" . $layoutID . "' style='font-size:110%;'>" . _("View Stats") . "</a></td>";
         echo "</tr>";
         foreach($months as $month) {
 					// TODO: i18n placeholders
