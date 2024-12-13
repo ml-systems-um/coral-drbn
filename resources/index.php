@@ -358,8 +358,8 @@ include 'templates/header.php';
 			<?php echo (new Html())->text_search_field_tag('resourceNote', isset($search['resourceNote']) ? $search['resourceNote'] : ''); ?>
 		</p>
 
-		<p class='searchRow'>
-			<h3 class="label date-input-label"><?php echo _("Date Created Between");?></h3>
+		<fieldset class='searchRow'>
+			<legend class="label date-input-label"><?php echo _("Date Created Between");?></legend>
 			<div class="flex">
 				<div class="date-input-range">
 					<?php echo (new Html())->text_search_field_tag('createDateStart', isset($search['createDateStart']) ? $search['createDateStart'] : '', array('class' => 'date-pick')); ?>
@@ -370,7 +370,7 @@ include 'templates/header.php';
 					<label for="searchCreateDateEnd"><?php echo _('End'); ?></label>
 				</div>
 			</div>
-	</p>
+	</fieldset>
 		
 		<p class='searchRow'>
 			<label for='searchPurchaseSiteID'><?php echo _("Purchase Site");?></label>
