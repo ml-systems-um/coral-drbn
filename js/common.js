@@ -15,9 +15,11 @@
 **************************************************************************************************************************
 */
 
-$("#lang").change(function() {
-  setLanguage($("#lang").val());
-  location.reload();
+$(document).ready(function() {
+  $("#lang").change(function() {
+    setLanguage($("#lang").val());
+    location.reload();
+  });
 });
 
 function setLanguage(lang) {
