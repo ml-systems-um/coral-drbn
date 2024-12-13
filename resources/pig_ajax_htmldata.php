@@ -310,7 +310,9 @@ switch ($_GET['action']) {
 
 
     default:
-       echo "Action " . $action . " not set up!";
+        if (empty($action))
+            return;
+       printf(_("Action %s not set up!"), $action);
        break;
 
 

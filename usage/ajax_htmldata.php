@@ -1570,8 +1570,10 @@ switch ($action) {
 
 
 	default:
-       echo _("Function ") . $_REQUEST['function'] . _(" not set up!");
-       break;
+		if (empty($_REQUEST['function']))
+			return;
+		printf(_("Function %s not set up!"), $_REQUEST['function']);
+		break;
 
 
 }

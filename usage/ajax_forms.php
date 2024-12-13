@@ -965,8 +965,10 @@ switch ($action) {
 
 
 	default:
-       printf(_("Function %s not set up!"), $_REQUEST['function']);
-       break;
+		if (empty($_REQUEST['function']))
+			return;
+		printf(_("Function %s not set up!"), $_REQUEST['function']);
+		break;
 
 
 }

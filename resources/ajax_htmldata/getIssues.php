@@ -46,14 +46,14 @@
 
 	<table id="downTimeTable" class='linedFormTable issueTabTable'>
 			<td>
-				<a href='javascript:void(0);' onclick='javascript:myDialog("ajax_htmldata.php?<?php echo $getDowntimeFormData; ?>",500,500)' class="downtimeBtn" id="openDowntimeBtn"><?php echo _("view current/upcoming downtime");?></a>
+				<button type="button" onclick='myDialog("ajax_htmldata.php?<?php echo $getDowntimeFormData; ?>",500,500)' class="downtimeBtn btn link" id="openDowntimeBtn"><?php echo _("view current/upcoming downtime");?></button>
 				<a <?php echo getTarget(); ?> href="<?php echo $exportDowntimesUrl;?>"><img src="images/xls.gif" alt="<?php echo _('Export'); ?>" /></a>
 				<div class="downtimeList" id="currentDowntime" style="display:none;"></div>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href='javascript:void(0);' onclick='javascript:myDialog("ajax_htmldata.php?archived=1&<?php echo $getDowntimeFormData; ?>",500,500)' class="downtimeBtn" id="archiveddowntimeBtn"><?php echo _("view archived downtime");?></a>
+				<button type="button" onclick='myDialog("ajax_htmldata.php?archived=1&<?php echo $getDowntimeFormData; ?>",500,500)' class="downtimeBtn btn link" id="archiveddowntimeBtn"><?php echo _("view archived downtime");?></button>
 				<a <?php echo getTarget(); ?> href="<?php echo $exportDowntimesUrl;?>&archived=1"><img src="images/xls.gif" alt="<?php echo _('Export'); ?>" /></a>
 				<div class="downtimeList" id="archivedDowntime"></div>
 			</td>

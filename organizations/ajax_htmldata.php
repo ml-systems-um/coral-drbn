@@ -658,7 +658,7 @@ switch ($_GET['action']) {
 				</p>
 				<div class="header">
 					<h3><?php echo _("Downtime");?></h3>
-					<a id="createDowntimeBtn addElement" class="thickbox" href="javascript:void(0)" onclick='myDialog("ajax_forms.php?action=getNewDowntimeForm&organizationID=<?php echo $_GET['organizationID']; ?>&height=264&width=390&modal=true",300,390)'><?php echo _("report new Downtime");?></a>
+					<a id="createDowntimeBtn addElement" class="thickbox" href="javascript:return false;" onclick='myDialog("ajax_forms.php?action=getNewDowntimeForm&organizationID=<?php echo $_GET['organizationID']; ?>&height=264&width=390&modal=true",300,390)'><?php echo _("report new Downtime");?></a>
 				</div>
 				<p>
 					<a href="<?php echo $getDowntimeFormData; ?>" class="downtimeBtn" id="openDowntimeBtn"><?php echo _("view current/upcoming downtime");?></a>
@@ -1017,8 +1017,10 @@ switch ($_GET['action']) {
 
 
 	default:
-       printf(_("Action %s not set up!"), $action);
-       break;
+			if (empty($action))
+        return;
+      printf(_("Action %s not set up!"), $action);
+      break;
 
 
 }

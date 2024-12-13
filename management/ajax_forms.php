@@ -1210,6 +1210,8 @@ switch ($_GET['action']) {
 
 
 	default:
+			if (empty($action))
+        	return;
        printf(_("Action %s not set up!"), $action);
        break;
 

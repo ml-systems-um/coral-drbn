@@ -925,8 +925,10 @@ switch ($_GET['action']) {
 
 
 	default:
-       printf(_("Action %s not set up!"), $action);
-       break;
+			if (empty($action))
+        return;
+      printf(_("Action %s not set up!"), $action);
+      break;
 
 
 }
