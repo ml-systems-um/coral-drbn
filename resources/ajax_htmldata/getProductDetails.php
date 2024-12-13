@@ -88,7 +88,7 @@
 									<?php } ?>
 							</span>
 					</p>
-					<dl class="dl-grid dl-border">
+					<dl class="dl-grid dl-compact">
 						<?php if ($acquisitionType->shortName) { ?>
 							<dt><?php echo _('Acquisition Type:'); ?></dt>
 							<dd><?php echo $acquisitionType->shortName; ?></dd>
@@ -112,8 +112,7 @@
 				<dt class="archived">
 				<?php echo _("Archived:");?>
 				</dt>
-				<dd class="archived">
-				<i>
+				<dd class="archived byline">
 				<?php
 					if ($archiveUser->getDisplayName){
 						printf(_("%s by %s"), format_date($resource->createDate), $archiveUser->getDisplayName);
@@ -121,7 +120,6 @@
 						printf(_("%s by %s"), format_date($resource->createDate), $resource->archiveLoginID);
 					}
 				?>
-				</i>
 				</dd>
 			<?php
 			}
@@ -130,8 +128,7 @@
 			<dt>
 			<?php echo _("Created:");?>
 			</dt>
-			<dd>
-			<i>
+			<dd class="byline">
 				<?php
 					if ($createUser->getDisplayName){
 						printf(_("%s by %s"), format_date($resource->createDate), $createUser->getDisplayName);
@@ -139,7 +136,6 @@
 						printf(_("%s by %s"), format_date($resource->createDate), $createUser->createLoginID);
 					}
 				?>
-			</i>
 			</dd>
 
 			<?php
@@ -149,8 +145,7 @@
 				<dt>
 				<?php echo _("Last Update:");?>
 				</dt>
-				<dd>
-				<i>
+				<dd class="byline">
 				<?php
 					if ($updateUser->getDisplayName){
 						printf(_("%s by %s"), format_date($resource->updateDate), $updateUser->getDisplayName);
@@ -158,7 +153,6 @@
 						printf(_("%s by %s"), format_date($resource->updateDate), $resource->updateLoginID);
 					}
 				?>
-				</i>
 				</dd>
 
 			<?php
@@ -413,33 +407,32 @@
 
 		if (is_array($noteArray) && count($noteArray) > 0) {
 		?>
-		<div class="header">
-			<h2><?php echo _("Additional Notes");?></h2>
-			<?php if ($user->canEdit()){ ?>
-				<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Product&entityID=<?php echo $resourceID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",250,500)' class='thickbox addElement'><img id='Add' src='images/plus.gif' title= '<?php echo _("Add"); ?>' /></a>
-			<?php } ?>
-		</div>
-
-		<dl class="dl-grid">
+		<h2><?php echo _("Additional Notes");?></h2>
+			
+		<ol class="unstyled">
 				<?php foreach ($noteArray as $resourceNote){ ?>
 					
-					<dt><?php echo $resourceNote['noteTypeName']; ?>
-						<?php if ($user->canEdit()){ ?>
-						<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Product&entityID=<?php echo $resourceID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",250,500)' class='thickbox'><img  src='images/edit.gif' alt='<?php echo _("edit");?>' title='<?php echo _("edit note");?>'></a>
-						<a href='javascript:void(0);' class='removeNote' id='<?php echo $resourceNote['resourceNoteID']; ?>' tab='Product'><img src='images/cross.gif' alt='<?php echo _("remove note");?>' title='<?php echo _("remove note");?>'></a>
-						<?php } ?>
-					</dt>
-					<dd><?php echo nl2br($resourceNote['noteText']); ?><br /><i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></dd>
+					<li>
+						<h3><?php echo $resourceNote['noteTypeName']; ?></h3>
+						<div class="note-text">
+							<?php echo nl2br($resourceNote['noteText']); ?>
+						</div>
+						<p class="byline">
+							<?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?>
+							<?php if ($user->canEdit()){ ?>
+								<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Product&entityID=<?php echo $resourceID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",250,500)' class='thickbox'><img  src='images/edit.gif' alt='<?php echo _("edit");?>' title='<?php echo _("edit note");?>'></a>
+								<a href='javascript:void(0);' class='removeNote' id='<?php echo $resourceNote['resourceNoteID']; ?>' tab='Product'><img src='images/cross.gif' alt='<?php echo _("remove note");?>' title='<?php echo _("remove note");?>'></a>
+							<?php } ?>
+						</p>
 				<?php } ?>
-		</dl>
+		</ol>
 		<?php
-		}else{
-			if ($user->canEdit()){
-			?>
-				<p><a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Product&entityID=<?php echo $resourceID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",250,500)' class='thickbox'><?php echo _("add note");?></a></p>
-
-			<?php
-			}
+		}
+		
+		if ($user->canEdit()){
+		?>
+			<p><a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getNoteForm&tab=Product&entityID=<?php echo $resourceID; ?>&resourceNoteID=<?php echo $resourceNote['resourceNoteID']; ?>",250,500)' class='thickbox'><?php echo _("add note");?></a></p>
+		<?php
 		}
 
 ?>

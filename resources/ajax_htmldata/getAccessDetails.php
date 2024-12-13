@@ -161,7 +161,7 @@
 						<th><?php echo $resourceNote['noteTypeName']; ?></th>
 						<td>
 							<?php echo nl2br($resourceNote['noteText']); ?>
-							<p><i><?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?></i></p>
+							<p class="byline"><?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?></p>
 						</td>
 						<td class="actions">
 								<?php if ($user->canEdit()){?>

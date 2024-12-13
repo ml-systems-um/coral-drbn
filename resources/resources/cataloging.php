@@ -217,7 +217,7 @@ if (is_array($noteArray) && count($noteArray) > 0) {
 			<?php } ?>
 		</dt>
 		<dd><?php echo nl2br($resourceNote['noteText']); ?>
-			<p class="small"><i><?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?></i>
+			<p class="byline"><?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?></p>
 		</dd>
 		
 	<?php } ?>
