@@ -1095,6 +1095,7 @@ button.link,
 button.link,
 .btn.link {
   color: var(--text-link);
+  padding-inline: 0.5rem;
   text-decoration: underline;
 }
 

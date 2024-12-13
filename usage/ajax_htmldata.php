@@ -1008,7 +1008,7 @@ switch ($action) {
 		echo "<input type='checkbox' id='chk_Platform_" . $platform->platformID  . "' onclick='updatePlatformDropDown(" . $platform->platformID  . ");' $reportDropDownInd>";
 		echo "<label for='chk_Platform_" . $platform->platformID  . "'>" . $platform->name . "</label>";
 
-		if ($platform->reportDisplayName)  echo " (<i>" . $platform->reportDisplayName . "</i>)";
+		if ($platform->reportDisplayName)  echo " (<i>" . $platform->reportDisplayName . "</i>) ";
 		echo "<button type='button' class='link' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=Platform&updateID=" . $platform->platformID . "&modal=true\",130,250)' class='thickbox'>" . _("edit report display name") . "</button>";
 
 
@@ -1038,8 +1038,8 @@ switch ($action) {
 
 
 		echo "<td>" . $publisher->name;
-		if ($publisherPlatform->reportDisplayName)  echo " (<i>" . $publisherPlatform->reportDisplayName . "</i>)";
-		echo "<button type='button' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=Publisher&updateID=" . $publisherPlatform->publisherPlatformID . "&modal=true\",125,250)' class='thickbox link'>" . _("edit report display name") . "</button>";
+		if ($publisherPlatform->reportDisplayName)  echo " (<i>" . $publisherPlatform->reportDisplayName . "</i>) ";
+		echo "<button type='button' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=Publisher&updateID=" . $publisherPlatform->publisherPlatformID . "&modal=true\",125,250)' class='thickbox btn link'>" . _("edit report display name") . "</button>";
 		echo "</td></tr></tbody></table>";
 
 

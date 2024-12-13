@@ -30,8 +30,8 @@ if (is_array($platformArray) && count($platformArray) > 0) {
 		echo "<div id = 'div_platform_" . $platform->platformID . "'>";
 		echo "<input type='checkbox' id='chk_platform_" . $platform->platformID  . "' onclick='javascript:updatePlatformDropDown(" . $platform->platformID  . ");' $reportDropDownInd>";
 		echo "<label for='chk_platform_" . $platform->platformID  . "'>" . $platform->name . "</label>";
-		if ($platform->reportDisplayName)  echo " (<i>" . $platform->reportDisplayName . "</i>)";
-		echo "<button type='button' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=platform&updateID=" . $platform->platformID . "&modal=true\",125,250)' class='thickbox link'>" . _("edit report display name") . "</button>";
+		if ($platform->reportDisplayName)  echo " (<i>" . $platform->reportDisplayName . "</i>) ";
+		echo "<button type='button' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=platform&updateID=" . $platform->platformID . "&modal=true\",125,250)' class='thickbox btn link'>" . _("edit report display name") . "</button>";
 		echo "</div>";
 		echo "<p class='error' id='span_platform_" . $platform->platformID . "_response'></p>";
 
@@ -55,9 +55,9 @@ if (is_array($platformArray) && count($platformArray) > 0) {
 			echo "<td><input type='checkbox' id='chk_publisher_" . $publisherPlatform->publisherPlatformID  . "' onclick='javascript:updatePublisherDropDown(" . $publisherPlatform->publisherPlatformID  . ");' $reportDropDownInd></td>";
 			echo "<td><label for=id='chk_publisher_" . $publisherPlatform->publisherPlatformID  . "'>" . $publisher->name . '</label>';
 			if ($publisherPlatform->reportDisplayName)  
-				echo " (<i>" . $publisherPlatform->reportDisplayName . "</i>)";
+				echo " (<i>" . $publisherPlatform->reportDisplayName . "</i>) ";
 			echo "</td>";
-			echo "<td class='actions'><button type='button' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=publisher&updateID=" . $publisherPlatform->publisherPlatformID . "&modal=true\",125,250)' class='thickbox link'>" . _("edit report display name") . "</button>";
+			echo "<td class='actions'><button type='button' onclick='myDialog(\"ajax_forms.php?action=getReportDisplayForm&height=122&width=248&type=publisher&updateID=" . $publisherPlatform->publisherPlatformID . "&modal=true\",125,250)' class='thickbox btn link'>" . _("edit report display name") . "</button>";
 			echo "</td></tr>";
 			echo "<tr><td rowspan='3' id='span_publisher_" . $publisherPlatform->publisherPlatformID . "_response' class='error'></td></tr>";
 		}
