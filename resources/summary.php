@@ -188,118 +188,103 @@ if ($resource->titleText){
 	?>
 <main id="main-content">
 	<article class='printContent'>
-	<table class='table-border'>
-		<tr>
-		<th colspan='2' style='margin-top: 7px; margin-bottom: 5px;'>
-		<span style='float:left; vertical-align:top; margin-left:3px;'><span style='font-weight:bold;font-size:120%;margin-right:8px;'><?php echo $resource->titleText; ?></span><span style='font-weight:normal;font-size:100%;'><?php echo $resourceFormat->shortName . " " . $resourceType->shortName; ?></span></span>
-		</th>
-		</tr>
+	
+		<h2><?php echo $resource->titleText; ?></h2>
 
-		<tr>
-		<td><?php echo _("Record ID:");?></td>
-		<td style='width:335px;'><?php echo $resource->resourceID; ?></td>
-		</tr>
+	<dl class="dl-grid dl-compact">
+		<dt><?php echo _('Resource Type:'); ?></dt>
+		<dd><?php echo $resourceFormat->shortName?></dd>
 
+		<dt><?php echo _('Resource Format:'); ?></dt>
+		<dd><?php echo $resourceType->shortName?></dd>
 
-		<tr>
-		<td><?php echo _("Status:");?></td>
-		<td style='width:335px;'><?php echo $status->shortName; ?></td>
-		</tr>
+		<dt><?php echo _("Record ID:");?></dt>
+		<dd><?php echo $resource->resourceID; ?></dd>
 
-		<tr>
-		<td>
-		<?php echo _("Created:");?>
-		</td>
-		<td>
-		<i>
-		<?php
-			echo format_date($resource->createDate);
-			//since resources could be created by other modules the user may or may not be set and may or may not have a user entry in this db
-			if ($createUser->primaryKey){
-				echo _(" by ");
-				if ($createUser->firstName){
-					echo $createUser->firstName . " " . $createUser->lastName;
-				}else{
-					echo $createUser->primaryKey;
-				}
-			}
-		?>
-		</i>
-		</td>
-		</tr>
+		<dt><?php echo _("Status:");?></dt>
+		<dd><?php echo $status->shortName; ?></dd>
+
+		<dt><?php echo _("Created:");?></dt>
+		<dd class="byline">
+				<?php
+					$created_by = '';
+					//since resources could be updated by other modules the user may or may not be set and may or may not have a user entry in this db
+					if ($createUser->primaryKey){
+						if ($createUser->firstName){
+							$created_by = $createUser->firstName . " " . $createUser->lastName;
+						}else{
+							$created_by = $createUser->primaryKey;
+						}
+					}
+					printf(_('%s by %s'), format_date($resource->createDate), $created_by);
+				?>
+		</dd>
 
 		<?php
 		if (!is_null_date($resource->updateDate)){
 		?>
-
-			<tr>
-			<td>
-			<?php echo _("Last Update:");?>
-			</td>
-			<td>
-			<i>
-			<?php
-				echo format_date($resource->updateDate);
-				//since resources could be updated by other modules the user may or may not be set and may or may not have a user entry in this db
-				if ($updateUser->primaryKey){
-					echo _(" by ");
-					if ($updateUser->firstName){
-						echo $updateUser->firstName . " " . $updateUser->lastName;
-					}else{
-						echo $updateUser->primaryKey;
+			<dt><?php echo _("Last Update:");?></dt>
+			<dd class="byline">
+				<?php
+					$last_updated_by = '';
+					//since resources could be updated by other modules the user may or may not be set and may or may not have a user entry in this db
+					if ($updateUser->primaryKey){
+						if ($updateUser->firstName){
+							$last_updated_by = $updateUser->firstName . " " . $updateUser->lastName;
+						}else{
+							$last_updated_by = $updateUser->primaryKey;
+						}
 					}
-				}
-			?>
-			</i>
-			</td>
-			</tr>
+					printf(_('%s by %s'), format_date($resource->updateDate), $last_updated_by);
+				?>
+			</dd>
 
 		<?php
 		}
 
 		if ((count($parentResourceArray) > 0) || (count($childResourceArray) > 0)){ ?>
-			<tr>
-			<td><?php echo _("Related Products:");?></td>
-			<td>
+			<dt><?php echo _("Related Products:");?></dt>
+			<dd>
+			<ul class="unstyled">
 			<?php
 
       foreach ($parentResourceArray as $parentResource){
 				$parentResourceObj = new Resource(new NamedArguments(array('primaryKey' => $parentResource['relatedResourceID'])));
-				echo $parentResourceObj->titleText . "&nbsp;&nbsp;"._("(Parent)")."<br/>";
+				echo "<li>" . sprintf(_('% (parent)'), $parentResourceObj->titleText) . "</li>";
 			}
 
 			foreach ($childResourceArray as $childResource){
 				$childResourceObj = new Resource(new NamedArguments(array('primaryKey' => $childResource['resourceID'])));
-				echo "<span style='float: left;'>" . $childResourceObj->titleText . "&nbsp;&nbsp;(child)</span>";
+				echo "<li>" . sprintf(_('% (child)'), $childResourceObj->titleText) . "</li>";
 			}
 
 
 			?>
-			</td>
-			</tr>
+			</ul>
+			</dd>
 		<?php }
 
 		if ($resource->isbnOrISSN){
 		?>
-		<tr>
-		<td><?php echo _("ISSN / ISBN:");?></td>
-		<td style='width:335px;'><?php echo $resource->isbnOrISSN; ?></td>
-		</tr>
+		<dt><?php echo _("ISSN / ISBN:");?></dt>
+		<dd><?php echo $resource->isbnOrISSN; ?></dd>
 		<?php
 		}
 
 		if (is_array($aliasArray) && count($aliasArray) > 0) {
 		?>
-		<tr>
-		<td><?php echo _("Aliases:");?></td>
-		<td>
+		
+		<dt><?php echo _("Aliases:");?></dt>
+		<dd>
+			<dl class='dl-grid'>
 		<?php
 			foreach ($aliasArray as $resourceAlias){
-				echo "\n<span style='float: left; width:95px;'>" . $resourceAlias['aliasTypeShortName'] . ":</span><span style='width:270px;'>" . $resourceAlias['shortName'] . "</span><br />";
+				echo "<dt>" . $resourceAlias['aliasTypeShortName'] . "</dt><dd>" . $resourceAlias['shortName'] . "</dd>";
 			}
 		?>
-		</td>
-		</tr>
+			</dl>
+		</dd>
+
 		<?php
 		}
 
@@ -307,54 +292,37 @@ if ($resource->titleText){
 		if (is_array($orgArray) && count($orgArray) > 0) {
 		?>
 
-		<tr>
-		<td><?php echo _("Organizations:");?></td>
-		<td>
 
+		<dt><?php echo _("Organizations:");?></dt>
+		<dd>
+			<dl class='dl-grid'>
 			<?php
 			foreach ($orgArray as $organization){
-				//if organizations is installed provide a link
-				if ($config->settings->organizationsModule == 'Y'){
-					echo "<span style='float:left; width:70px;'>" . $organization['organizationRole'] . ":</span><span style='width:270px;'>" . $organization['organization'] . "</span><br />";
-				}else{
-					echo "<span style='float:left; width:70px;'>" . $organization['organizationRole'] . ":</span><span style='width:270px;'>" . $organization['organization'] . "</span><br />";
-				}
+				echo "<dt>" . $organization['organizationRole'] . "</dt><dd>" . $organization['organization'] . "</dd>";
 			}
 			?>
-		</td>
-		</tr>
-
+			</dl>
+		</dd>
 		<?php
 		}
 
 		if ($resource->resourceURL) { ?>
-			<tr>
-			<td><?php echo _("Resource URL:");?></td>
-			<td><?php echo $resource->resourceURL; ?></td>
-			</tr>
+			<dt><?php echo _("Resource URL:");?></dt>
+			<dd><?php echo $resource->resourceURL; ?></dd>
 		<?php
 		}
 
 		if ($resource->resourceAltURL) { ?>
-			<tr>
-			<td><?php echo _("Alt URL:");?></td>
-			<td><?php echo $resource->resourceAltURL; ?></td>
-			</tr>
+			<dt><?php echo _("Alt URL:");?></dt>
+			<dd><?php echo $resource->resourceAltURL; ?></dd>
 		<?php
 		}
 
 		if ($resource->descriptionText){ ?>
-			<tr>
-			<td><?php echo _("Description:");?></td>
-			<td><?php echo nl2br($resource->descriptionText); ?></td>
-			</tr>
+			<dt><?php echo _("Description:");?></dt>
+			<dd><?php echo nl2br($resource->descriptionText); ?></dd>
 		<?php } ?>
-
-
-	</table>
-
-	<br />
-
+		</dl>
 	<?php
 
 	//get notes for this tab
@@ -390,213 +358,174 @@ if ($resource->titleText){
 
 	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
-		<table class='table-border'>
-			<tr>
-			<th colspan='2'><?php echo _("Additional Product Notes");?></th>
-			</tr>
+			<h3><?php echo _("Additional Product Notes");?></h3>
+
 			<?php foreach ($noteArray as $resourceNote){ ?>
-				<tr>
-				<td><?php echo $resourceNote['noteTypeName']; ?>:</td>
-				<td><?php echo nl2br($resourceNote['noteText']); ?><br /><i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></td>
-				</tr>
-			<?php } ?>
-		</table>
-	<?php
+
+				<h4><?php echo $resourceNote['noteTypeName']; ?>:</h4>
+				<div>
+					<?php echo nl2br($resourceNote['noteText']); ?>
+					<p class="byline">
+						<?php printf(_('%s by %s'),format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?>
+					</p>
+				</div>
+
+			<?php }
+			
 	}
 	?>
 
-
-	<br />
-
-
-	<table class='table-border'>
-	<tr>
-	<th colspan='2' style='vertical-align:bottom;'>
-	<span ><?php echo _("Order");?></span>
-
-	</th>
-	</tr>
-
+	<h3><?php echo _("Order");?></h3>
+	<dl class="dl-grid dl-compact">
+		
 	<?php if ($resource->acquisitionTypeID) { ?>
-		<tr>
-		<td><?php echo _("Acquisition Type:");?></td>
-		<td><?php echo $acquisitionType->shortName; ?></td>
-		</tr>
+		<dt><?php echo _("Acquisition Type:");?></dt>
+		<dd><?php echo $acquisitionType->shortName; ?></dd>
 	<?php } ?>
 
 	<?php if ($resource->orderNumber) { ?>
-		<tr>
-		<td><?php echo _("Order Number:");?></td>
-		<td><?php echo $resource->orderNumber; ?></td>
-		</tr>
+
+		<dt><?php echo _("Order Number:");?></dt>
+		<dd><?php echo $resource->orderNumber; ?></dd>
+
 	<?php } ?>
 
 	<?php if ($resource->systemNumber) { ?>
-		<tr>
-		<td><?php echo _("System Number:");?></td>
-		<td><?php echo $resource->systemNumber; ?></td>
-		</tr>
+
+		<dt><?php echo _("System Number:");?></dt>
+		<dd><?php echo $resource->systemNumber; ?></dd>
+
 	<?php } ?>
 
 	<?php if (is_array($purchaseSiteArray) && count($purchaseSiteArray) > 0) { ?>
-		<tr>
-		<td><?php echo _("Purchasing Site:");?></td>
-		<td><?php echo implode(", ", $purchaseSiteArray); ?></td>
-		</tr>
+
+		<dt><?php echo _("Purchasing Site:");?></dt>
+		<dd><?php echo implode(", ", $purchaseSiteArray); ?></dd>
+
 	<?php } ?>
 
 	<?php if (is_array($authorizedSiteArray) && count($authorizedSiteArray) > 0) { ?>
-		<tr>
-		<td><?php echo _("Authorized Sites:");?></td>
-		<td><?php echo implode(", ", $authorizedSiteArray); ?></td>
-		</tr>
+
+		<dt><?php echo _("Authorized Sites:");?></dt>
+		<dd><?php echo implode(", ", $authorizedSiteArray); ?></dd>
+
 	<?php } ?>
 
 
 	<?php if (!is_null_date($resourceAcquisition->subscriptionStartDate)) { ?>
-	<tr>
-	<td><?php echo _("Sub Start:");?></td>
-	<td><?php echo format_date($resourceAcquisition->subscriptionStartDate); ?></td>
-	</tr>
+
+	<dt><?php echo _("Sub Start:");?></dt>
+	<dd><?php echo format_date($resourceAcquisition->subscriptionStartDate); ?></dd>
+
 	<?php } ?>
 
 	<?php if (!is_null_date($resourceAcquisition->subscriptionEndDate)) { ?>
-	<tr>
-	<td><?php echo _("Current Sub End:");?></td>
-	<td><?php echo format_date($resourceAcquisition->subscriptionEndDate); ?>&nbsp;&nbsp;
+
+	<dt><?php echo _("Current Sub End:");?></dt>
+	<dd><?php echo format_date($resourceAcquisition->subscriptionEndDate); ?>&nbsp;&nbsp;
 	<?php if ($resourceAcquisition->subscriptionAlertEnabledInd == "1") { echo "<i>"._("Expiration Alert Enabled")."</i>"; } ?>
-	</td>
-	</tr>
+	</dd>
 	<?php } ?>
 
-	</table>
-	<br />
+	</dl>
 
-	<table class='table-border'>
-	<tr>
-        <th colspan='2' style='vertical-align:bottom;'>
-	<span ><?php echo _("Cost History");?></span>
-	</th>
-	</tr>
-
+	<h3><?php echo _("Cost History");?></h3>
 	<?php
 	if (is_array($paymentArray) && count($paymentArray) > 0) {
+		?>
+		<dl class="dl-grid dl-compact">
+		<?php
             foreach ($paymentArray as $payment){ ?>
-              <tr><td colspan='2'></td></tr>
+            
             <?php if ($enhancedCostFlag){ ?>
-                <tr>
-                    <td><?php echo _("Year:");?></td>
-                    <td><?php echo $payment['year']; ?></td>
-                </tr>
-                <tr>
-                    <td><?php echo _("Sub StartDate:");?></td>
-                    <td><?php echo $payment['subscriptionStartDate']; ?></td>
-                </tr>
-                <tr>
-                    <td><?php echo _("Sub EndDate:");?></td>
-                    <td><?php echo $payment['subscriptionEndDate']; ?></td>
-                </tr>
-             <?php } ?>
-                <tr>
-                    <td><?php echo _("Fund:");?></td>
-                    <td><?php echo $payment['fundName']; ?></td>
-                </tr>
-            <?php if ($enhancedCostFlag){ ?>
-                <tr>
-                    <td><?php echo _("Tax Excl.:");?></td>
-                    <td><?php echo $payment['currencyCode'] . " " .integer_to_cost($payment['priceTaxExcluded']); ?></td>
-                </tr>
-                <tr>
-                    <td><?php echo _("Tax Rate:");?></td>
-                    <td><?php echo $payment['taxRate']/100 ."%"; ?></td>
-                </tr>
+                    <dt><?php echo _("Year:");?></dt>
+                    <dd><?php echo $payment['year']; ?></dd>
 
-                <tr>
-                    <td><?php echo _("Tax Incl.:");?></td>
-                    <td><?php echo $payment['currencyCode'] . " " .integer_to_cost($payment['priceTaxIncluded']); ?></td>
-                </tr>
+                    <dt><?php echo _("Sub StartDate:");?></dt>
+                    <dd><?php echo $payment['subscriptionStartDate']; ?></dd>
+
+                    <dt><?php echo _("Sub EndDate:");?></dt>
+                    <dd><?php echo $payment['subscriptionEndDate']; ?></dd>
+       
+             <?php } ?>
+                    <dt><?php echo _("Fund:");?></dt>
+                    <dd><?php echo $payment['fundName']; ?></dd>
+
+            <?php if ($enhancedCostFlag){ ?>
+
+                    <dt><?php echo _("Tax Excl.:");?></dt>
+                    <dd><?php echo $payment['currencyCode'] . " " .integer_to_cost($payment['priceTaxExcluded']); ?></dd>
+
+                    <dt><?php echo _("Tax Rate:");?></dt>
+                    <dd><?php echo $payment['taxRate']/100 ."%"; ?></dd>
+
+                    <dt><?php echo _("Tax Incl.:");?></dt>
+                    <dd><?php echo $payment['currencyCode'] . " " .integer_to_cost($payment['priceTaxIncluded']); ?></dd>
+
             <?php } ?>
+                    <dt><?php echo _("Payment:");?></dt>
+                    <dd><?php echo $payment['currencyCode'] . " " . integer_to_cost($payment['paymentAmount']); ?></dd>
 
-                <tr>
-                    <td><?php echo _("Payment:");?></td>
-                    <td><?php echo $payment['currencyCode'] . " " . integer_to_cost($payment['paymentAmount']); ?></td>
-                </tr>
-                <tr>
-                    <td><?php echo _("Order Type:");?></td>
-                    <td><?php echo $payment['orderType']; ?></td>
-                </tr>
+                    <dt><?php echo _("Order Type:");?></dt>
+                    <dd><?php echo $payment['orderType']; ?></dd>
             <?php if ($enhancedCostFlag){ ?>
-                <tr>
-                    <td><?php echo _("Details:");?></td>
-                    <td><?php echo $payment['costDetails']; ?></td>
-		</tr>
+                    <dt><?php echo _("Details:");?></dt>
+                    <dd><?php echo $payment['costDetails']; ?></dd>
              <?php } ?>
-                <tr>
-                    <td><?php echo _("Note:");?></td>
-                    <td><?php echo $payment['costNote']; ?></td>
-		</tr>
+
+                    <dt><?php echo _("Note:");?></dt>
+                    <dd><?php echo $payment['costNote']; ?></dd>
+
             <?php if ($enhancedCostFlag){ ?>
-                <tr>
-                    <td><?php echo _("Invoice No.:");?></td>
-                    <td><?php echo $payment['invoiceNum']; ?></td>
-                </tr>
+                    <dt><?php echo _("Invoice No.:");?></dt>
+                    <dd><?php echo $payment['invoiceNum']; ?></dd>
             <?php } ?>
 
 
+			</dl>
 	<?php
 	 }
 	}else{
-		echo "<tr><td colspan='3'><i>"._("No payment information available.")."</i></td></tr>";
+		echo "<p>"._("No payment information available.")."</p>";
 	}
 	?>
 
-	</table>
-	<br />
-<!-- TODO: eliminate table -->
-	<table class='table-border'>
-	<tr>
-	<th colspan='2'>
-	<span ><?php echo _("License");?></span>
-	</th>
-	</tr>
 
-	<tr>
-	<td><?php echo _("Status:");?></td>
-	<td>
+	<h3><?php echo _("License");?></h3>
+	<dl class="dl-grid dl-compact">
+
+	<dt><?php echo _("Status:");?></dt>
+	
 
 	<?php
 	if (is_array($licenseStatusArray) && count($licenseStatusArray) > 0) {
 		foreach ($licenseStatusArray as $licenseStatus){
-			echo $licenseStatus['licenseStatus'] . _(" on ")."<i>" . format_date($licenseStatus['licenseStatusChangeDate']) . _(" by ") . $licenseStatus['changeName'] . "</i><br />";
+			echo "<dd>";
+			printf(_('% on <i>%d</i> by %s'), $licenseStatus['licenseStatus'], format_date($licenseStatus['licenseStatusChangeDate'], $licenseStatus['changeName']));
+			echo "</dd>";
 		}
 	}else{
+		echo "<dd>";
 		echo "<i>"._("No license status information available.")."</i>";
+		echo "</dd>";
 	}
 
 	?>
-	</td>
-	</tr>
+	
+	<dt><?php echo _("Licenses:");?></dt>
 
-	<tr>
-	<td><?php echo _("Licenses:");?></td>
-	<td>
 	<?php
 
 	if (is_array($licenseArray) && count($licenseArray) > 0) {
 		foreach ($licenseArray as $license){
-			echo $license['license'] . "<br />";
+			echo "<dd>" . $license['license'] . "</dd>";
 		}
 	}else{
-		echo "<i>"._("No associated licenses available.")."</i>";
+		echo "<dd><i>"._("No associated licenses available.")."</i></dd>";
 	}
 
 	?>
-
-
-	</td>
-	</tr>
-
-	</table>
+	</dl>
 
 
 	<?php
@@ -632,91 +561,71 @@ if ($resource->titleText){
 
 	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
-		<table class='table-border'>
-			<tr>
-			<th colspan='2'><?php echo _("Additional Acquisitions Notes");?></th>
-			</th>&nbsp;
-			</tr>
+			<h3><?php echo _("Additional Acquisitions Notes");?></h3>
 			<?php foreach ($noteArray as $resourceNote){ ?>
-				<tr>
-				<th><?php echo $resourceNote['noteTypeName']; ?></th>
-
-				</td>
-				<td><?php echo nl2br($resourceNote['noteText']); ?>
-					<p class="small"><i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></p>
-				</td>
-				</tr>
+				
+				<h4><?php echo $resourceNote['noteTypeName']; ?></h4>
+				<div>
+					<?php echo nl2br($resourceNote['noteText']); ?>
+					<p class="byline">
+						<?php 
+						printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']);
+						?>
+					</p>
+				</div>
 			<?php } ?>
-		</table>
 	<?php
 	}
 	?>
 
-	<table class='table-border'>
-	<tr>
-	<th colspan='2' scope="col"><?php echo _("Access Information");?></th>
-	</tr>
 
+	<h3><?php echo _("Access Information");?></h3>
 
 	<?php
 		//If no access information is available, display that information
 		if ((count($administeringSiteArray) == 0) && (!$authenticationType->shortName) && (!$resource->authenticationUserName) && (!$resource->authenticationPassword) && (!$userLimit->shortName) && (!$resource->registeredIPAddressException) && (!$storageLocation->shortName) && (!$accessMethod->shortName)){
-			echo "<tr><td colspan='2'><i>"._("No access information available.")."</i></td></tr>";
+			echo "<p><i>"._("No access information available.")."</i></p>";
 		}
 	?>
-
+<dl class="dl-grid dl-compact">
 	<?php if (is_array($administeringSiteArray) && count($administeringSiteArray) > 0) { ?>
-		<tr>
-		<th scope="row"><?php echo _("Administering Sites:");?></th>
-		<td><?php echo implode(", ", $administeringSiteArray); ?></td>
-		</tr>
+		<dt><?php echo _("Administering Sites:");?></dt>
+		<dd><?php echo implode(", ", $administeringSiteArray); ?></dd>
 	<?php } ?>
 
 	<?php if ($authenticationType->shortName) { ?>
-		<tr>
-		<th scope="row"><?php echo _("Authentication Type:");?></th>
-		<td><?php echo $authenticationType->shortName; ?></td>
-		</tr>
+		<dt><?php echo _("Authentication Type:");?></dt>
+		<dd><?php echo $authenticationType->shortName; ?></dd>
 	<?php } ?>
 
 	<?php if (($resource->authenticationUserName) || ($resource->authenticationPassword)) { ?>
-		<tr>
-		<th scope="row"><?php echo _("Username / Password:");?></th>
-		<td><?php echo $resource->authenticationUserName . " / " . $resource->authenticationPassword; ?></td>
-		</tr>
+		<dt><?php echo _("Username / Password:");?></dt>
+		<dd><?php echo $resource->authenticationUserName . " / " . $resource->authenticationPassword; ?></dd>
 	<?php } ?>
 
 	<?php if ($userLimit->shortName) { ?>
-		<tr>
-		<th scope="row"><?php echo _("Simultaneous User Limit:");?></th>
-		<td><?php echo $userLimit->shortName; ?></td>
-		</tr>
+		<dt><?php echo _("Simultaneous User Limit:");?></dt>
+		<dd><?php echo $userLimit->shortName; ?></dd>
 	<?php } ?>
 
 
 	<?php if ($resource->registeredIPAddressException){ ?>
-		<tr>
-		<th scope="row"><?php echo _("Registered IP Address:");?></th>
-		<td><?php echo $resource->registeredIPAddressException; ?></td>
-		</tr>
+		<dt><?php echo _("Registered IP Address:");?></dt>
+		<dd><?php echo $resource->registeredIPAddressException; ?></dd>
 	<?php } ?>
 
 
 	<?php if ($storageLocation->shortName) { ?>
-		<tr>
-		<th scope="row"><?php echo _("Storage Location:");?></th>
-		<td><?php echo $storageLocation->shortName; ?></td>
-		</tr>
+		<dt><?php echo _("Storage Location:");?></dt>
+		<dd><?php echo $storageLocation->shortName; ?></dd>
 	<?php } ?>
 
 	<?php if ($accessMethod->shortName) { ?>
-		<tr>
-		<th scope="row"><?php echo _("Access Method:");?></th>
-		<td><?php echo $accessMethod->shortName; ?></td>
-		</tr>
+		<dt><?php echo _("Access Method:");?></dt>
+		<dd><?php echo $accessMethod->shortName; ?></dd>
 	<?php } ?>
 
-	</table>
+	</dl>
 
 	<?php
 
@@ -752,85 +661,62 @@ if ($resource->titleText){
 
 	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
-		<table class='table-border'>
-			<tr>
-			<th colspan='2' scope="col"><?php echo _("Additional Access Notes");?></th>
-			</tr>
+
+			<h3><?php echo _("Additional Access Notes");?></h3>
+
 			<?php foreach ($noteArray as $resourceNote){ ?>
-				<tr>
-				<th scope="row"><?php echo $resourceNote['noteTypeName']; ?>:</th>
-				<td><?php echo nl2br($resourceNote['noteText']); ?><br /><i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></td>
-				</tr>
-			<?php } ?>
-		</table>
-	<?php
+				<h4><?php echo $resourceNote['noteTypeName']; ?>:</h4>
+				<div>
+					<?php echo nl2br($resourceNote['noteText']); ?>
+					<p class="byline">
+						<?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?>
+					</p>
+				</div>
+			<?php }
+			
 	}
 	?>
 
-  <table class='table-border'>
-    <tr>
-      <th colspan='2' scope="col"><?php echo _("Cataloging");?></th>
-    </tr>
+    <h3><?php echo _("Cataloging");?></h3>
     <?php if ($resourceAcquisition->hasCatalogingInformation()) { ?>
       <?php if ($resourceAcquisition->recordSetIdentifier) { ?>
-    		<tr>
-      		<th scope="row"><?php echo _("Identifier:");?></th>
-      		<td><?php echo $resourceAcquisition->recordSetIdentifier; ?></td>
-    		</tr>
+      		<dt><?php echo _("Identifier:");?></dt>
+      		<dd><?php echo $resourceAcquisition->recordSetIdentifier; ?></dd>
     	<?php } ?>
     	<?php if ($resourceAcquisition->bibSourceURL) { ?>
-    		<tr>
-      		<th scope="row"><?php echo _("URL:");?></th>
-      		<td><?php echo $resourceAcquisition->bibSourceURL; ?></td>
-    		</tr>
+      		<dt><?php echo _("URL:");?></dt>
+      		<dd><?php echo $resourceAcquisition->bibSourceURL; ?></dd>
     	<?php } ?>
     	<?php if ($resourceAcquisition->catalogingTypeID) {
     		$catalogingType = new CatalogingType(new NamedArguments(array('primaryKey' => $resourceAcquisition->catalogingTypeID)));
     		?>
-    		<tr>
-      		<th scope="row"><?php echo _("Cataloging Type:");?></th>
-      		<td><?php echo $catalogingType->shortName; ?></td>
-    		</tr>
+      		<dt><?php echo _("Cataloging Type:");?></dt>
+      		<dd><?php echo $catalogingType->shortName; ?></dd>
     	<?php } ?>
     	<?php if ($resourceAcquisition->catalogingStatusID) {
     		$catalogingStatus = new CatalogingStatus(new NamedArguments(array('primaryKey' => $resourceAcquisition->catalogingStatusID)));
     		?>
-    		<tr>
-      		<th scope="row"><?php echo _("Cataloging Status:");?></th>
-      		<td><?php echo $catalogingStatus->shortName; ?></td>
-    		</tr>
+      		<dt><?php echo _("Cataloging Status:");?></dt>
+      		<dd><?php echo $catalogingStatus->shortName; ?></dd>
     	<?php } ?>
     	<?php if ($resourceAcquisition->numberRecordsAvailable) { ?>
-    		<tr>
-      		<th scope="row"><?php echo _("# Records Available:");?></th>
-      		<td><?php echo $resourceAcquisition->numberRecordsAvailable; ?></td>
-    		</tr>
+      		<dt><?php echo _("# Records Available:");?></dt>
+      		<dd><?php echo $resourceAcquisition->numberRecordsAvailable; ?></dd>
     	<?php } ?>
     	<?php if ($resourceAcquisition->numberRecordsLoaded) { ?>
-    		<tr>
-      		<th scope="row"><?php echo _("# Records Loaded:");?></th>
-      		<td><?php echo $resourceAcquisition->numberRecordsLoaded; ?></td>
-    		</tr>
+      		<dt><?php echo _("# Records Loaded:");?></dt>
+      		<dd><?php echo $resourceAcquisition->numberRecordsLoaded; ?></dd>
     	<?php } ?>
     	<?php if ($resourceAcquisition->hasOclcHoldings) { ?>
-    		<tr>
-      		<th scope="row"><?php echo _("OCLC Holdings:");?></th>
-      		<td><?php echo $resourceAcquisition->hasOclcHoldings ? _('Yes') : _('No'); ?></td>
-    		</tr>
+      		<dt><?php echo _("OCLC Holdings:");?></dt>
+      		<dd><?php echo $resourceAcquisition->hasOclcHoldings ? _('Yes') : _('No'); ?></dd>
     	<?php } ?>
+			</dl>
     <?php } else { ?>
-      <tr>
-        <td colspan="2">
-          <em><?php echo _("No cataloging information available.");?></em>
-        </td>
-      </tr>
-    <?php } ?>
-  </table>
-
-  <br />
-
-	<?php
-
+        
+          <p><?php echo _("No cataloging information available.");?></p>
+    <?php }
+		
 
 	//get notes for this tab
 	$sanitizedInstance = array();
@@ -863,18 +749,19 @@ if ($resource->titleText){
 
 	if (is_array($noteArray) && count($noteArray) > 0) {
 	?>
-		<table class='table-border'>
-			<tr>
-			<th colspan='2' scope="col"><?php echo _("Additional Cataloging Notes");?></th>
-			</tr>
+
+			<h3><?php echo _("Additional Cataloging Notes");?></h3>
 			<?php foreach ($noteArray as $resourceNote){ ?>
-				<tr>
-				<th scope="row"><?php echo $resourceNote['noteTypeName']; ?>:</th>
-				<td><?php echo nl2br($resourceNote['noteText']); ?><br /><i><?php echo format_date($resourceNote['updateDate']) . _(" by ") . $resourceNote['updateUser']; ?></i></td>
-				</tr>
-			<?php } ?>
-		</table>
-	<?php
+
+				<h4><?php echo $resourceNote['noteTypeName']; ?>:</h4>
+				<div>
+					<?php echo nl2br($resourceNote['noteText']); ?>
+					<p class="byline">
+						<?php printf(_("%s by %s"), format_date($resourceNote['updateDate']), $resourceNote['updateUser']); ?>
+					</p>
+			</div>
+			<?php }
+			
 	}
 	?>
 

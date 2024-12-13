@@ -718,6 +718,7 @@ td.outstanding {
   background-color: var(--warning-bg);
 }
 
+.date,
 .numeric,
 .end {
   padding-block: 0.25rem;
@@ -1187,6 +1188,10 @@ input[type="reset"]:is(:active, :hover, :focus, :focus-visible) {
   color: var(--text-light);
 }
 
+input::file-selector-button {
+  padding: 0.25rem 0.5rem;
+}
+
 /* ERRORS */
 
 .msg {
@@ -1645,8 +1650,11 @@ kbd {
 }
 
 .byline {
-  font-size: var(--font-small);
   font-style: italic;
+}
+
+p.byline {
+  font-size: var(--font-small);
 }
 
 .center {
@@ -1747,9 +1755,14 @@ a:is(:focus, :focus-visible) {
 	color: var(--text-link-light);
 }
 
+#side .flex:has(.date-input-range) {
+  gap: 0.5rem;
+}
+
 .date-input-range {
   display: grid;
   grid-template-columns: 1fr 1px;
+  margin-block-end: 1rem;
 }
 
 .date-input-range label {
@@ -1761,7 +1774,7 @@ a:is(:focus, :focus-visible) {
   padding-inline-end: 1.5rem;
 }
 
-#side h3.date-input-label {
+#side legend.date-input-label {
   font-size: inherit;
   font-weight: normal;
 }
