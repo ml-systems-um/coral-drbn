@@ -46,7 +46,8 @@ $moduleMenu = array(
     ),
     'usage' => array(
         'url' => '../reports/',
-        'text' => _("Usage Reports")
+        'text' => _("Usage Reports"),
+        'target' => '_blank'
     ),
     'admin' => array(
         'url' => 'admin.php',

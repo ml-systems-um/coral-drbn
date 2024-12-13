@@ -300,6 +300,11 @@ global $http_lang;
     if ( isset($item['url']) && $item['url'] == $currentPage ) {
       $ariaCurrent = ' aria-current="page" ';
     }
+    // New tabs only if configuration allows
+    $target = '';
+    if ( isset($item['target']) && $item['target'] == '_blank' ) {
+      $target = getTarget();
+    }
     ?>
     <li>
       <?php if ( isset($item['action']) ) { ?>
@@ -309,7 +314,7 @@ global $http_lang;
       <?php 
       } 
       else { ?>
-        <a href="<?php echo $item['url']; ?>" id="<?php echo $item['id']; ?>" class="<?php echo $item['classes']; ?>" <?php echo $ariaCurrent; ?>>
+        <a href="<?php echo $item['url']; ?>" id="<?php echo $item['id']; ?>" class="<?php echo $item['classes']; ?>" <?php echo $ariaCurrent . $target; ?>>
           <?php echo $item['text']; ?>
         </a>
       <?php 
