@@ -176,7 +176,7 @@ class ReportTable {
             && ($value !== '&nbsp;') && $field === 'TITLE'
         ) {
             if ($this->report->id != '1') {
-                $value .= "<br/><span class='smallerText'><a target='_BLANK' href=\"report.php?reportID=1&prm_4=" . ($this->report->showUnadjusted ? 'Y' : 'N');
+                $value .= "<br/><span class='smallerText'><a ". getTarget() ." href=\"report.php?reportID=1&prm_4=" . ($this->report->showUnadjusted ? 'Y' : 'N');
                 if (isset($currentRow['titleID'])) {
                     $value .= "&titleID={$currentRow['titleID']}&outputType=web\">" . _("view related titles") . "</a></span>";
                 } else {

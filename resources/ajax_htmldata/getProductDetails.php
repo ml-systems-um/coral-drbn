@@ -173,7 +173,7 @@
 					echo "<ul class='unstyled'>";
           foreach ($parentResourceArray as $parentResource){
             $parentResourceObj = new Resource(new NamedArguments(array('primaryKey' => $parentResource['relatedResourceID'])));
-            echo "<li><a href='resource.php?resourceID=" . $parentResourceObj->resourceID . "' target='_BLANK'>" . $parentResourceObj->titleText . "</a></li>";
+            echo "<li><a href='resource.php?resourceID=" . $parentResourceObj->resourceID . "' ". getTarget() .">" . $parentResourceObj->titleText . "</a></li>";
           }
 					echo "</ul>";
 					echo "</div>";
@@ -185,7 +185,7 @@
 					echo "<ul class='unstyled'>";
 					foreach ($childResourceArray as $childResource){
 						$childResourceObj = new Resource(new NamedArguments(array('primaryKey' => $childResource['resourceID'])));
-            echo "<li><a href='resource.php?resourceID=" . $childResourceObj->resourceID . "' target='_BLANK'>" . $childResourceObj->titleText . "</a></li>";
+            echo "<li><a href='resource.php?resourceID=" . $childResourceObj->resourceID . "' ". getTarget() .">" . $childResourceObj->titleText . "</a></li>";
 					}
 					echo "</ul>";
 					echo "</div>";
@@ -238,7 +238,7 @@
 				foreach ($orgArray as $organization){
 					//if organizations is installed provide a link
 					if ($config->settings->organizationsModule == 'Y'){
-						echo "<dt>" . $organization['organizationRole'] . ":</dt><dd> <a href='" . $util->getOrganizationURL() . $organization['organizationID'] . "' target='_blank'>" . $organization['organization'] . "</a></dd>";
+						echo "<dt>" . $organization['organizationRole'] . ":</dt><dd> <a href='" . $util->getOrganizationURL() . $organization['organizationID'] . "' " . getTarget() . ">" . $organization['organization'] . "</a></dd>";
 					}else{
 						echo "<dt>" . $organization['organizationRole'] . ":</dt><dd> " . $organization['organization'] . "</dd>";
 					}
@@ -252,13 +252,13 @@
 
 			if ($resource->resourceURL) { ?>
 				<dt><?php echo _("Resource URL:");?></dt>
-				<dd><?php echo $resource->resourceURL; ?> <a href='<?php echo $resource->resourceURL; ?>' target='_blank'><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Resource URL");?>" title="<?php echo _("Visit Resource URL");?>"></a></dd>
+				<dd><?php echo $resource->resourceURL; ?> <a href='<?php echo $resource->resourceURL; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Resource URL");?>" title="<?php echo _("Visit Resource URL");?>"></a></dd>
 				<?php
 			}
 
 			if ($resource->resourceAltURL) { ?>
 				<dt><?php echo _("Alt URL:");?></dt>
-				<dd><?php echo $resource->resourceAltURL; ?> <a href='<?php echo $resource->resourceAltURL; ?>' target='_blank'><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Secondary Resource URL");?>" title="<?php echo _("Visit Secondary Resource URL");?>"></a></dd>
+				<dd><?php echo $resource->resourceAltURL; ?> <a href='<?php echo $resource->resourceAltURL; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Secondary Resource URL");?>" title="<?php echo _("Visit Secondary Resource URL");?>"></a></dd>
 			<?php
 			}
 

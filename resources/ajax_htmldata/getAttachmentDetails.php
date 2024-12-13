@@ -27,7 +27,7 @@
 			<div class="header">
 				<h3><?php echo $attachment['shortName']; ?> </h3>
 				<span class="addElement">
-					<a href='attachments/<?php echo $attachment['attachmentURL']; ?>' target='_blank'><img src='images/arrow-up-right-blue.gif' alt='<?php echo _("view attachment");?>' title='<?php echo _("view attachment");?>'></a>
+					<a href='attachments/<?php echo $attachment['attachmentURL']; ?>' <?php echo getTarget(); ?>><img src='images/arrow-up-right-blue.gif' alt='<?php echo _("view attachment");?>' title='<?php echo _("view attachment");?>'></a>
 					<?php
 						if ($user->canEdit()){ ?>
 							<a href='javascript:void(0);' onclick='javascript:myDialog("ajax_forms.php?action=getAttachmentForm&&attachmentID=<?php echo $attachment['attachmentID']; ?>",400,400)' class='thickbox'><img src='images/edit.gif' alt='<?php echo _("edit");?>' title='<?php echo _("edit attachment");?>'></a>  <a href='javascript:void(0);' class='removeAttachment' id='<?php echo $attachment['attachmentID']; ?>'><img src='images/cross.gif' alt='<?php echo _("remove this attachment");?>' title='<?php echo _("remove this attachment");?>'></a>

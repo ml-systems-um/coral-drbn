@@ -385,7 +385,7 @@
 						duplicate organizations from being created. Each column that is added to an Organization 
 						set above is checked against the complete list of mappings that you create. ") 
 						. 
-						"<a id='regexLink' href='https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions' target='_blank'>"
+						"<a id='regexLink' href='https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions' " . getTarget() . ">"
 						. 
 						_("PCRE regular expressions") . "</a>" . _(" are supported for these mappings.");?>
 			</p>

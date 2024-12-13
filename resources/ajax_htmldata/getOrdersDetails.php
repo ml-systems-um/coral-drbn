@@ -69,7 +69,7 @@ if ($resourceAcquisitionID) {
 				<?php
 					echo $resourceAcquisition->systemNumber;
 					if ($config->settings->catalogURL != ''){
-						echo "&nbsp;&nbsp;<a href='" . $config->settings->catalogURL . $resourceAcquisition->systemNumber . "' target='_blank'>"._("catalog view")."</a>";
+						echo "&nbsp;&nbsp;<a href='" . $config->settings->catalogURL . $resourceAcquisition->systemNumber . "' " . getTarget() . ">"._("catalog view")."</a>";
 					}
 				?>
 				</dd>

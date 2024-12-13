@@ -102,7 +102,7 @@ include 'templates/header.php';
                     <?php foreach ($expressionArray as $expression): ?>
                         <p>
                             <?php sprintf(_("Terms as of %s — the following terms apply
-                            ONLY to articles accessed via <a href='%s' target='_blank'>%s</a>"), format_date($expression->getLastUpdateDate), $targetArray['target_url'], $targetArray['public_name']); ?>
+                            ONLY to articles accessed via <a href='%s' %s>%s</a>"), format_date($expression->getLastUpdateDate), $targetArray['target_url'], getTarget(), $targetArray['public_name']); ?>
                         </p>
                         <div style="margin:0 0 30px 0;">
                             <div class="shaded" style="width:850px; padding:3px;">

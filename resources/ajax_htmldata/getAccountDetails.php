@@ -53,14 +53,14 @@
 				<dl class="dl-grid">
 				<?php if (isset($externalLogin['organizationName'])) { ?>
 				<dt><?php echo('Organization:'); ?></dt>
-				<dd><?php echo $externalLogin['organizationName'] . "&nbsp;&nbsp;<a href='" . $util->getCORALURL() . "organizations/orgDetail.php?showTab=accounts&organizationID=" . $externalLogin['organizationID'] . "' target='_blank'><img src='images/arrow-up-right.gif' alt='"._("Visit Account in Organizations Module")."' title='"._("Visit Account in Organizations Module")."'></a>"; ?></dd>
+				<dd><?php echo $externalLogin['organizationName'] . "&nbsp;&nbsp;<a href='" . $util->getCORALURL() . "organizations/orgDetail.php?showTab=accounts&organizationID=" . $externalLogin['organizationID'] . "' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='"._("Visit Account in Organizations Module")."' title='"._("Visit Account in Organizations Module")."'></a>"; ?></dd>
 				<?php
 				}
 
 				if ($externalLogin['loginURL']) { ?>
 				
 				<dt><?php echo('Login URL:'); ?></dt>
-				<dd><?php echo $externalLogin['loginURL']; ?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' target='_blank'><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></dd>
+				<dd><?php echo $externalLogin['loginURL']; ?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></dd>
 				
 				<?php
 				}

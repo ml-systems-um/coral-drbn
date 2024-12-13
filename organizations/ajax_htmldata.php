@@ -234,7 +234,7 @@ switch ($_GET['action']) {
 		if ($organization->companyURL){ ?>
 			<dt><?php echo _("Company URL:");?></dt>
 			<dd class="url">
-					<a href='<?php echo $companyURL; ?>' target='_blank'><?php echo $organization->companyURL; ?></a>
+					<a href='<?php echo $companyURL; ?>' <?php echo getTarget(); ?>><?php echo $organization->companyURL; ?></a>
 			</dd>
 			
 		<?php
@@ -571,7 +571,7 @@ switch ($_GET['action']) {
 					if (strpos($externalLogin['loginURL'], '://') === false) {
 						$externalLogin['loginURL'] = "http://" . $externalLogin['loginURL'];
 					}
-				?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' target='_blank'><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
+				?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
 				</tr>
 				<?php
 				}
@@ -836,7 +836,7 @@ switch ($_GET['action']) {
 
 					foreach ($licenseArray as $license){
 						echo "<tr>\n";
-						echo "<th scope='row'><a href='" . $licensingPath . $license['licenseID'] . "' target='_blank'>" . $license['licenseName'] . "</a></th>\n";
+						echo "<th scope='row'><a href='" . $licensingPath . $license['licenseID'] . "' " . getTarget() . ">" . $license['licenseName'] . "</a></th>\n";
 						echo "<td>" . $license['consortiumName'] . "</td>\n";
 						echo "<td>" . $license['status'] . "</td>\n";
 						echo "</tr>\n";

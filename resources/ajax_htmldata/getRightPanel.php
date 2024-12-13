@@ -121,7 +121,7 @@
 				<h4><?php echo _("Usage Statistics Module");?></h4>
 
 				<?php
-				echo "<form method='post' action='../reports/report.php' target='_blank'>";
+				echo "<form method='post' action='../reports/report.php' " . getTarget() . ">";
 				echo "<input type='hidden' name='reportID' value='1'>";
 				echo "<input type='hidden' name='prm_3' value='".$resource->titleText."'>";
 				echo "<input type='submit' value='"._("Get Statistics")."'>";

@@ -162,7 +162,7 @@ if ($config->settings->resourcesIssues == "Y") {
                     echo "<span class='archived'>"._("(archived)")." </span>";
 										$classes = "archived";
                 }
-                echo "<a href='" . $util->getResourceRecordURL() . $resource['resourceID'] . "' target='_BLANK' class='$classes'>" .  $resource['titleText'] . "</a></li>";
+                echo "<a href='" . $util->getResourceRecordURL() . $resource['resourceID'] . "' ". getTarget() ." class='$classes'>" .  $resource['titleText'] . "</a></li>";
             }
             ?>
             </ul>

@@ -116,7 +116,7 @@ $licenseArray = $resourceAcquisition->getLicenseArray();
   	<?php if ($resourceAcquisition->bibSourceURL) { ?>
   	
     	<dt><?php echo _("Source URL:");?></dt>
-    	<dd><?php echo $resourceAcquisition->bibSourceURL ?><?php if ($resourceAcquisition->bibSourceURL) { ?> &nbsp;&nbsp;<a href='<?php echo $resourceAcquisition->bibSourceURL; ?>' target='_blank'><img src='images/arrow-up-right.gif' alt='Visit Source URL' title='<?php echo _("Visit Source URL");?>' style='vertical-align:top;'></a><?php } ?></dd>
+    	<dd><?php echo $resourceAcquisition->bibSourceURL ?><?php if ($resourceAcquisition->bibSourceURL) { ?> &nbsp;&nbsp;<a href='<?php echo $resourceAcquisition->bibSourceURL; ?>' <?php echo getTarget(); ?>><img src='images/arrow-up-right.gif' alt='Visit Source URL' title='<?php echo _("Visit Source URL");?>' style='vertical-align:top;'></a><?php } ?></dd>
   	
   	<?php } ?>
   	<?php if ($resourceAcquisition->catalogingTypeID) {

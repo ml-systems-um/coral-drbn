@@ -315,7 +315,7 @@ switch ($_GET['action']) {
 
 				$i=1;
 				foreach($attachmentFileArray as $attachmentFile) {
-					echo "<a href='attachments/" . $attachmentFile->attachmentURL . "' target='_BLANK'>" . _("view attachment ") . $i . "</a><br />";
+					echo "<a href='attachments/" . $attachmentFile->attachmentURL . "' ". getTarget() .">" . _("view attachment ") . $i . "</a><br />";
 					$i++;
 				}
 				echo "</td>";
@@ -620,9 +620,9 @@ switch ($_GET['action']) {
 
 
 					if ($user->canEdit()){
-						echo "\n<td style='text-align:right;width:350px;'><a href='license.php?licenseID=" . $expressionTypeArray['licenseID'] . "' target='_BLANK'>" . _("view / edit license") . "</a>&nbsp;&nbsp;<a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getExpressionNotesForm&height=330&width=440&modal=true&org=compare&expressionID=" . $expressionTypeArray['expressionID'] . "\",330,440)' class='thickbox' id='ExpressionNotes'>" . _("view / edit ") . strtolower($expressionType->noteType) . _(" notes") . "</a>&nbsp;&nbsp;<a href='documents/" . $expressionTypeArray['documentURL'] . "' target='_BLANK'>" . _("view document") . "</a></td></tr></table>";
+						echo "\n<td style='text-align:right;width:350px;'><a href='license.php?licenseID=" . $expressionTypeArray['licenseID'] . "' ". getTarget() .">" . _("view / edit license") . "</a>&nbsp;&nbsp;<a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getExpressionNotesForm&height=330&width=440&modal=true&org=compare&expressionID=" . $expressionTypeArray['expressionID'] . "\",330,440)' class='thickbox' id='ExpressionNotes'>" . _("view / edit ") . strtolower($expressionType->noteType) . _(" notes") . "</a>&nbsp;&nbsp;<a href='documents/" . $expressionTypeArray['documentURL'] . "' ". getTarget() .">" . _("view document") . "</a></td></tr></table>";
 					}else{
-						echo "\n<td style='text-align:right;'><a href='license.php?licenseID=" . $expressionTypeArray['licenseID'] . "' target='_BLANK'>" . _("view license") . "</a>&nbsp;&nbsp;<a href='documents/" . $expressionTypeArray['documentURL'] . "' target='_BLANK'>" . _("view document") . "</a></td></tr></table>";
+						echo "\n<td style='text-align:right;'><a href='license.php?licenseID=" . $expressionTypeArray['licenseID'] . "' ". getTarget() .">" . _("view license") . "</a>&nbsp;&nbsp;<a href='documents/" . $expressionTypeArray['documentURL'] . "' ". getTarget() .">" . _("view document") . "</a></td></tr></table>";
 					}
 
 					echo "<div style='margin-left:15px; margin-top:3px;'>";
@@ -954,7 +954,7 @@ switch ($_GET['action']) {
 				echo "<td $classAdd>";
 				if (!$user->isRestricted()) {
 					if ($document->documentURL != ""){
-						echo "<a href='documents/" . $document->documentURL . "' target='_blank'>" . _("view document") . "</a><br />";
+						echo "<a href='documents/" . $document->documentURL . "' " . getTarget() . ">" . _("view document") . "</a><br />";
 					}else{
 						echo _("(none uploaded)") . "<br />";
 					}
@@ -1072,7 +1072,7 @@ switch ($_GET['action']) {
 							echo "<td $classAdd>";
 							if (!$user->isRestricted) {
 								if ($childDocument->documentURL != ""){
-									echo "<a href='documents/" . $childDocument->documentURL . "' target='_blank'>" . _("view document") . "</a><br />";
+									echo "<a href='documents/" . $childDocument->documentURL . "' " . getTarget() . ">" . _("view document") . "</a><br />";
 								}else{
 									echo _("(none uploaded)") . "<br />";
 								}							}

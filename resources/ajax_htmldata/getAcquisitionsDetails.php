@@ -219,7 +219,7 @@
 			if (is_array($licenseArray) && count($licenseArray) > 0) {
 				echo "<ul>";
 				foreach ($licenseArray as $license){
-					echo "<li>". $license['license'] . "&nbsp;&nbsp;<a href='" . $util->getLicensingURL() . $license['licenseID'] . "' target='_blank'><img src='images/arrow-up-right.gif' alt='"._("View License")."' title='"._("View License")."'></a></li>";
+					echo "<li>". $license['license'] . "&nbsp;&nbsp;<a href='" . $util->getLicensingURL() . $license['licenseID'] . "' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='"._("View License")."' title='"._("View License")."'></a></li>";
 				}
 				echo "</ul>";
 			}else{

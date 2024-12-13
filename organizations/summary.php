@@ -139,7 +139,7 @@ if ($organization->name){
 		if ($organization->companyURL){ ?>
 			<tr>
 			<th scope="row"><?php echo _("Company URL:");?></th>
-			<td class="url"><a href='<?php echo $companyURL; ?>' target='_blank'><?php echo $organization->companyURL; ?></a></td>
+			<td class="url"><a href='<?php echo $companyURL; ?>' <?php echo getTarget(); ?>><?php echo $organization->companyURL; ?></a></td>
 			</tr>
 		<?php
 		}
@@ -435,7 +435,7 @@ if ($organization->name){
 				}
 			?> 
 				<!-- TODO: replace image -->
-				<a href='<?php echo $externalLogin['loginURL']; ?>' target='_blank'><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
+				<a href='<?php echo $externalLogin['loginURL']; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
 			</tr>
 			<?php
 			}

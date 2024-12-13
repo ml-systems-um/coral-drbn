@@ -78,7 +78,7 @@
 				if (isset($contact['organizationName'])){ ?>
 
 					<dt><?php echo _("Organization:");?></dt>
-					<dd><?php echo $contact['organizationName'] . "&nbsp;&nbsp;<a href='" . $util->getCORALURL() . "organizations/orgDetail.php?showTab=contacts&organizationID=" . $contact['organizationID'] . "' target='_blank'><img src='images/arrow-up-right.gif' alt='"._("Visit Contact in Organizations Module")."' title='"._("Visit Contact in Organizations Module")."' style='vertical-align:top;'></a>"; ?></dd>
+					<dd><?php echo $contact['organizationName'] . "&nbsp;&nbsp;<a href='" . $util->getCORALURL() . "organizations/orgDetail.php?showTab=contacts&organizationID=" . $contact['organizationID'] . "' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='"._("Visit Contact in Organizations Module")."' title='"._("Visit Contact in Organizations Module")."' style='vertical-align:top;'></a>"; ?></dd>
 				
 				<?php
 				}

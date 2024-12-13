@@ -243,7 +243,7 @@ switch ($action) {
 
 				if (is_array($externalLoginArray) && count($externalLoginArray) > 0) {
 					?>
-					<?php echo _("For ");?><?php echo $obj->getOrganizationName() . "&nbsp;&nbsp;<a href='" . $util->getOrganizationURL() . $obj->organizationID . "' target='_blank'>" . _("view organization") . "</a>";?>
+					<?php echo _("For ");?><?php echo $obj->getOrganizationName() . "&nbsp;&nbsp;<a href='" . $util->getOrganizationURL() . $obj->organizationID . "' " . getTarget() . ">" . _("view organization") . "</a>";?>
 					<table class='verticalFormTable table-border table-striped'>
 					<thead>
 					<tr>
@@ -271,7 +271,7 @@ switch ($action) {
 					echo "</table>";
 
 				}else{
-					echo "<i>" . _("No login information stored for ") . $obj->getOrganizationName . "</i>&nbsp;&nbsp;<a href='" . $util->getOrganizationURL() . $obj->organizationID . "' target='_blank'>" . _("view organization") . "</a>";
+					echo "<i>" . _("No login information stored for ") . $obj->getOrganizationName . "</i>&nbsp;&nbsp;<a href='" . $util->getOrganizationURL() . $obj->organizationID . "' " . getTarget() . ">" . _("view organization") . "</a>";
 				}
 
 				?>
@@ -502,7 +502,7 @@ switch ($action) {
 
 
 		echo "<br /><br /><img src='images/help.gif' style='float:left;'>&nbsp;&nbsp;";
-		echo _("Visit the ") . "<a href='https://registry.projectcounter.org' target='_blank'>" . _("COUNTER Registry") . "</a>" . _(" for information about adding your provider.");
+		echo _("Visit the ") . "<a href='https://registry.projectcounter.org' " . getTarget() . ">" . _("COUNTER Registry") . "</a>" . _(" for information about adding your provider.");
 
         break;
 
@@ -615,7 +615,7 @@ switch ($action) {
         echo _("(none found)");
       } else {
         $plural = $count > 1 ? 's' : '';
-        echo "<div><a href='titles_spreadsheet.php?publisherPlatformID=$publisherPlatformID&platformID=$platformID&resourceType=$type' target='_blank'>"
+        echo "<div><a href='titles_spreadsheet.php?publisherPlatformID=$publisherPlatformID&platformID=$platformID&resourceType=$type' " . getTarget() . ">"
           . _("View $type Spreadsheet")
           . " ($count " . _("$type$plural") . ")"
           . "</a></div>";
@@ -709,7 +709,7 @@ switch ($action) {
 					}
 
 					$resolverURL .= $urlAdd;
-					echo "\n<td><span style='float:left;'><a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getRelatedTitlesForm&titleID=" . $title['titleID'] . "&height=240&width=258&modal=true\",240,260)' class='thickbox'>" . _("view related titles") . "</a><br /><a href='" . $resolverURL  . "' target='_blank'>" . _("view in link resolver") . "</a></span></td>";
+					echo "\n<td><span style='float:left;'><a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getRelatedTitlesForm&titleID=" . $title['titleID'] . "&height=240&width=258&modal=true\",240,260)' class='thickbox'>" . _("view related titles") . "</a><br /><a href='" . $resolverURL  . "' " . getTarget() . ">" . _("view in link resolver") . "</a></span></td>";
 				}else{
 					echo "\n<td>&nbsp;</td>";
 				}
@@ -788,7 +788,7 @@ switch ($action) {
 
 					$resolverURL .= $urlAdd;
 
-					echo "\n<td><span style='float:left;'><a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getRelatedTitlesForm&titleID=" . $title['titleID'] . "&height=240&width=258&modal=true\",240,260)' class='thickbox'>" . _("view related titles") . "</a><br /><a href='" . $resolverURL  . "' target='_blank'>" . _("view in link resolver") . "</a></span></td>";
+					echo "\n<td><span style='float:left;'><a href='javascript:void(0)' onclick='myDialog(\"ajax_forms.php?action=getRelatedTitlesForm&titleID=" . $title['titleID'] . "&height=240&width=258&modal=true\",240,260)' class='thickbox'>" . _("view related titles") . "</a><br /><a href='" . $resolverURL  . "' " . getTarget() . ">" . _("view in link resolver") . "</a></span></td>";
 				}else{
 					echo "\n<td>&nbsp;</td>";
 				}
