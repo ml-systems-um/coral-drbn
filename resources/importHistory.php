@@ -55,14 +55,15 @@ if (isset($_GET['detail'])) {
 
 } else {
 
-	$pageTitle=_('Import history');
+	$pageTitle=_('Import History');
 	include 'templates/header.php';
 
     $imports = new ImportHistory();
     ?>
     <main id="main-content">
     <article>
-    <h2><?php echo _('Import history'); ?></h2>
+    <h2><?php echo _('Import History'); ?></h2>
+    <?php if (is_array($imports->allAsArray()) && count($imports->allAsArray()) > 0) { ?>
     <table class="dataTable">
     <thead>
     <tr>
@@ -85,7 +86,13 @@ if (isset($_GET['detail'])) {
     ?>
     </tbody>
     </table>
-	<a href="import.php"><?php echo _('Back to import'); ?></a>
+    <?php
+    }
+    else { 
+        echo '<p>' . _('No imports found.') . '</p>';
+    }
+    ?>
+	<p><a href="import.php"><?php echo _('Back to import'); ?></a></p>
     </article>
     </main>
 <?php
