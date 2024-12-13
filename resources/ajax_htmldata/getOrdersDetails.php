@@ -47,7 +47,7 @@ if ($resourceAcquisitionID) {
 			</span>
 </div>
 	
-	<dl class="dl-grid">
+	<dl class="dl-grid dl-compact">
 	    <?php if ($resourceAcquisition->organizationID) { ?>
 				<dt><?php echo _("Organization:");?></dt>
 				<dd><?php echo $organizationName; ?></dd>
