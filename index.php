@@ -61,6 +61,10 @@
 		<a href="#main-content" class="skip"><?php echo _('Skip to main content'); ?></a>
     	<h1 class="title-main fw-normal"><?php echo _("<b>eRM</b> &bullet; eResource Management");?></h1>
 		<p>
+			<label for="lang" class="language-select"><?php echo _("Change language:");?></label>
+      		<?php $lang_name->getLanguageSelector(); ?>
+		</p>
+		<p>
 			<label for="color-mode-toggle"><?php echo _("Change color mode:"); ?></label>
 			<button type="button" id="color-mode-toggle" class="btn-secondary">
 				<svg role="img" id="color-mode-light" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -74,10 +78,6 @@
 				</svg>
 				<span class="visually-hidden"><?php echo _("Toggle color mode"); ?></span>
           </button>
-		</p>
-		<p>
-			<label for="lang" class="language-select"><?php echo _("Change language:");?></label>
-      		<?php $lang_name->getLanguageSelector(); ?>
 		</p>
 	</header>
 <main id="main-content">
