@@ -167,13 +167,13 @@ include_once '../templates/header.php';
 ?>
 <form name="loginForm" method="post" action="index.php?service=<?php echo htmlentities($service); ?>">
 
-	<div id="login-form" class="card">
+	<div id="login-form" class="card" role="main">
 		<div class="card-header">
 	        <div id="img-title"><img src="images/authtitle.png" alt="" /></div>
 	        <h1 class="fw-normal"><?php echo _("eRM Authentication"); ?></h1>
     	</div>
 
-		<div class="card-body">
+		<div class="card-body" id="main-content">
 			<?php if ($message) { ?>
 				<p class='warning center'><?php echo $message; ?></p>
 			<?php } ?>
