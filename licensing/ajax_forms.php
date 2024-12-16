@@ -1070,18 +1070,6 @@ switch ($_GET['action']) {
 		</p>
 		</div>
 
-
-		<script type="text/javascript">
-		   //attach enter key event to new input and call add data when hit
-		   $('#shortName').keyup(function(e) {
-
-				   if(e.keyCode == 13) {
-					   submitQualifier();
-				   }
-        	});
-
-        </script>
-
 		<?php
 
 		break;
@@ -1089,23 +1077,20 @@ switch ($_GET['action']) {
   case 'getInProgressStatusesForm':
     $config = new Configuration();
     ?>
-    <div id='div_updateInProgressStatusesForm'>
-      <table class="thickboxTable" style="width:290px;padding:2px;">
-        <tr>
-          <td colspan="2">
-            <span class='headerText'><?php echo _("Update In Progress Statuses"); ?></span>
-            <br /><span id='span_errors' style='color:#F00;'></span><br />
-          </td>
-        </tr>
-        <tr class="tt-option-SFX">
-          <td><label for="inProgressStatuses"><?php echo _('In Progress Statuses'); ?></label></td>
-          <td><textarea style="width: 100%" type="text" name="in_progress_statuses" id="inProgressStatuses"><?php echo $config->settings->inProgressStatuses ?? ''; ?></textarea></td>
-        </tr>
-        <tr>
-          <td style="width:60px;"><input type="button" value="<?php echo _('Save'); ?>" onclick='javascript:window.parent.submitInProgressStatusesSettings();myDialogPOST("")' id="submitInProgressStatusesSettings" class="submit-button"></td>
-          <td><input type="button" value="<?php echo _("cancel");?>" onclick="myCloseDialog(''); return false" class="cancel-button"></td>
-        </tr>
-      </table>
+    <div id='div_updateInProgressStatusesForm' class="block-form">
+
+      <h2 class='headerText'><?php echo _("Update In Progress Statuses"); ?></h2>
+      <p id='span_errors' class="error"></p>
+
+			<p>
+				<label for="inProgressStatuses"><?php echo _('In Progress Statuses'); ?></label>
+				<textarea name="in_progress_statuses" id="inProgressStatuses"><?php echo $config->settings->inProgressStatuses ?? ''; ?></textarea>
+			</p>
+
+			<p class="actions">
+				<input type="submit" value="<?php echo _('Save'); ?>" onclick='javascript:window.parent.submitInProgressStatusesSettings();myDialogPOST("")' id="submitInProgressStatusesSettings" class="submit-button primary">
+				<input type="button" value="<?php echo _("cancel");?>" onclick="myCloseDialog(''); return false" class="cancel-button secondary">
+			</p>
     </div>
 
     <?php
@@ -1115,23 +1100,20 @@ switch ($_GET['action']) {
   case 'getInProgressStatusesForm':
     $config = new Configuration();
     ?>
-    <div id='div_updateInProgressStatusesForm'>
-      <table class="thickboxTable" style="width:290px;padding:2px;">
-        <tr>
-          <td colspan="2">
-            <span class='headerText'><?php echo _("Update In Progress Statuses"); ?></span>
-            <br /><span id='span_errors' style='color:#F00;'></span><br />
-          </td>
-        </tr>
-        <tr class="tt-option-SFX">
-          <td><label for="inProgressStatuses"><?php echo _('In Progress Statuses'); ?></label></td>
-          <td><textarea style="width: 100%" type="text" name="in_progress_statuses" id="inProgressStatuses"><?php echo $config->settings->inProgressStatuses ?? ''; ?></textarea></td>
-        </tr>
-        <tr>
-          <td style="width:60px;"><input type="button" value="<?php echo _('Save'); ?>" onclick='javascript:window.parent.submitInProgressStatusesSettings();myDialogPOST("")' id="submitInProgressStatusesSettings" class="submit-button"></td>
-          <td><input type="button" value="<?php echo _("cancel");?>" onclick="myCloseDialog(''); return false" class="cancel-button"></td>
-        </tr>
-      </table>
+    <div id='div_updateInProgressStatusesForm' class="block-form">
+
+            <h2 class='headerText'><?php echo _("Update In Progress Statuses"); ?></h2>
+            <p id='span_errors'></p>
+						
+          <p>
+						<label for="inProgressStatuses"><?php echo _('In Progress Statuses'); ?></label>
+          	<textarea name="in_progress_statuses" id="inProgressStatuses"><?php echo $config->settings->inProgressStatuses ?? ''; ?></textarea>
+					</p>
+
+          <p class="actions">
+						<input type="submit" value="<?php echo _('Save'); ?>" onclick='javascript:window.parent.submitInProgressStatusesSettings();myDialogPOST("")' id="submitInProgressStatusesSettings" class="submit-button primary">
+          	<input type="button" value="<?php echo _("cancel");?>" onclick="myCloseDialog(''); return false" class="cancel-button secondary">
+					</p>
     </div>
 
     <?php

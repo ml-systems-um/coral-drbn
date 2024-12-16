@@ -200,7 +200,7 @@ switch ($_GET['action']) {
 		$contactRoleObj = new ContactRole();
 		$contactRoleArray = $contactRoleObj->allAsArray();
 ?>
-		<div style="form-inline">
+		<div class="form-inline">
 			<p class="form-element">
 				<label for="contactAddName"><?php echo _("Name"); ?></label>
 				<input type='text' id='contactAddName' name='contactName' aria-describedby="span_error_contactAddName">

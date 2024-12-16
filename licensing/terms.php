@@ -92,7 +92,7 @@ include 'templates/header.php';
         <!-- TODO: redo display of this div; remove terms.css and friends -->
         <div id="the-terms">
             <?php foreach($expressionType->reorderTargets($targetsArray) as $i => $targetArray): ?>
-                <span class="titleText"><?php echo $targetArray['public_name']; ?></span>
+                <h3 class="titleText"><?php echo $targetArray['public_name']; ?></h3>
 
                 <?php $expressionArray = $expressionType->getExpressionsByResource($targetArray['public_name']); ?>
 
@@ -104,8 +104,8 @@ include 'templates/header.php';
                             <?php sprintf(_("Terms as of %s — the following terms apply
                             ONLY to articles accessed via <a href='%s' %s>%s</a>"), format_date($expression->getLastUpdateDate), $targetArray['target_url'], getTarget(), $targetArray['public_name']); ?>
                         </p>
-                        <div style="margin:0 0 30px 0;">
-                            <div class="shaded" style="width:850px; padding:3px;">
+                        <dl class="dl-grid">
+                            <dt class="header">
                                 <?php
                                     $qualifierArray = array();
                                     // variables for permitted/prohibited qualifiers (this should match up with the available qualifiers in the license module)
@@ -125,23 +125,23 @@ include 'templates/header.php';
                                         }
                                     }
                                 ?>
-                                <strong><?php echo $expressionType->shortName; ?> Notes:</strong> <?php if($icon): ?><img src="<?php echo $icon; ?>"><?php endif; ?>
-                                <ul style="margin-left: 20px;">
-                                <?php if (!empty($qualifierArray)): ?>
-                                    <li><?php echo _('Qualifier:'); ?> <?php echo implode(", ", $qualifierArray); ?></li>
-                                <?php endif; ?>
-                                <?php foreach ($expression->getExpressionNotes as $expressionNote): ?>
-                                    <li><?php echo $expressionNote->note; ?></li>
-                                <?php endforeach; ?>
-                                </ul>
-                            </div>
+                                <dt><?php printf(_('%s Notes: %s'), $expressionType->shortName, $icon ? '<img src="' . $icon .'">' : '' ); ?></dt>
+                                
+                                <dd>
+                                    <ul>
+                                    <?php if (!empty($qualifierArray)): ?>
+                                        <li><?php echo _('Qualifier:'); ?> <?php echo implode(", ", $qualifierArray); ?></li>
+                                    <?php endif; ?>
+                                    <?php foreach ($expression->getExpressionNotes as $expressionNote): ?>
+                                        <li><?php echo $expressionNote->note; ?></li>
+                                    <?php endforeach; ?>
+                                    </ul>
+                            </dd>
                             <?php if ($expression->documentText): ?>
-                                <div style="width:850px;">
-                                    <p><strong><?php printf(_('From the license agreement %s:'),  get_effective_date($expression->documentID)) ?></strong></p>
-                                    <p><em><?php echo nl2br($expression->documentText); ?></em></p>
-                                </div>
+                                    <dt><?php printf(_('From the license agreement %s:'),  get_effective_date($expression->documentID)) ?></dt>
+                                    <dd><?php echo nl2br($expression->documentText); ?></dd>
                             <?php endif; ?>
-                        </div>
+                        </dl>
                     <?php endforeach; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
