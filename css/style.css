@@ -726,6 +726,10 @@ td.outstanding {
   text-align: end;
 }
 
+.start {
+  text-align: start;
+}
+
 .actions {
   text-align: center;
 }
@@ -1044,6 +1048,13 @@ Usage:
   display: inline-block;
   vertical-align: block-start;
   width: 42%;
+}
+
+.form-flex {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex: 0 0 auto;
 }
 
 .end label {
