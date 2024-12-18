@@ -61,7 +61,9 @@ if (($user->isAdmin) && ($user->getOpenSession())){
 			try {
 				$sUser->save();
 			} catch (Exception $e) {
+				echo "<span class='error'>";
 				echo $e->getMessage();
+				echo "</span>";
 			}
 
 			break;
@@ -72,9 +74,13 @@ if (($user->isAdmin) && ($user->getOpenSession())){
 
 			try {
 				$dUser->delete();
+				echo "<span class='success'>";
 				echo _("User successfully deleted.");
+				echo "</span>";
 			} catch (Exception $e) {
+				echo "<span class='error'>";
 				echo $e->getMessage();
+				echo "</span>";
 			}
 
 			break;

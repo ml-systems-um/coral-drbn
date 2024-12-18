@@ -31,10 +31,14 @@ if($resourceStepID != ''){
                 }
             }
         } catch (Exception $e) {
+            echo "<span class='error'>";
             echo $e->getMessage();
+            echo "</span>";
         }
     }
 }else{
     //do something for empty result
+    echo "<span class='error'>";
     echo "There was an error. Invalid or missing step.";
+    echo "</span>";
 }

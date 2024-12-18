@@ -343,6 +343,12 @@ header {
   justify-content: space-between;
 }
 
+body > #span_message {
+  margin-block: 1rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
 #brand {
   margin-block: 0 0.1rem;
   margin-inline: 1rem;
@@ -902,7 +908,7 @@ table input:not(:is([type="checkbox"], [type="radio"],
 
 label,
 .label {
-  display: inline-block;
+  display: block;
   margin-inline-end: 1ch;
 }
 
@@ -945,8 +951,7 @@ input[type="radio"] {
 /* Form grid */
 
 .form-grid {
-  display: grid;
-  align-items: start;
+  align-items: baseline;
   grid-template-columns: 1fr;
   row-gap: 0.5rem;
   column-gap: 0.5rem;
@@ -959,7 +964,12 @@ input[type="radio"] {
 }
 
 @media screen and (min-width: 720px) {
+  label, 
+  .label {
+    display: inline-block;
+  }
   .form-grid {
+    display: grid;
     grid-template-columns: minmax(min-content, max-content) 1fr;
     row-gap: 1rem;
   }
@@ -969,12 +979,17 @@ input[type="radio"] {
   .form-grid label:not(:is(.checkbox label)) {
     margin-block-start: 0;
   }
+  .subgrid {
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+  /* eliminate uneven start to things in .form-group */
+  .form-grid fieldset.subgrid:has(.form-group) legend {
+    float: left;
+  }
 }
 
 .subgrid {
-  display: grid;
-  grid-template-columns: subgrid;
-  align-items: baseline;
   margin-block-end: 0;
 }
 
@@ -997,18 +1012,11 @@ Usage:
 /**/
 
 .form-grid .subgrid {
-  display: grid;
   grid-column: 1 / -1;
-  grid-template-columns: subgrid;
 }
 
 .form-grid fieldset.subgrid legend {
   grid-column: 1;
-}
-
-/* eliminate uneven start to things in .form-group */
-.form-grid fieldset.subgrid:has(.form-group) legend {
-  float: left;
 }
 
 .form-grid fieldset.subgrid .form-group {

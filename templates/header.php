@@ -288,7 +288,7 @@ global $http_lang;
 </ul>
 </nav>
 
-<p id="span_message" class="error" role="status"><?php
+<p id="span_message" role="status"><?php
   if (isset($_POST['message']))
     echo $_POST['message'];
   if (isset($errorMessage))
