@@ -252,13 +252,13 @@
 
 			if ($resource->resourceURL) { ?>
 				<dt><?php echo _("Resource URL:");?></dt>
-				<dd><?php echo $resource->resourceURL; ?> <a href='<?php echo $resource->resourceURL; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Resource URL");?>" title="<?php echo _("Visit Resource URL");?>"></a></dd>
+				<dd><?php echo $resource->resourceURL; ?> <a href='<?php echo $resource->resourceURL; ?>' <?php echo getTarget() ?>><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Resource URL");?>" title="<?php echo _("Visit Resource URL");?>"></a></dd>
 				<?php
 			}
 
 			if ($resource->resourceAltURL) { ?>
 				<dt><?php echo _("Alt URL:");?></dt>
-				<dd><?php echo $resource->resourceAltURL; ?> <a href='<?php echo $resource->resourceAltURL; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Secondary Resource URL");?>" title="<?php echo _("Visit Secondary Resource URL");?>"></a></dd>
+				<dd><?php echo $resource->resourceAltURL; ?> <a href='<?php echo $resource->resourceAltURL; ?>' <?php echo getTarget() ?>><img src='images/arrow-up-right.gif' alt="<?php echo _("Visit Secondary Resource URL");?>" title="<?php echo _("Visit Secondary Resource URL");?>"></a></dd>
 			<?php
 			}
 

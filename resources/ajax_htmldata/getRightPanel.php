@@ -39,7 +39,7 @@
 		$licenseArray = $resourceAcquisition->getLicenseArray();
 
 		echo "<ul class='unstyled'>";
-		echo "<li><a href='summary.php?resourceID=" . $resource->resourceID . "&resourceAcquisitionID=" . $resourceAcquisitionID . getTarget()  . " class='helpfulLink'>"._("Print View")."</a></li>";
+		echo "<li><a href='summary.php?resourceID=" . $resource->resourceID . "&resourceAcquisitionID=" . $resourceAcquisitionID . "' " . getTarget() . " class='helpfulLink'>"._("Print View")."</a></li>";
 		if (($resource->systemNumber) && ($config->settings->catalogURL != '')) {
 			echo "<li><a href='" . $config->settings->catalogURL . $resource->systemNumber . "' " . getTarget() . ">"._("Catalog View")."</a></li>";
 		}
@@ -89,7 +89,7 @@
 				<ul class="unstyled">
 				<?php
 				foreach ($orgArray as $organization){
-					echo "<li><a href='" . $util->getOrganizationURL() . $organization['organizationID'] . getTarget()  . " class='helpfulLink'>" . $organization['organization'] . "</a></li>";
+					echo "<li><a href='" . $util->getOrganizationURL() . $organization['organizationID'] . "' " . getTarget()  . " class='helpfulLink'>" . $organization['organization'] . "</a></li>";
 				}
 
 				?>
@@ -105,7 +105,7 @@
 				<ul class="unstyled">
 				<?php
 				foreach ($licenseArray as $license){
-					echo "<li><a href='" . $util->getLicensingURL() . $license['licenseID'] . getTarget()  . " class='helpfulLink'>" . $license['license'] . "</a></li>";
+					echo "<li><a href='" . $util->getLicensingURL() . $license['licenseID']  . "' " . getTarget() . " class='helpfulLink'>" . $license['license'] . "</a></li>";
 				}
 
 				?>

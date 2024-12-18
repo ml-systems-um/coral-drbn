@@ -435,7 +435,7 @@ if ($organization->name){
 				}
 			?> 
 				<!-- TODO: replace image -->
-				<a href='<?php echo $externalLogin['loginURL']; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
+				<a href='<?php echo $externalLogin['loginURL']; ?>' <?php echo getTarget(); ?>><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
 			</tr>
 			<?php
 			}

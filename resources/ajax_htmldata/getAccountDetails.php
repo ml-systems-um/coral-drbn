@@ -60,7 +60,7 @@
 				if ($externalLogin['loginURL']) { ?>
 				
 				<dt><?php echo('Login URL:'); ?></dt>
-				<dd><?php echo $externalLogin['loginURL']; ?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></dd>
+				<dd><?php echo $externalLogin['loginURL']; ?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' <?php echo getTarget(); ?>><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></dd>
 				
 				<?php
 				}

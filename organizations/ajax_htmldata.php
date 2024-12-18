@@ -193,7 +193,8 @@ switch ($_GET['action']) {
 		
 		<?php if ($user->canEdit()){ ?>
 			<p>
-				<a href='javascript:void(0)' onclick='myDialog("ajax_forms.php?action=getOrganizationForm&organizationID=<?php echo $organizationID; ?>",383,800)' class='thickbox' id='editOrganization' aria-label='<?php echo sprintf(_('Edit %s'), $organization->name); ?>'><img src='images/edit.gif' alt='<?php echo _("edit");?>'></a><?php } ?>  <?php if ($user->isAdmin){ ?><a href='javascript:removeOrganization(<?php echo $organizationID; ?>)' aria-label='<?php echo sprintf(_('Delete %s'), $organization->name); ?>'><img src='images/cross.gif' alt='<?php echo _("delete organization");?>'></a>
+				<a href='javascript:void(0)' onclick='myDialog("ajax_forms.php?action=getOrganizationForm&organizationID=<?php echo $organizationID; ?>",383,800)' class='thickbox' id='editOrganization' aria-label='<?php echo sprintf(_('Edit %s'), $organization->name); ?>'><img src='images/edit.gif' alt='<?php echo _("edit");?>'></a><?php } ?>  
+				<?php if ($user->isAdmin){ ?><a href='javascript:removeOrganization(<?php echo $organizationID; ?>)' aria-label='<?php echo sprintf(_('Delete %s'), $organization->name); ?>'><img src='images/cross.gif' alt='<?php echo _("delete organization");?>'></a>
 			</p>
 		<?php } ?>
 		
@@ -571,7 +572,7 @@ switch ($_GET['action']) {
 					if (strpos($externalLogin['loginURL'], '://') === false) {
 						$externalLogin['loginURL'] = "http://" . $externalLogin['loginURL'];
 					}
-				?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' " . getTarget() . "><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
+				?>&nbsp;&nbsp;<a href='<?php echo $externalLogin['loginURL']; ?>' <?php echo getTarget(); ?>><img src='images/arrow-up-right.gif' alt='<?php echo _("Visit Login URL");?>' title='<?php echo _("Visit Login URL");?>' style='vertical-align:top;'></a></td>
 				</tr>
 				<?php
 				}
