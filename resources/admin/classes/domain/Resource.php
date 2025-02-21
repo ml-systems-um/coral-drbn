@@ -562,6 +562,12 @@ class Resource extends DatabaseObject {
 			$searchDisplay[] = _("ISSN/ISBN: ") . $search['resourceISBNOrISSN'];
 		}
 
+		if ($search['orderNumber']){
+			$orderNum = $resource->db->escapeString($search['orderNumber']);
+			$whereAdd[] = "(RA.orderNumber = '{$orderNum}')";
+			$searchDisplay[] = _("Order Number:")." {$orderNum}";
+		}
+
 		if ($search['stepName']) {
 			$status = new Status();
 			$completedStatusID = $status->getIDFromName('complete');
@@ -959,7 +965,6 @@ class Resource extends DatabaseObject {
 	//returns array based on search
 	public function search($whereAdd, $orderBy, $limit) {
 		$query = $this->searchQuery($whereAdd, $orderBy, $limit, false);
-
 		$result = $this->db->processQuery($query, 'assoc');
 
 		$searchArray = array();
