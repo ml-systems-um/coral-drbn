@@ -1628,25 +1628,45 @@ switch ($_GET['action']) {
 
 		//get resources (already returned in array)
 		$resourceArray = $license->getResourceArray();
+		$resourcesExist = count($resourcesArray) > 0;
+		$resourcesModuleExists = $config->settings->resourcesModule == 'Y';
+		$feedbackEmail = $config->settings->feedbackEmailAddress;
+		$feedbackEmailExists = $feedbackEmail != '';
+		$licenseName = '';
+		$licenseID = '';
 
-		if ((count($resourceArray) > 0) && ($config->settings->resourcesModule == 'Y')) {
-
-		?>
-			<aside id="links">
-				<h3><?php echo _("Resources Module");?></h3>
-				<ul class="unstyled">
-				<?php
-				foreach ($resourceArray as $resource){
-					echo "<li><a href='" . $util->getResourceURL() . $resource['resourceID'] . "' " . getTarget() . " class='helpfulLink'>" . $resource['resource'] . "</a></li>";
-				}
-
-				?>
-				</ul>
+		if(($resourcesExist && $resourcesModuleExists) || $feedbackEmailExists){
+			?>
+			<aside id="links" class="helpfulLinks">
+				<div id='div_fullRightPanel' class='rightPanel'>
+					<h3 id="side-menu-title"><?php echo _("Helpful Links"); ?></h3>
+					<?php if($resourcesExist) { ?>
+						<h4><?php echo _("Resources Module");?></h4>
+						<ul class="unstyled">
+							<?php foreach($resourceArray as $resource){
+								$url = $util->getResourceURL();
+								$target = getTarget();
+								$id = $resource['resourceID'];
+								$resourceName = $resource['resource'];
+								echo "<li><a href='{$url}{$id}' {$target} class='helpfulLink'>{$resourceName}</a></li>";
+							} ?>
+						</ul>
+					<?php } ?>
+					<?php if($feedbackEmailExists) { ?>
+						<p>
+							<?php 
+								echo "<a href='mailto:{$feedbackEmail}?subject={$licenseName} (License ID: {$licenseID})' class='helpfulLink'>"; 
+									echo _("Send feedback on this resource");
+								echo "</a>";
+							?>
+						</p>
+					<?php } ?>
+				</div>
 			</aside>
 
-		<?php
 
-	}
+			<?php 
+		}
 
 		break;
 

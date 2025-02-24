@@ -83,18 +83,7 @@ if ($license->shortName){
 		</div>
 
 	</article>
-
-	<?php if ($config->settings->feedbackEmailAddress != '') {?>
-	<aside id="links" class='helpfulLinks'>
-		<div id='div_fullRightPanel' class='rightPanel'>
-			<h3 id="side-menu-title"><?php echo _("Helpful Links"); ?></h3>
-			<div id='div_rightPanel'>
-				<p>
-					<a href="mailto: <?php echo $config->settings->feedbackEmailAddress; ?>?subject=<?php echo $resource->titleText . ' (Resource ID: ' . $resource->resourceID . ')'; ?>" class='helpfulLink'><?php echo _("Send feedback on this resource");?></a>
-				</p>
-			</div>
-	</aside>
-	<?php } ?>
+	<div id="div_rightPanel"></div>
 
 	<nav id="side" aria-label="<?php echo _('License Details'); ?>">
 		<!-- TODO: WAI-ARIA Tab Panel -->
