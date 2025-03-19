@@ -73,6 +73,13 @@ include 'templates/header.php';
         <?php echo (new Html())->text_search_field_tag('provider', isset($search['provider']) ? $search['provider'] : ''); ?>
       </p>
 
+	<p class='searchRow'>
+		<label for='searchOrderNumber'><?php echo _("Order Number"); ?></label>
+		<?php 
+			$defaultOrder = ($search['orderNumber']) ?? '';
+			echo (new Html())->text_search_field_tag('orderNumber', $defaultOrder); 
+		?>
+	</p>
 			
 	<p class='searchRow'><label for='searchResourceISBNOrISSN'><?php echo _("ISBN/ISSN");?></label>
 	<?php echo (new Html())->text_search_field_tag('resourceISBNOrISSN', isset($search['resourceISBNOrISSN']) ? $search['resourceISBNOrISSN'] : ''); ?>
