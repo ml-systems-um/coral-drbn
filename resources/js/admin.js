@@ -238,15 +238,18 @@ function updateEbscoKbConfigTable(){
 
 function submitData(){
     if (validateAdminForms() === true) {
+        //The stats addition requires special checking.
+        let statsCheck = $('#stats:checkbox:checked');
+        let statsValue = (statsCheck.length > 0);
         $.ajax({
             type:       "POST",
             url:        "ajax_processing.php?action=updateData",
             cache:      false,
-            data:       { className: $("#editClassName").val(), updateID: $("#editUpdateID").val(), shortName: $('#updateVal').val(), stats: $('#stats').attr('checked') },
+            data:       { className: $("#editClassName").val(), updateID: $("#editUpdateID").val(), shortName: $('#updateVal').val(), stats: statsValue },
             success:    function(html) {
                 updateTable($("#editClassName").val());
-        	myDialogPOST();
-	    }
+        	    myDialogPOST();
+	        }
         });
     }
 }
