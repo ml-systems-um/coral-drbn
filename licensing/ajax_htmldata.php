@@ -1625,28 +1625,47 @@ switch ($_GET['action']) {
 		$licenseID = $_GET['licenseID'];
 		$license = new License(new NamedArguments(array('primaryKey' => $licenseID)));
 		$config = new Configuration;
-
 		//get resources (already returned in array)
 		$resourceArray = $license->getResourceArray();
-
-		if ((count($resourceArray) > 0) && ($config->settings->resourcesModule == 'Y')) {
-
-		?>
-			<aside id="links">
-				<h3><?php echo _("Resources Module");?></h3>
-				<ul class="unstyled">
-				<?php
-				foreach ($resourceArray as $resource){
-					echo "<li><a href='" . $util->getResourceURL() . $resource['resourceID'] . "' " . getTarget() . " class='helpfulLink'>" . $resource['resource'] . "</a></li>";
-				}
-
-				?>
-				</ul>
+		$resourcesExist = count($resourceArray) > 0;
+		$resourcesModuleExists = $config->settings->resourcesModule == 'Y';
+		$feedbackEmail = $config->settings->feedbackEmailAddress;
+		$feedbackEmailExists = $feedbackEmail != '';
+		if(($resourcesExist && $resourcesModuleExists) || $feedbackEmailExists){
+			?>
+			<aside id="links" class="helpfulLinks">
+				<div id='div_fullRightPanel' class='rightPanel'>
+					<h3 id="side-menu-title"><?php echo _("Helpful Links"); ?></h3>
+					<?php if($resourcesExist) { 
+						//First we need to de-deduplicate the resources Array. It can be duplicated if there are multiple orders of a single resource.
+						$deDupedList = [];
+						foreach($resourceArray as $resource){$deDupedList[$resource['resourceID']] = $resource['resource'];}
+						?>
+						<h4><?php echo _("Resources Module");?></h4>
+						<ul class="unstyled">
+							<?php foreach($deDupedList as $id=>$resourceName){
+								$url = $util->getResourceURL();
+								$target = getTarget();
+								echo "<li><a href='{$url}{$id}' {$target} class='helpfulLink'>{$resourceName}</a></li>";
+							} ?>
+						</ul>
+					<?php } ?>
+					<?php if($resourcesExist && $feedbackEmailExists){echo "<hr>";} ?>
+					<?php if($feedbackEmailExists) { ?>
+						<p>
+							<?php 
+								echo "<a href='mailto:{$feedbackEmail}?subject={$license->shortName} (License ID: {$licenseID})' class='helpfulLink'>"; 
+									echo _("Send feedback on this license");
+								echo "</a>";
+							?>
+						</p>
+					<?php } ?>
+				</div>
 			</aside>
 
-		<?php
 
-	}
+			<?php 
+		}
 
 		break;
 
