@@ -232,9 +232,11 @@ include 'templates/header.php';
 
         $headerSet = FALSE;
         // If this is not a sushi report, need to render headers
+        $i = 0;
         if (!$fromSushi) {
           echo '<thead><tr><th>' . implode('</th><th>', $firstArray) . '</th></tr></thead>';
           $headerSet = TRUE;
+          $i++;
         }
 
         echo '<tbody>';
@@ -245,7 +247,6 @@ include 'templates/header.php';
         $lineLimitExists = ($lineLimit > 0); //The line limit exists and is greater than 0 (strings return 0)
         $checkLimit = ($limitLines && $lineLimitExists); //There is a valid line limit and limit lines is set to Y
         
-        $i = 0;
         while (!feof($file_handle)) {
           //Check if you need to check for a line limit and, if that limit is set and surpassed, stop producing the list.
           if($checkLimit && $i>$lineLimit){break;}
