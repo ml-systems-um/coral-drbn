@@ -105,7 +105,7 @@ function buildValidationList($phpArray, $variableName){
 							<?php if ($enhancedCostFlag){ ?>
 							<th scope="col" id="invoice"><?php echo _("Invoice");?></th>
 							<?php } ?>
-							<th scope="col" style="max-width: <?php echo $minWidth; ?>%"><?php echo _("Delete"); ?></th>
+							<th scope="col"><?php echo _("Delete"); ?></th>
 						</tr>
 					</thead>
 					<tbody id="costHistoryBody">
