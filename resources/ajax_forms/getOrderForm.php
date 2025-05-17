@@ -13,7 +13,11 @@
 		$config = new Configuration();
 
 		$startDate = normalize_date($resourceAcquisition->subscriptionStartDate);
+		$unformattedStartDate = date_create($startDate);
+		$newStartDate = date_format($unformattedStartDate, "Y-m-d");
 		$endDate = normalize_date($resourceAcquisition->subscriptionEndDate);
+		$unformattedEndDate = date_create($endDate);
+		$newEndDate = date_format($unformattedEndDate, "Y-m-d");
 
 		//get all purchase sites for output in checkboxes
 		$purchaseSiteArray = array();
@@ -68,12 +72,12 @@
 		
 		<label for='currentStartDate'><?php echo _("Sub Start:");?></label>
 		<div class="form-group">
-			<input class='date-pick' id='currentStartDate' name='currentStartDate' value = '<?php echo $startDate; ?>' placeholder='mm/dd/yyyy' />
+			<input type="date" class='date-pick' id='currentStartDate' name='currentStartDate' value = '<?php echo $newStartDate; ?>' placeholder='mm/dd/yyyy' />
 		</div>
 
 		<label for='currentEndDate'><?php echo _("Current Sub End:");?></label>
 		<div class="form-group">
-			<input class='date-pick' id='currentEndDate' name='currentEndDate' value = '<?php echo $endDate; ?>' placeholder='mm/dd/yyyy' />
+			<input type="date" class='date-pick' id='currentEndDate' name='currentEndDate' value = '<?php echo $newEndDate; ?>' placeholder='mm/dd/yyyy' />
 		</div>
 
 		<label for='organizationName'><?php echo _("Organization");?></label>
