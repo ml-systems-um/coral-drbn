@@ -16,24 +16,30 @@
 **
 **************************************************************************************************************************
 */
-
-
-
+namespace resources;
+use common as uni;
 include_once 'directory.php';
-
 //used for creating a "sticky form" for back buttons
 //except we don't want it to retain if they press the 'index' button
-//check what referring script is
+//check what referring script is to make sure it isn't the index button.
+$referringScript = uni\CoralSession::get('ref_script');
+//Get a search going.
+$resourcesSearch = new ResourceSearch; 
+if($referringScript !== "resource.php"){$resourcesSearch->resetSearch();}
 
-if (CoralSession::get('ref_script') != "resource.php"){
-	Resource::resetSearch();
-}
-CoralSession::set('ref_script', $currentPage = '');
-$search = Resource::getSearch();
+//Why is this checked here? $currentPage is set in /templates/header.php
+$currentOutput = ($currentPage) ?? NULL;
+
+//var_dump($currentOutput); //I think this variable is doing nothing.
+uni\CoralSession::set('ref_script', $currentPage = '');
+
+$search = $resourcesSearch->getSearchDetails();
+
 
 //print header
 $pageTitle=_('Home');
 include 'templates/header.php';
+
 ?>
 
 <main id="main-content">

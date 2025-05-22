@@ -19,8 +19,7 @@
 
 // Define the MODULE base directory, ending with |/|.
 define('BASE_DIR', dirname(__FILE__) . '/');
-
-require_once BASE_DIR . "../common/common_directory.php";
+require_once BASE_DIR . "../common/universal_directory.php";
 
 //commonly used to convert price into integer for insert into database
 function cost_to_integer($price) {

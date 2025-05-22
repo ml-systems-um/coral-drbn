@@ -10,6 +10,11 @@ class ResourceSearch {
 		"recordsPerPage" => 25,
     ];
 
+	public function __construct(){
+        $this->resource = new Resource();
+        $this->configuration = new \common\Configuration();
+	}
+
     /* Public Functions */
 	public function getSearch() {
 		if (!\common\CoralSession::get('resourceSearch')) {
@@ -20,12 +25,9 @@ class ResourceSearch {
 	
 	public function getSearchDetails() {
 		// A successful mysqli_connect must be run before mysqli_real_escape_string will function.  Instantiating a resource model will set up the connection
-		//Check to make sure the Resource and Configuration is set.
-        $this->checkConfiguration();
-        $this->checkResource();
-
         $search = $this->getSearch();
         $resource = new Resource();
+
         $config = $this->configuration;
         debug($search);
 		$whereAdd = array();
@@ -288,7 +290,6 @@ class ResourceSearch {
 	}
 
 	public function setSearch($search) {
-        $this->checkConfiguration(); //Make sure the Configuration value has been set. 
         $defaultOrderBy = $this->defaultSearchParameters['orderBy'];
         $orderBy = ($this->configuration->settings->defaultsort) ?? $defaultOrderBy;
         $this->defaultSearchParameters['orderBy'] = $orderBy;
@@ -300,23 +301,5 @@ class ResourceSearch {
 
 		\common\CoralSession::set('resourceSearch', $trimmedArray);
 	}
-
-    private function checkConfiguration(){
-        //By Default, Configuration is set to FALSE (right now). Check that and, if it is, create a Configuration.
-        if(!$this->configuration){$this->setConfiguration();}
-    }
-
-    private function checkResource(){
-        //By Default, Resource is set to FALSE (right now). Check that and, if it is, create a Resource.
-        if(!$this->configuration){$this->setConfiguration();}        
-    }
-
-    private function setConfiguration(){
-        $this->configuration = new \common\Configuration();
-    }
-
-    private function setResource(){
-        $this->resource = new Resource();
-    }
 }
 ?>

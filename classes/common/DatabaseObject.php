@@ -54,7 +54,7 @@ class DatabaseObject extends DynamicObject {
 		$this->primaryKeyName = $arguments->primaryKeyName;
 
 		$this->primaryKey = $arguments->primaryKey;
-		$this->db = DBService::getInstance();;
+		$this->db = DBService::getInstance();
 
 		$arguments->setDefaultValueForArgumentName('db',false);
 		$this->db = $arguments->db ? $arguments->db : DBService::getInstance();
@@ -296,6 +296,7 @@ class DatabaseObject extends DynamicObject {
 	public function load() {
 		//if exists in the database
 		if (isset($this->primaryKey)) {
+			echo 'Primary Key Found<br>';
 			$query = "SELECT * FROM `$this->tableName` WHERE `$this->primaryKeyName` = ?";
 			$result = $this->db->processPreparedQuery($query, "assoc",
 													  "s",
@@ -306,10 +307,14 @@ class DatabaseObject extends DynamicObject {
 				$this->attributes[$attributeName] = $result[$attributeName];
 			}
 		}else{
+			echo 'Primary Key Not Found<br>';
 			// Figure out attributes from existing database
+
 			$query = "SELECT COLUMN_NAME FROM information_schema.`COLUMNS` WHERE table_schema = '";
 			$query .= $this->db->config->database->name . "' AND table_name = '$this->tableName'";// MySQL-specific
-
+			var_dump($query);
+			$query = "SELECT * FROM coral_resources.Resource";
+			var_dump($this->db->processQuery($query));
 			foreach ($this->db->processQuery($query) as $result) {
 				$attributeName = $result[0];
 				$this->addAttribute($attributeName);

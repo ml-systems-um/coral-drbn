@@ -94,8 +94,7 @@ class DBService extends Base_Object {
 
 		$this->checkForError();
 		$data = array();
-
-		if ($result instanceof mysqli_result) {
+		if ($result instanceof \mysqli_result) {
 			$resultType = MYSQLI_NUM;
 			if ($type == 'assoc') {
 				$resultType = MYSQLI_ASSOC;
@@ -112,37 +111,6 @@ class DBService extends Base_Object {
 			$data = mysqli_insert_id($this->db);
 		}
 
-		return $data;
-	}
-
-	public function processQuery2($sql, $type = NULL) {
-    	//echo $sql. "\n\n";
-		$result = $this->db->query($sql);
-		$this->checkForError();
-		$data = array();
-		echo "<br>Processing Query: $sql<br>";
-		debug($result);
-		echo 'Error:<br>';
-		var_dump(mysqli_error($this->db));
-		echo "<br><br>";
-		if ($result instanceof mysqli_result) {
-			echo "Result is correct instance, maybe.<br>";
-			$resultType = MYSQLI_NUM;
-			if ($type == 'assoc') {
-				$resultType = MYSQLI_ASSOC;
-			}
-			while ($row = $result->fetch_array($resultType)) {
-				if ($this->db->affected_rows > 1) {
-					array_push($data, $row);
-				} else {
-					$data = $row;
-				}
-			}
-			$result->free();
-		} else if ($result) {
-			$data = $this->db->insert_id;
-		}
-		echo "<hr>";
 		return $data;
 	}
 
@@ -206,6 +174,17 @@ class DBService extends Base_Object {
 			$refs[$key] = &$arr[$key];
 		}
 		return $refs;
+	}
+
+	public function log($sql, $query_time) {
+		$threshold = $this->config->database->logQueryThreshold;
+		if ($this->config->database->logQueries == "Y" && (!$threshold || $query_time >= $threshold)) {
+			$util = new Utility();
+			$log_path = $util->getModulePath()."/log";
+			$log_file = $log_path."/database.log";
+			$log_string = date("c")."\n".$_SERVER['REQUEST_URI']."\n".$sql."\nQuery completed in ".sprintf("%.3f", round($query_time, 3))." seconds";
+			error_log($log_string."\n\n", 3, $log_file);
+		}
 	}
 }
 

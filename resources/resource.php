@@ -16,7 +16,7 @@
 **
 **************************************************************************************************************************
 */
-
+use common;
 include_once 'directory.php';
 
 $resourceID = $_GET['resourceID'];
@@ -27,9 +27,9 @@ $resourceAcquisitions = $resource->getResourceAcquisitions();
 
 //set referring page
 if ((isset($_GET['ref'])) && ($_GET['ref'] == 'new')){
-  CoralSession::set('ref_script', 'new');
+  common\CoralSession::set('ref_script', 'new');
 }else{
-  CoralSession::set('ref_script', $currentPage);
+  common\CoralSession::set('ref_script', $currentPage);
 }
 
 $links = array(

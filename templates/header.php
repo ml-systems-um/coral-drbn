@@ -254,18 +254,30 @@ global $http_lang;
   <button class="btn menu-toggle" id="tools-toggle" type="button" aria-expanded="false" aria-controls="tools"><?php echo _("Tools"); ?></button>
   <ul class="nav" id="tools">
   <?php
+  //Get the open_new_windows value for the target.
+  $newTarget = ($config->settings->open_new_windows == "Y");
+  $targetHTML = ($newTarget) ? "target='_blank'" : "";
   // menu links are defined in modules' templates/header.php file
-  
+  echo "<pre>";
+      print_r($moduleMenu);
+  echo "</pre>";
+  exit;
   foreach ($moduleMenu as $item) {
-    $ariaCurrent = '';
-    if ( isset($item['url']) && $item['url'] == $currentPage ) {
-      $ariaCurrent = ' aria-current="page" ';
-    }
+    $currentURL = ($item['url']) ?? FALSE;
+    $onCurrentPage = ($currentURL == $currentPage);
+    $ariaCurrent = ($currentURL && $onCurrentPage) ? 'aria-current="page"' : '';
+    var_dump($target = getTarget());
+
+    $targetSet = ($item['target']) ?? FALSE;
+
     // New tabs only if configuration allows
     $target = '';
     if ( isset($item['target']) && $item['target'] == '_blank' ) {
       $target = getTarget();
     }
+
+    $classes = ($item['classes']) ?? "";
+    $id = ($item['id']) ?? "";
     ?>
     <li>
       <?php if ( isset($item['action']) ) { ?>
@@ -274,11 +286,8 @@ global $http_lang;
         </a>
       <?php 
       } 
-      else { ?>
-        <a href="<?php echo $item['url']; ?>" id="<?php echo $item['id']; ?>" class="<?php echo $item['classes']; ?>" <?php echo $ariaCurrent . $target; ?>>
-          <?php echo $item['text']; ?>
-        </a>
-      <?php 
+      else { 
+        echo "<a href='{$item['url']}' id='{$id}' class='{$classes}' {$ariaCurrent} {$target}>{$item['text']}</a>";
       } 
       ?>
     </li>
