@@ -28,67 +28,86 @@ $(document).ready(function(){
 			return false;
 		}else{
 			$('#div_errorUser').html('');
-			var newRow = $('#newUserSkeleton').clone();
+			let newRow = $('#newUserSkeleton').clone();
 			newRow.removeAttr('id');
 			newRow.removeAttr('hidden');
-			
-			var userOption = $('.loginID option:selected', $(this).closest('.newUserTR'));
-			//console.log(userOption);
+			//Get the selected user option.
+			let userOption = $('.changeSelect.loginID option:selected');
 			if (!userOption.length) {
 				return false;
 			}
 
-			var userName = userOption.text();
-			var groupName = $('#groupName').val();
-			/*
-			console.log("userName: ", userName);
-			console.log("userID: ", userOption.val());
-			console.log("groupName: ", groupName);
-			/**/
+			let userName = userOption.text();
+			let userID = userOption.val();
 			
-			$('#newUserID', newRow).val(userOption.val());
-			$('#newUserID', newRow).removeAttr('id');
-			$('#newUserDisplayName', newRow).val(userName);
-			$('#newUserDisplayName', newRow).removeAttr('id');
+			//Set the values in the cloned, template row.
+			$('[name="assignedUsers[]"]', newRow).val(userID);
+			$('[name="assignedUserNames"]', newRow).val(userName);
+			//Update the alt and text to user the user name. First get the button, then revise the text.
+			let deleteImage = $('[name="removeImage"]', newRow);
+			let altText = deleteImage.prop('alt');
+			let titleText = deleteImage.prop('title');
+			deleteImage.prop('alt', altText.replace('NEWUSER', userName));
+			deleteImage.prop('title', titleText.replace('NEWUSER', userName));
+
 			$(".remove", newRow).on('click', function() {
 				removeUser($(this));
 			});
 			newRow.appendTo('.userTable');
-			$('#noUsers').attr('hidden', true);
+
+			//Disable the option in the user dropdown and reset the choice.
+			$("#loginIDSelect").children(`[value='${userID}']`).prop('disabled', true);
+			//Reset to the top choice.
+			$("#loginIDSelect").val('').change();
+			updateNoUsers();
 			return false;
 		}
 	});
 
 	$(".remove").on('click', function() {
+
 		removeUser($(this));
 	});
+
+	updateNoUsers();
  });
+
+function updateNoUsers(){
+	//How many users are listed?
+	let userList = $('ul#userList > :not(#newUserSkeleton)');
+	if(userList.length == 0){
+		//There aren't users.
+		$('<li id="noUsers" class="wide"><em>'+noUserString+'</em></li>').appendTo("ul#userList");
+	} else {
+		//Try to remove No Users if it exists.
+		$('#noUsers').remove();
+	}
+}
 
  function removeUser(btn) {
 		btn.closest('.newUser').fadeTo(400, 0, function () {
-			var userTable = $(this).closest('userTable');
-			$(this).remove();
-			if ($('.newUser', userTable).length == 0)
-				$('#noUsers').removeAttr('hidden');
+			//Best we can do right now is assume the child with type='hidden' is the loginID.
+			let loginID = $(this).children("[type='hidden']").val();
+			//Reenable the option in the Select Dropdown.
+			$("#loginIDSelect").children(`[value='${loginID}']`).removeAttr('disabled');
+			//Remove the row from the user list and check to see if there are remaining users.
+			this.remove();
+			updateNoUsers();
 		});
 		return false;
  }
 
  function validateUserGroup(){
- 	myReturn=0;
- 	if (!validateRequired('groupName',"<br />"+_("Group name must be entered to continue.")+"<br />")) 
-		myReturn="1";
- 	if (myReturn == "1"){
-		return false;
- 	}else{
- 		return true;
- 	}
+	let validated = validateRequired('groupName',"<br />"+_("Group name must be entered to continue.")+"<br />");
+	return validated;
 }
 
 function submitUserGroup(){
-	userList ='';
-	$(".loginID").each(function(id) {
-	      userList += $(this).val() + ":::";
+	userList = [];
+	let userLoginIDs = $('.newUser:not(#newUserSkeleton)>[name="assignedUsers[]"]');
+	userLoginIDs.each(function(){
+		let login = $(this).val();
+		userList.push(login);
 	});
 
 	if (validateUserGroup() === true) {
@@ -97,7 +116,12 @@ function submitUserGroup(){
 			 type:       "POST",
 			 url:        "ajax_processing.php?action=submitUserGroup",
 			 cache:      false,
-			 data:       { userGroupID: $("#editUserGroupID").val(), groupName: $("#groupName").val(), emailAddress: $("#emailAddress").val(), usersList: userList  },
+			 data:      { 
+							userGroupID: $("#editUserGroupID").val(), 
+							groupName: $("#groupName").val(), 
+							emailAddress: $("#emailAddress").val(), 
+							usersList: userList  
+						},
 			 success:    function(html) {
 				if (html){
 					$("#span_errors").html(html);

@@ -9,6 +9,15 @@
 
 	//get users already set up for this user group in case it's an edit
 	$ugUserArray = $userGroup->getUsers();
+	//$ugUserArray gets an array of User Objects. We just need loginIDs and the dropdown Display Name.
+	$userList = [];
+	foreach($ugUserArray as $user){
+		$loginID = ($user->loginID) ?? FALSE;
+		$displayName = ($user->getDDDisplayName()) ?? FALSE;
+		if($loginID && $displayName){
+			$userList[$loginID] = $displayName;
+		}
+	}
 ?>
 <div id='div_userGroupForm'>
 	<!-- Note that userGroupForm.js validation logic uses row/input/button classes -->
@@ -22,23 +31,29 @@
 		
 		<div class="form-grid">
 			<label for='groupName'><b><?php echo _("Group Name:");?></b></label>
-			<input type='text' id='groupName' name='groupName' value = '<?php echo $userGroup->groupName; ?>' class='changeInput' aria-describedby="span_error_groupName" />
+			<input type='text' maxlength="200" id='groupName' name='groupName' value = '<?php echo $userGroup->groupName; ?>' class='changeInput' aria-describedby="span_error_groupName" required/>
 			<p id='span_error_groupName' class='error'></p>
 
 			<label for='emailAddress'><b><?php echo _("Email Addresses:");?></b></label>
-			<input type='text' id='emailAddress' name='emailAddress' value = '<?php echo $userGroup->emailAddress; ?>' class='changeInput' aria-describedby="email-hint" />
-			<p class="form-text indent" id="email-hint"><?php echo _("(use comma and a space between each email address)"); ?></p>
+			<input type='text' maxlength="200" id='emailAddress' name='emailAddress' value = '<?php echo $userGroup->emailAddress; ?>' class='changeInput' aria-describedby="email-hint" />
+			<p class="form-text indent" id="email-hint"><?php echo _("(use comma and a space between each email address)")." "._("(limited to 200 characters)"); ?></p>
+
 
 			<fieldset class="subgrid">
 			<legend id="add-user-heading"><?php echo _("Add User");?></legend>
 			<div class='newUserTR form-group'>
-				<select class='changeSelect loginID' aria-labelledby="add-user-heading">
-					<option value=''></option>
+				<select id="loginIDSelect" class='changeSelect loginID' aria-labelledby="add-user-heading">
+					<option value='' disabled selected></option>
 					<?php
 					foreach ($allUserArray as $ugUser){
-						$userObj = new User(new NamedArguments(array('primaryKey' => $ugUser['loginID'])));
-						$ddDisplayName = $userObj->getDDDisplayName;
-						echo "<option value='" . $ugUser['loginID'] . "'>" . $ddDisplayName . "</option>\n";
+						$loginID = ($ugUser['loginID']) ?? FALSE;
+						$alreadyInGroup = ($userList[$loginID]) ?? FALSE;
+						$disabled = ($alreadyInGroup) ? "disabled" : "";
+						if($loginID){
+							$userObj = new User(new NamedArguments(array('primaryKey' => $loginID)));
+							$displayName = ($userObj->getDDDisplayName) ?? '';
+							echo "<option value='{$loginID}' {$disabled}>{$displayName}</option>";
+						}
 					}
 					?>
 				</select>
@@ -49,18 +64,22 @@
 			<p class='error' id='div_errorUser'></p>
 			</fieldset>
 		</div>
+		<script type="text/javascript">
+			if (typeof noUserString == 'undefined') {let noUserString = '';}
+			noUserString = "<?php printf(_('No users assigned to %s group'), $userGroup->groupName); ?>";
+		</script>
 		<h3 class="wide"><?php echo _("Assigned Users");?></h3>
-		<ul class='unstyled userTable wide form-grid'>
+		<ul id="userList" class='unstyled userTable wide form-grid'>
 		<?php
-				$haveUsers = true;
-				if (is_array($ugUserArray) && count($ugUserArray) > 0) {
-					$haveUsers = false;
-					foreach ($ugUserArray as $ugUser){ ?>
+
+				$usersExist = (count($ugUserArray) > 0);
+				if($usersExist){
+					foreach ($userList as $loginID => $displayName){ ?>
 						<li class='newUser subgrid'>
-							<input type="hidden" value="<?php echo $ugUser->loginID ?>" />
-							<input type="text" aria-labelledby="assigned-user-heading" value="<?php echo $ugUser->getDDDisplayName; ?>" readonly />
+							<input type="hidden" name="assignedUsers[]" value="<?php echo $loginID ?>" />
+							<input type="text" name="assignedUserNames" aria-labelledby="assigned-user-heading" value="<?php echo $displayName; ?>" readonly />
 							<button type="button" class="btn start remove">
-								<img src='images/cross.gif' alt="<?php printf(_("remove %s from %s group"), $ddDisplayName, $userGroup->groupName);?>" title="<?php printf(_("remove %s from %s group"), $ddDisplayName, $userGroup->groupName);?>" />
+								<img src='images/cross.gif' alt="<?php printf(_("remove %s from %s group"), $displayName, $userGroup->groupName);?>" title="<?php printf(_("remove %s from %s group"), $displayName, $userGroup->groupName);?>" />
 							</button>
 						</li>
 					<?php
@@ -68,13 +87,12 @@
 				}
 			?>
 				<li class='newUser subgrid' id="newUserSkeleton" hidden>
-					<input type="hidden" id="newUserID" value="" />
-					<input type="text" id="newUserDisplayName" aria-labelledby="assigned-user-heading" value="" readonly />
+					<input type="hidden" name="assignedUsers[]" id="newUserID" value="" />
+					<input type="text" name="assignedUserNames"  aria-labelledby="assigned-user-heading" value="" readonly />
 					<button type="button" class="btn start remove">
-						<img src='images/cross.gif' alt="<?php _('remove user from group') ?>" />
+						<img name="removeImage" src='images/cross.gif' alt="<?php printf(_('remove NEWUSER from %s group'), $userGroup->groupName); ?>" title="<?php printf(_('remove NEWUSER from %s group'), $userGroup->groupName); ?>" />
 					</button>
 				</li>
-				<li id='noUsers' class='wide' <?php if (!$haveUsers) echo 'hidden'; ?>><i><?php printf(_('No users assigned to %s group'), $userGroup->groupName) ?></i></li>
 			</ul>
 
 			<p class="actions">
