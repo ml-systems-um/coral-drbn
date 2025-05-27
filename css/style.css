@@ -948,6 +948,12 @@ input[type="radio"] {
   padding: 0;
 }
 
+/* Specific Form Styles (for now?) */
+/* User List in the Resources Admin. */
+#userList>.newUser>button.remove {
+	max-width: fit-content; /* Ensures the clickable space is limited to the image rather than expanding to the whole row */
+}
+
 /* Form grid */
 
 .form-grid {
