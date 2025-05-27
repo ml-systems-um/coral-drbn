@@ -52,8 +52,37 @@ class UserGroup extends DatabaseObject {
 		return $objects;
 	}
 
+	public function getUserLoginIDs(){
+		$groupID = $this->userGroupID;
+		$query = [
+			"SELECT UGL.loginID",
+			"FROM UserGroupLink UGL",
+			"WHERE UGL.userGroupID = '{$groupID}'",
+		];
+		$queryString = implode(" ", $query);
+		$result = $this->db->processQuery($queryString, 'assoc');
+		//need to do this since it could be that there's only one result and dbService doesn't actually return the row as an array (instead the row is the entire result).
+		$oneResult = (isset($result['loginID']));
+		$output = [];
+		if($oneResult){
+			$output[] = $result['loginID'];
+		} else {
+			foreach($result as $row){
+				$output[] = $row['loginID'];
+			}
+		}
+		return $output;
+	}
 
 
+	public function removeUser($userID){
+		$groupID = $this->userGroupID;
+		$removedUser = ($userID) ?? FALSE;
+		if($removedUser){
+			$query = "DELETE FROM UserGroupLink WHERE userGroupID = '{$groupID}' AND loginID = '{$removedUser}'";
+			return $this->db->processQuery($query);
+		} else {return false;}
+	}
 
 	//deletes all user links associated with this user group
 	public function removeUsers(){
