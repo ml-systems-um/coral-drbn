@@ -67,6 +67,7 @@ if ($resource->titleText){
 			<h2 id='span_resourceName'><?php echo $resource->titleText; ?></h2>
 
 			<input type='hidden' name='resourceID' id='resourceID' value='<?php echo $resourceID; ?>'>
+			<input type='hidden' name='azdbid' id='azdbid' value='<?php echo $resource->AZDBID; ?>'>
       <?php
                 if ($resource->countResourceAcquisitions() > 1) {
             ?>
