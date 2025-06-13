@@ -22,7 +22,13 @@
 ?>
 
 <footer class="footer">
-  <p><?php echo _("Copyright");?> &copy; <?php echo date('Y'); ?>. <?php echo _("CORAL version");?> 2025.04.01</p>
+    <?php
+			$copyright = _("Copyright");
+			$year = date('Y');
+			$versionString = _("CORAL version");
+      $versionNumber = "2025.04.02";
+		?>
+		<p><?php echo "{$copyright} &copy; {$year}. {$versionString} {$versionNumber}"; ?></p>
   <p>
     <a href="https://coral-erm.org/" <?php echo getTarget(); ?> class="site-title-link logo"><?php echo _('CORAL eRM project website'); ?></a>
     <a href="https://github.com/coral-erm/coral/issues" <?php echo getTarget(); ?> id="report-issue"><?php echo _("Report an Issue");?></a>
@@ -30,7 +36,8 @@
 </footer>
 
 <script>
-  const CORAL_ILS_LINK=<?php echo $config->ils->ilsConnector ? 1 : 0; ?>;
+  <?php $ilsValue = ($config->ils->ilsConnector) ?? 0; ?>
+  const CORAL_ILS_LINK=<?php echo $ilsValue; ?>;
   Date.format = '<?php echo return_datepicker_date_format(); ?>';
   const CORAL_NUMBER_LOCALE='<?php echo str_replace('_', '-', return_number_locale()); ?>';
   const CORAL_NUMBER_DECIMALS='<?php echo return_number_decimals(); ?>';
