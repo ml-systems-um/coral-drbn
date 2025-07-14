@@ -1,26 +1,25 @@
 <?php
 	session_start();
 	// "install/index.php" will check if CORAL is installed and version is current
-	require_once("install/index.php");
+	include_once('install/index.php');
+		// Include file of language codes
+		include_once 'LangCodes.php';
+		$lang_name = new LangCodes();
 
-	// Include file of language codes
-	include_once 'LangCodes.php';
-	$lang_name = new LangCodes();
-
-	// Verify the language of the browser
-	global $http_lang;
-	if(isset($_COOKIE["lang"])){
-		$http_lang = $_COOKIE["lang"];
-	}else{
-		$codeL = $lang_name->getBrowserLanguage();
-		$http_lang = $lang_name->getLanguage($codeL);
-		if($http_lang == "")
-		  $http_lang = "en_US";
-	}
-	putenv("LC_ALL=$http_lang");
-	setlocale(LC_ALL, $http_lang.".utf8");
-	bindtextdomain("messages", dirname(__FILE__) . "/locale");
-	textdomain("messages");
+		// Verify the language of the browser
+		global $http_lang;
+		if(isset($_COOKIE["lang"])){
+			$http_lang = $_COOKIE["lang"];
+		}else{
+			$codeL = $lang_name->getBrowserLanguage();
+			$http_lang = $lang_name->getLanguage($codeL);
+			if($http_lang == "")
+			$http_lang = "en_US";
+		}
+		putenv("LC_ALL=$http_lang");
+		setlocale(LC_ALL, $http_lang.".utf8");
+		bindtextdomain("messages", dirname(__FILE__) . "/locale");
+		textdomain("messages");
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +91,7 @@
 			$module = "";
 			try
 			{
-				$mod_conf = Config::getSettingsFor($key);
+				$mod_conf = common\Config::getSettingsFor($key);
 				if (isset($mod_conf["enabled"]) && $mod_conf["enabled"] == "Y")
 				{
 					$module = "<a href='{$key}/'><img src='images/icon-{$key}.png' alt='' /><span>{$value}</span></a>";
@@ -100,7 +99,7 @@
 			}
 			catch (Exception $e)
 			{
-				if ($e->getCode() != Config::ERR_VARIABLES_MISSING)
+				if ($e->getCode() != common\Config::ERR_VARIABLES_MISSING)
 				{
 					throw $e;
 				}
@@ -123,7 +122,7 @@
 			$copyright = _("Copyright");
 			$year = date('Y');
 			$versionString = _("CORAL version");
-			$versionNumber = "2025.04.06";
+			$versionNumber = common\Config::getInstallationVersion();
 		?>
 		<p><?php echo "{$copyright} &copy; {$year}. {$versionString} {$versionNumber}"; ?></p>
 		<p>

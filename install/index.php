@@ -1,91 +1,18 @@
 <?php
-/*
-If I remember correctly, we are at the point where I need to run through an
-upgrade of “1.9” to 2.0 with the current upgrade branch? Is that correct?
-
-The remaining priorities will be to:
-
-	1. Fix any bugs in the upgrader
-	2. Make sure developer documentation for installer and upgrader are as
-		complete as possible.
-	3. Make sure that we can enable or disable modules that were previously
-		installed/uninstalled. (i.e. the checkboxes in the installer)
- */
-
-
-//Used to avoid issues that occur when Windows is the PHP OS, as it treats both backslashes and forward slashes as valid separators.
-$uses_backslash = DIRECTORY_SEPARATOR == '\\';
-
-// Replace backslashes in dirname(__DIR__) with forward slashes (for Windows, since other systems should always have forward slashes according to the dirname and basename documentation)
-$slash_fix = function ($to_fix) {return str_replace('\\', '/', $to_fix); };
-
-// dirnames and basenames used in below if statement
-// dirname($_SERVER["SCRIPT_FILENAME"])
-$dirname_script_filename = dirname($_SERVER["SCRIPT_FILENAME"]);
-// dirname(__DIR__)
-$dirname_dir = dirname(__DIR__);
-// basename($_SERVER["SCRIPT_FILENAME"])
-$basename_script_filename = basename($_SERVER["SCRIPT_FILENAME"]);
-// basename(__FILE__)
-$basename_file = basename(__FILE__);
-
-// make appropriate changes to the dirnames and basenames if uses_backslash is true
-if ($uses_backslash)
-{
-	$dirname_script_filename = $slash_fix($dirname_script_filename);
-	$dirname_dir = $slash_fix($dirname_dir);
-	$basename_script_filename = $slash_fix($basename_script_filename);
-	$basename_file = $slash_fix($basename_file);
-}
-
-
-// TODO: go through template.php and remove hard coded vars
-if ($dirname_script_filename !== $dirname_dir || $basename_script_filename !== $basename_file)
-{
-	// Calculating $location allows the root to be something other than / (e.g. /Coral/)
-	$trim_from_left = function ($str_to_trim, $trim) { return preg_replace('/^' . preg_quote($trim, '/') . '/', '', $str_to_trim); };
-	$location = $trim_from_left($dirname_dir, $slash_fix($_SERVER["DOCUMENT_ROOT"]));
-
-
-	header("Location: " . $location);
-	exit();
-}
-
-/**
- * $INSTALLATION_VERSIONS is an array of all version strings that can be upgraded from
- * INSTALLATION_VERSION is the current version string (which should be the last element in the $INSTALLATION_VERSIONS array)
- *
- * NOTE: It is assumed that version strings can be understood by php's version_compare function
- */
-$INSTALLATION_VERSION = "2025.04.06";
-$INSTALLATION_VERSIONS = [
-	"1.9.0", 
-	"2.0.0", 
-	"3.0.0", "3.0.1", 
-	"2020.02", "2020.09", 
-	"2024.04", "2024.10", 
-	"2025.04", "2025.04.01", "2025.04.02", "2025.04.03", "2025.04.04", "2025.04.05", "2025.04.06",
-];
-
-function make_sure_template_is_drawn()
-{
-	if (!isset($_POST["installing"]))
-	{
-		require_once "templates/install_page_template.php";
-		draw_install_page_template();
-		exit();
+	include_once("autoloader.php");
+	$installerManager = new install\controller\InstallerManager();
+	$changeExists = ($installerManager->checkForChange());
+	if($changeExists){
+		//Get a list of versions to load, including (potentially) install.
+		$versionsToLoad = $installerManager->getVersionsToLoad();
+		//Load the basic template page
+		//If Installing, do Pre-Installing Validation
+		//Pass list of Versions to install to the director.
+		echo '<pre>';
+		print_r($versionsToLoad);
+		echo '</pre>';
+		exit; //Prevents the rest of /index.php loading.
 	}
-}
-function is_installed()
-{
-	require_once("common/Config.php");
-	try {
-		$return = Config::getInstallationVersion();
-	} catch (Exception $e) {
-		$return = false;
-	}
-	return $return;
-}
 
 function run_loop($version)
 {
@@ -192,7 +119,7 @@ function do_upgrade($version)
 	run_loop($INSTALLATION_VERSIONS[++$current_version_index]);
 }
 
-
+/*
 $CURRENT_VERSION = is_installed();
 if ($CURRENT_VERSION !== $INSTALLATION_VERSION || !empty($_SESSION["run_loop_version"]))
 {
@@ -210,28 +137,12 @@ if ($CURRENT_VERSION !== $INSTALLATION_VERSION || !empty($_SESSION["run_loop_ver
 	}
 	else
 	{
-		$return = new stdClass();
-		$return->messages = [];
-		if (array_slice($INSTALLATION_VERSIONS, -1)[0] !== $INSTALLATION_VERSION)
-		{
-			// The instllation constants are not correctly set up
-			$return->messages[] = "<b>" . _("An error has occurred:") . "</b><br />" . _("Sorry but the installer has been incorrectly configured. Please contact the developer.");
-			$return->messages[] = _("Version of Installer does not match the last installation version in INSTALLATION_VERSIONS.");
-			yield_test_results_and_exit($return, [], 0);
-		}
-		elseif (!in_array($CURRENT_VERSION, $INSTALLATION_VERSIONS))
-		{
-			$return->messages[] = "<b>" . _("An error has occurred:") . "</b><br />" . _("Sorry but the installer has been incorrectly configured. Please contact the developer.");
-			$return->messages[] = _("The version currently installed is not a recognised version.");
-			yield_test_results_and_exit($return, [], 0);
-		}
-
 		// Do upgrade
 		do_upgrade($CURRENT_VERSION);
 		exit();
 	}
 }
-
+*/
 
 // TODO: Handle these variations
 // TAKEN FROM test_if_installed.php -> needs to be handled in do_upgrade()

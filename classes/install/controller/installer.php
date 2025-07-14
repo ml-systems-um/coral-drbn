@@ -1,4 +1,5 @@
 <?php
+namespace install;
 require_once("common/DBService.php");
 require_once("common/DBResult.php");
 

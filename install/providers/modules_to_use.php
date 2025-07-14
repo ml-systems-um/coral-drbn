@@ -10,7 +10,7 @@ function register_modules_to_use_provider()
 	return array_merge( $MODULE_VARS,[
 		"bundle" => function($version = 0) use ($MODULE_VARS) {
 			switch ($version) {
-				case Installer::VERSION_STRING_INSTALL:
+				case install\Installer::VERSION_STRING_INSTALL:
 					return [
 						"dependencies_array" => ["meets_system_requirements"],
 						"function" => function($shared_module_info) use ($MODULE_VARS) {
@@ -107,7 +107,7 @@ function register_modules_to_use_provider()
 						];
 
 
-				case Installer::VERSION_STRING_MODIFY:
+				case install\Installer::VERSION_STRING_MODIFY:
 					// one day this will do something intelligent...
 					return null;
 
@@ -123,7 +123,7 @@ function register_modules_to_use_provider()
 
 							try
 							{
-								$installed_modules = Config::getInstalledModules();
+								$installed_modules = common\Config::getInstalledModules();
 								$use_module = [];
 								foreach ($installed_modules as $mod) {
 									$use_module[$mod] = true;
