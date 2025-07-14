@@ -15,6 +15,7 @@
  * *
  * *************************************************************************************************************************
  */
+namespace common;
 class Config {
 	const CONFIG_FILE_PATH = 'common/configuration.ini';
 	const ERR_FILE_NOT_READABLE = 10050;
