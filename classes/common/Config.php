@@ -30,7 +30,7 @@ class Config {
 	private static function init(){
 		if (!isset(self::$bInit)){
 			if (!is_readable(self::CONFIG_FILE_PATH))
-				throw new Exception(_("Config file not found or not readable"), self::ERR_FILE_NOT_READABLE);
+				throw new \Exception(_("Config file not found or not readable"), self::ERR_FILE_NOT_READABLE);
 			$data = parse_ini_file(self::CONFIG_FILE_PATH, true);
 			self::$module_settings = $data;
 			self::$bInit = 'y';
