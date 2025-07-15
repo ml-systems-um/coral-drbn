@@ -10,6 +10,8 @@ $(document).ready(function(){
 });
 
 function upgradeToVersion(version){
+    console.log(version);
+    /*
     $.ajax({
         type: "POST",
         url: "classes/install/Director.php",
@@ -21,4 +23,5 @@ function upgradeToVersion(version){
     }).fail(function(jqXHR){
         console.log(jqXHR);
     });
+    */
 }

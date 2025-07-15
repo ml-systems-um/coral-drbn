@@ -1,7 +1,7 @@
 <?php
 namespace install\controller;
-require_once("common/DBService.php");
-require_once("common/DBResult.php");
+//require_once("common/DBService.php");
+//require_once("common/DBResult.php");
 
 class Installer {
 	const CAUSE_DEPENDENCY_NOT_FOUND = 20041;

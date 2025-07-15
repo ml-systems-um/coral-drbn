@@ -1,5 +1,5 @@
 <?php
-	include_once("autoloader.php");
+	include_once("classes/common/autoloader.php");
 	$versionManager = new install\controller\versionManager();
 	$changeExists = ($versionManager->checkForChange());
 	if($changeExists){
