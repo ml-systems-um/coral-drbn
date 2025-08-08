@@ -1725,6 +1725,26 @@ p.byline {
   word-break: break-all;
 }
 
+/* Archived Resource in the Resources list. */
+a.archived{
+	font-style: italic;
+}
+
+/* Notice on the main Usage Statistics Page */
+div#usageNotice {
+  margin: auto;
+  padding: 1em;
+  border-color: red;
+  border-style: solid;
+  border-radius: 10px;
+}
+button#expandButton {
+  padding: 0.2em;
+}
+span#noticeExtraContent {
+  display: none;
+}
+
 /* add button, download button */
 .addElement,
 .export {
