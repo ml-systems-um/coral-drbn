@@ -283,7 +283,18 @@ function register_usage_provider()
 					$return->yield->title = _("Usage Module");
 					return $return;
 				}
-			];			
+			];
+			
+		case "2025.04.06":
+			return [
+				"function" => function($shared_module_info) {
+					$return = new stdClass();
+					$return->yield = new stdClass();
+					$return->success = true;
+					$return->yield->title = _("Usage Module");
+					return $return;
+				}
+			];
 				default:
 					return null;
 			}
