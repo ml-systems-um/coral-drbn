@@ -74,7 +74,6 @@ class Installer {
 		 *       test for meeting system requirements and the installer needs
 		 *       to be more generous about system reqs than CORAL as a whole.
 		 */
-		require_once("common/array_column.php");
 		$key = array_search($test_uid, array_column($haystack, 'uid'));
 		if ($key === false)
 			throw new OutOfBoundsException("Test '$test_uid' not found in checklist.", self::ERR_MODULE_DOES_NOT_EXIST);
@@ -83,7 +82,6 @@ class Installer {
 	}
 	public function getRequiredProviders($what_for = self::REQUIRED_FOR_INSTALL)
 	{
-		require_once("common/array_column.php");
 		return array_column(array_filter($this->checklist, function($item) use ($what_for) {
 			return isset($item["required_for"]) && in_array($what_for, $item["required_for"]);
 		}), "uid");
@@ -186,8 +184,7 @@ class Installer {
 		}
 		else // Otherwise, only already installed modules are available
 		{
-			require_once("common/Config.php");
-			foreach (Config::getInstalledModules() as $module)
+			foreach (\common\Config::getInstalledModules() as $module)
 			{
 				if (is_dir("$MODULE_ROOT/$module"))
 				{
@@ -245,7 +242,6 @@ class Installer {
 		do {
 			$bundle = $this->checklist[$key]["bundle"]($this->version_to_install);
 			foreach ($this->getDependencies($bundle) as $dependency) {
-				require_once("common/array_column.php");
 				$dep_key = array_search($dependency, array_column($this->checklist, 'uid'));
 				if ($dep_key === false)
 				{

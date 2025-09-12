@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 	include_once("classes/common/autoloader.php");
 	$versionManager = new install\controller\versionManager();
 	$changeExists = ($versionManager->checkForChange());
@@ -20,7 +23,12 @@
 						<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 						<script type="text/javascript" src="js/installDirector.js"></script>
 						<script type="text/javascript">
-							const versionsToLoad = <?php echo json_encode($versionsToLoad); ?>;
+							<?php 
+								if($versionsToLoad !== NULL){
+									$jsonVersions = json_encode($versionsToLoad);
+									echo "const versionsToLoad = {$jsonVersions};";
+								}
+							?>
 						</script>
 					</head>
 					<body id="pageBody" class="container"></body>

@@ -1,7 +1,6 @@
 <?php 
     namespace install\controller;
     class versionManager {
-        private $installerVersion = "2025.04.05";
         private $currentlyInstalledVersion = "";
         private $changeToBeMade = FALSE;
         private $needToUpgrade = FALSE;
@@ -17,36 +16,18 @@
             "3.0.0", "3.0.1", 
             "2020.02", "2020.09", 
             "2024.04", "2024.10", 
-            "2025.04", "2025.04.01", "2025.04.02", "2025.04.03", "2025.04.04", "2025.04.05",
+            "2025.04", "2025.04.01", "2025.04.02", "2025.04.03", "2025.04.04", "2025.04.05", "2025.04.06",
+            "2025.10",
         ];
         public function __construct(){
             $this->setCurrentlyInstalledVersion();
             $this->validateVersions();
         }
 
-        /* The Main Variable Methods - InstallCORAL and UpgradeCORAL. They are outside of alphabetical order due to importance. */
-        private function InstallCORAL(){
-            $installValidator = new controller\InstallCORAL();
-            $installValidator->setModules($this->validModules);
-            $installValidator->validate();
-        }
-
-        private function UpgradeCORAL(){
-            echo 'Upgrading CORAL<br>';
-            exit;
-            /*
-            $requirementFilter = Installer::REQUIRED_FOR_UPGRADE;
-            $installer = new Installer($this->installerVersion);
-            $requirements = $installer->getRequiredProviders($requirementFilter);
-        */
-        }
-
-        /********************************/
-        
-        /* Every other Method in this class is alphabetized. */
         public function checkForChange(){
             $this->needToInstall = ($this->currentlyInstalledVersion == FALSE);
-            $versionsDoNotMatch = ($this->currentlyInstalledVersion !== $this->installerVersion);
+            $latestVersionToInstall = array_slice($this->validVersionOrder, -1)[0];
+            $versionsDoNotMatch = ($this->currentlyInstalledVersion !== $latestVersionToInstall);
             $this->needToUpgrade = (!$this->needToInstall && $versionsDoNotMatch);
             $this->changeToBeMade = ($this->needToInstall || $this->needToUpgrade);
             return $this->changeToBeMade;
@@ -96,17 +77,6 @@
             return $output;
         }
 
-        private function validateInstallerVersion(){
-            $finalValidVersion = array_slice($this->validVersionOrder, -1)[0];
-            $notFinalValidVersion = ($this->installerVersion !== $finalValidVersion);
-            $errorMsg = [
-                "<b>" . _("An error has occurred:") . "</b><br />" . _("Sorry but the installer has been incorrectly configured. Please contact the developer."),
-                _("Version of Installer does not match the last valid installation version in the Installer Manager."),
-            ];
-            $output = ($notFinalValidVersion) ? $errorMsg : FALSE;
-            return $output;
-        }
-
         private function validateConfigurationsExist(){
             $configurationFilesExist = array_reduce($this->validModules, function($carry, $module){
                 $moduleExists = file_exists("{$module}/admin/configuration.ini");
@@ -125,7 +95,6 @@
         private function validateVersions(){
             $errorChecks = [
                 $this->validateInstalledVersion(),
-                $this->validateInstallerVersion(),
             ];
 
             foreach($errorChecks as $testFailed){

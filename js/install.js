@@ -1,3 +1,9 @@
+$(document).ready(function(){
+	console.log(versionsToLoad);
+
+
+});
+
 /*$waitingdiv = $("<div>").addClass("xhr_waiting");
 
 $.fn.serializeObject = function()
