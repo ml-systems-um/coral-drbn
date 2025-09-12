@@ -21,7 +21,6 @@ class Pathing
         $subDirectories = preg_replace($regexPhrase, "", $dirname_dir);
         $subDirectoryRoot = str_replace($autoloaderFolder, "", $subDirectories);
         $newDocRoot = "{$docRoot}{$subDirectoryRoot}";
-        var_dump($newDocRoot);
         $this->CoralRoot = $newDocRoot;
     }
 }

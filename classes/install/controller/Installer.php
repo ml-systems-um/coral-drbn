@@ -122,7 +122,7 @@ class Installer {
 			throw new RuntimeException("Error: For some reason you are trying to add a module that is not readable: `$module_name` -> `$path`", self::ERR_CANNOT_READ_PROVIDER_SCRIPT);
 
 		require $path;
-		$function_name = "register_${module_name}_provider";
+		$function_name = "register_{$module_name}_provider";
 		if (is_callable($function_name))
 		{
 			$installer_object = call_user_func($function_name);

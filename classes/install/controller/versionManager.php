@@ -1,6 +1,7 @@
 <?php 
     namespace install\controller;
     class versionManager {
+        private $installerVersion = "2025.04.06";
         private $currentlyInstalledVersion = "";
         private $changeToBeMade = FALSE;
         private $needToUpgrade = FALSE;
@@ -22,6 +23,7 @@
         public function __construct(){
             $this->setCurrentlyInstalledVersion();
             $this->validateVersions();
+            $this->setInstalledSettings();
         }
 
         public function checkForChange(){
@@ -59,10 +61,17 @@
         private function setCurrentlyInstalledVersion(){
             try {
                 $version = \common\Config::getInstallationVersion();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $version = false;
             }
             $this->currentlyInstalledVersion = $version;
+        }
+
+        private function setInstalledSettings(){
+            $this->needToInstall = ($this->currentlyInstalledVersion == FALSE);
+            $versionsDoNotMatch = ($this->currentlyInstalledVersion !== $this->installerVersion);
+            $this->needToUpgrade = (!$this->needToInstall && $versionsDoNotMatch);
+            $this->changeToBeMade = ($this->needToInstall || $this->needToUpgrade);
         }
 
         private function validateInstalledVersion(){

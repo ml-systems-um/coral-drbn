@@ -41,7 +41,7 @@ class Config {
 	{
 		self::init();
 		if (empty(self::$module_settings["database"]))
-			throw new OutOfRangeException(_("Database settings are missing from the config file"), self::ERR_VARIABLES_MISSING);
+			throw new \OutOfRangeException(_("Database settings are missing from the config file"), self::ERR_VARIABLES_MISSING);
 
 		$possible_values = ['host', 'username', 'password', 'name'];
 		if (in_array($db_variable, $possible_values))
@@ -49,11 +49,11 @@ class Config {
 			if (!empty(self::$module_settings["database"][$db_variable]))
 				return self::$module_settings["database"][$db_variable];
 			else
-				throw new OutOfRangeException(_("Database setting empty in config"), self::ERR_VARIABLES_MISSING);
+				throw new \OutOfRangeException(_("Database setting empty in config"), self::ERR_VARIABLES_MISSING);
 		}
 		else
 		{
-			throw new OutOfRangeException(_("Invalid database setting requested"), self::ERR_VARIABLES_MISSING);
+			throw new \OutOfRangeException(_("Invalid database setting requested"), self::ERR_VARIABLES_MISSING);
 		}
 	}
 
@@ -65,7 +65,7 @@ class Config {
 		}
 		else
 		{
-			throw new OutOfBoundsException("No settings exist for '$module_name'.", self::ERR_VARIABLES_MISSING);
+			throw new \OutOfBoundsException("No settings exist for '$module_name'.", self::ERR_VARIABLES_MISSING);
 		}
 	}
 
