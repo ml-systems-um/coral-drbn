@@ -10,6 +10,8 @@ function register_management_provider()
 	];
 	return array_merge( $MODULE_VARS, [
 		"bundle" => function($version) use ($MODULE_VARS, $protected_module_data) {
+			$configFileExists = file_exists($protected_module_data["config_file_path"]);
+			$conf_data = ($configFileExists) ? parse_ini_file($protected_module_data["config_file_path"], true) : [];
 			switch ($version) {
 				case Installer::VERSION_STRING_INSTALL:
 					return [
@@ -69,20 +71,17 @@ function register_management_provider()
 					];
 
 				case "2.0.0":
-					$conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
 					return [
 						"dependencies_array" => [ "db_tools" ],
 						"sharedInfo" => [
 							"database_name" => $conf_data["database"]["name"]
 						],
-						"function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version) {
+						"function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version, $conf_data) {
 							$return = new stdClass();
 							$return->success = true;
 							$return->yield = new stdClass();
 							$return->yield->title = _("Management Module");
 							$return->yield->messages = [];
-
-							$conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
 
 							// Process sql files
 							$db_name = $conf_data["database"]["name"];
@@ -98,151 +97,16 @@ function register_management_provider()
 							return $return;
 						}
 					];
-
-        case "3.0.0":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Management Module");
-                    return $return;
-                }
-            ];
-        case "3.0.1":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Management Module");
-                    return $return;
-                }
-            ];
-
-        case "2020.02":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Management Module");
-                    return $return;
-                }
-            ];
-
-        case "2020.09":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Management Module");
-                    return $return;
-                }
-            ];
-
-        case "2024.04":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Management Module");
-                    return $return;
-                }
-            ];
-
-        case "2024.10":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Management Module");
-                    return $return;
-                }
-            ];
-		
-		case "2025.04":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];	
-
-		case "2025.04.01":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.02":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.03":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.04":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.05":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];			
-
-		case "2025.04.06":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Management Module");
-					return $return;
-				}
-			];		
-
 				default:
-					return null;
+					return [
+						"function" => function($shared_module_info) {
+							$return = new stdClass();
+							$return->yield = new stdClass();
+							$return->success = true;
+							$return->yield->title = _("Management Module");
+							return $return;
+						}
+					];	
 			}
 		}
 	]);

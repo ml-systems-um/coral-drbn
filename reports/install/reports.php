@@ -10,6 +10,8 @@ function register_reports_provider()
 	];
 	return array_merge( $MODULE_VARS, [
 		"bundle" => function($version) use ($MODULE_VARS, $protected_module_data) {
+			$configFileExists = file_exists($protected_module_data["config_file_path"]);
+			$conf_data = ($configFileExists) ? parse_ini_file($protected_module_data["config_file_path"], true) : [];
 			switch ($version) {
 				case Installer::VERSION_STRING_INSTALL:
 					return [
@@ -83,163 +85,16 @@ function register_reports_provider()
 							return $return;
 						}
 					];
-
-
-				case "2.0.0":
+				default:
 					return [
 						"function" => function($shared_module_info) {
 							$return = new stdClass();
-							$return->success = true;
 							$return->yield = new stdClass();
+							$return->success = true;
 							$return->yield->title = _("Reports Module");
 							return $return;
 						}
 					];
-
-        case "3.0.0":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-        case "3.0.1":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-              ];
-
-        case "2020.02":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-
-        case "2020.09":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-
-        case "2024.04":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-
-        case "2024.10":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-
-		case "2025.04":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Reports Module");
-					return $return;
-				}
-			];	
-
-		case "2025.04.01":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Reports Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.02":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Reports Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.03":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Reports Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.04":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Reports Module");
-					return $return;
-				}
-			];
-
-        case "2025.04.05":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-
-        case "2025.04.06":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Reports Module");
-                    return $return;
-                }
-            ];
-
-				default:
-					return null;
 			}
 		}
 	]);
