@@ -10,6 +10,8 @@ function register_licensing_provider()
 	];
 	return array_merge( $MODULE_VARS, [
 		"bundle" => function($version) use ($MODULE_VARS, $protected_module_data){
+			$configFileExists = file_exists($protected_module_data["config_file_path"]);
+			$conf_data = ($configFileExists) ? parse_ini_file($protected_module_data["config_file_path"], true) : [];
 			switch ($version) {
 				case Installer::VERSION_STRING_INSTALL:
 					return [
@@ -99,20 +101,17 @@ function register_licensing_provider()
 
 
 				case "2.0.0":
-					$conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
 					return [
 						"dependencies_array" => [ "db_tools" ],
 						"sharedInfo" => [
 							"database_name" => $conf_data["database"]["name"]
 						],
-						"function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version) {
+						"function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version, $conf_data) {
 							$return = new stdClass();
 							$return->success = true;
 							$return->yield = new stdClass();
 							$return->yield->title = _("Licensing Module");
 							$return->yield->messages = [];
-
-							$conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
 
 							// Process sql files
 							$db_name = $conf_data["database"]["name"];
@@ -128,255 +127,46 @@ function register_licensing_provider()
 							return $return;
 						}
 					];
+				case "3.1.0":
+					return [
+						"dependencies_array" => [ "db_tools" ],
+						"sharedInfo" => [
+							"config_file" => [
+								"path" => $protected_module_data["config_file_path"],
+							],
+							"database_name" => $conf_data["database"]["name"]
+						],
+						"function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version, $conf_data) {
+							$return = new stdClass();
+							$return->success = true;
+							$return->yield = new stdClass();
+							$return->yield->title = _("Licensing Module");
+							$return->yield->messages = [];
 
-        case "3.0.0":
-            return [
-                "function" => function($shared_module_info) {
-                    $return = new stdClass();
-                    $return->yield = new stdClass();
-                    $return->success = true;
-                    $return->yield->title = _("Licensing Module");
-                    return $return;
-                }
-            ];
-        case "3.0.1":
-          return [
-              "function" => function($shared_module_info) {
-                  $return = new stdClass();
-                  $return->yield = new stdClass();
-                  $return->success = true;
-                  $return->yield->title = _("Licensing Module");
-                  return $return;
-              }
-          ];
+							// PROCESS SQL FILES
+							$db_name = $conf_data["database"]["name"];
+							$dbconnection = $shared_module_info["provided"]["get_db_connection"]( $db_name );
+							$ret = $shared_module_info["provided"]["process_sql_files"]( $dbconnection, $version, $MODULE_VARS["uid"] );
+							if (!$ret["success"])
+							{
+								$return->success = false;
+								$return->yield->messages = array_merge($return->yield->messages, $ret["messages"]);
+								return $return;
+							}
 
-        case "3.1.0":
-            $conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
-            return [
-                "dependencies_array" => [ "db_tools", "have_read_write_access_to_config" ],
-                "sharedInfo" => [
-                    "config_file" => [
-                        "path" => $protected_module_data["config_file_path"],
-                    ],
-                    "database_name" => $conf_data["database"]["name"]
-                ],
-                "function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version) {
-                    $return = new stdClass();
-                    $return->success = true;
-                    $return->yield = new stdClass();
-                    $return->yield->title = _("Licensing Module");
-                    $return->yield->messages = [];
-
-                    $conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
-
-                    // PROCESS SQL FILES
-                    $db_name = $conf_data["database"]["name"];
-                    $dbconnection = $shared_module_info["provided"]["get_db_connection"]( $db_name );
-                    $ret = $shared_module_info["provided"]["process_sql_files"]( $dbconnection, $version, $MODULE_VARS["uid"] );
-                    if (!$ret["success"])
-                    {
-                        $return->success = false;
-                        $return->yield->messages = array_merge($return->yield->messages, $ret["messages"]);
-                        return $return;
-                    }
-
-                    // EDIT CONF FILE
-                    // Note the "have_read_write_access_to_config" dependency above - it ensure we have the "provided" method below...
-                    $configFile = $protected_module_data["config_file_path"];
-                    // Make sure the parent category exists
-                    if (empty($conf_data["terms"]))
-                        $conf_data["terms"] = [];
-                    // Populate the variable with a value
-                    // Warning: do not set $conf_data["general"] = ["random" => "something"] or you will lose other variables. Rather:
-                    $iniData["terms"]["resolver"] = "SFX";
-                    $iniData["terms"]["open_url"] = "";
-                    $iniData["terms"]["sid"] = "";
-                    $iniData["terms"]["client_identifier"] = "";
-                    $shared_module_info["provided"]["write_config_file"]($configFile, $conf_data);
-
-                    return $return;
-                }
-            ];
-
-        case "2020.02":
-          return [
-              "function" => function($shared_module_info) {
-                  $return = new stdClass();
-                  $return->yield = new stdClass();
-                  $return->success = true;
-                  $return->yield->title = _("Licensing Module");
-                  return $return;
-              }
-          ];
-
-        case "2020.09":
-          return [
-              "function" => function($shared_module_info) {
-                  $return = new stdClass();
-                  $return->yield = new stdClass();
-                  $return->success = true;
-                  $return->yield->title = _("Licensing Module");
-                  return $return;
-              }
-          ];
-
-        case "2024.04":
-          return [
-              "function" => function($shared_module_info) {
-                  $return = new stdClass();
-                  $return->yield = new stdClass();
-                  $return->success = true;
-                  $return->yield->title = _("Licensing Module");
-                  return $return;
-              }
-          ];
-
-        case "2024.10":
-          return [
-              "function" => function($shared_module_info) {
-                  $return = new stdClass();
-                  $return->yield = new stdClass();
-                  $return->success = true;
-                  $return->yield->title = _("Licensing Module");
-                  return $return;
-              }
-          ];
-
-		case "2025.04":
-		return [
-			"function" => function($shared_module_info) {
-				$return = new stdClass();
-				$return->yield = new stdClass();
-				$return->success = true;
-				$return->yield->title = _("Licensing Module");
-				return $return;
-			}
-		];  
-		
-		case "2025.04.01":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Licensing Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.02":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Licensing Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.03":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Licensing Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.04":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Licensing Module");
-					return $return;
-				}
-			];
-
-		case "2025.04.05":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Licensing Module");
-					return $return;
-				}
-			];		
-		
-		case "2025.04.06":
-			return [
-				"function" => function($shared_module_info) {
-					$return = new stdClass();
-					$return->yield = new stdClass();
-					$return->success = true;
-					$return->yield->title = _("Licensing Module");
-					return $return;
-				}
-			];		
-				/**
-				 * This code is for when the upgrade requires no changes to the
-				 * database or conf files etc.
-				 */
-				// case "2.0.0":
-				// 	return [
-				// 		"function" => function($shared_module_info) {
-				// 			$return = new stdClass();
-				// 			$return->yield = new stdClass();
-				// 			$return->success = true;
-				// 			$return->yield->title = _("Licensing Module");
-				// 			return $return;
-				// 		}
-				// 	];
-
-				/*
-				 * To add other files that only need to run a sql file, simply
-				 * add other cases. To do more than process a sql file (in the
-				 * format "licensing/install/protected/update_$version.sql"),
-				 * copy this function and add other steps. See the auth module's
-				 * installer for a more detailed comment.
-				 */
-				// case "2.1.0":
-					// $conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
-					// return [
-					// 	"dependencies_array" => [ "db_tools", "have_read_write_access_to_config" ],
-					// 	"sharedInfo" => [
-					// 		"config_file" => [
-					// 			"path" => $protected_module_data["config_file_path"],
-					// 		],
-					// 		"database_name" => $conf_data["database"]["name"]
-					// 	],
-					// 	"function" => function($shared_module_info) use ($MODULE_VARS, $protected_module_data, $version) {
-					// 		$return = new stdClass();
-					// 		$return->success = true;
-					// 		$return->yield = new stdClass();
-					// 		$return->yield->title = _("Licensing Module");
-					// 		$return->yield->messages = [];
-					//
-					// 		$conf_data = parse_ini_file($protected_module_data["config_file_path"], true);
-					//
-					// 		// Process sql files
-					// 		$db_name = $conf_data["database"]["name"];
-					// 		$dbconnection = $shared_module_info["provided"]["get_db_connection"]( $db_name );
-					// 		$ret = $shared_module_info["provided"]["process_sql_files"]( $dbconnection, $version, $MODULE_VARS["uid"] );
-					// 		if (!$ret["success"])
-					// 		{
-					// 			$return->success = false;
-					// 			$return->yield->messages = array_merge($return->yield->messages, $ret["messages"]);
-					// 			return $return;
-					// 		}
-					//
-					// 		return $return;
-					// 	}
-					// ];
-
-
+							return $return;
+						}
+					];
 				default:
-					return null;
+					return [
+						"function" => function($shared_module_info) {
+							$return = new stdClass();
+							$return->yield = new stdClass();
+							$return->success = true;
+							$return->yield->title = _("Licensing Module");
+							return $return;
+						}
+					];	
 			}
 		}
 	]);
