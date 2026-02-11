@@ -16,7 +16,8 @@
 **
 **************************************************************************************************************************
 */
-
+use common\{Utility, Configuration, CoralSession, NamedArguments};
+use resources\{User};
 $util = new Utility();
 $config = new Configuration();
 
@@ -24,42 +25,26 @@ $addURL = '';
 
 //if set to use auth module
 if ($config->settings->authModule == 'Y'){
-
-
 	//check if a cookie has been set for this user in a session
 	$loginID = $util->getLoginCookie();
-
 	//load user and verify they have a valid open session
 	$user = new User(new NamedArguments(array('primaryKey' => $loginID)));
-
-
 	//if the user has an open session
 	if (($loginID) && ($user->hasOpenSession())){
-    CoralSession::set('loginID', $loginID);
-
-	//no open session
-	}else{
-
+    	CoralSession::set('loginID', $loginID);
+	}else{ //no open session
 		//redirect to auth page
-		if (isset($user->loginID)) {
-			$addURL = '?timeout&service=';
-		}else{
-			$addURL = '?service=';
-		}
-
-
+		$addURL = (isset($user->loginID)) ? '?timeout&service=' : '?service=';
 		$authURL = $util->getCORALURL() . "auth/" . $addURL . htmlentities($_SERVER['REQUEST_URI']);
 		header('Location: ' . $authURL, true);
-
 		exit; //PREVENT SECURITY HOLE
 	}
 
-
-//otherwise plug into apache server variable
-}else{
+}else{ //otherwise plug into apache server variable
 
 	//get login id from server
-	if (!CoralSession::get('loginID') || (CoralSession::get('loginID') == '')){
+	$coralSessionID = CoralSession::get('loginID');
+	if(!$coralSessionID || $coralSessionID == ''){
 		$varName = $config->settings->remoteAuthVariableName;
 
 		//the following code takes the remote auth variable name from the config settings and evaluates it to get the actual value from web server
@@ -73,9 +58,7 @@ if ($config->settings->authModule == 'Y'){
 		//use the split in case the remote login is supplied as an email address
 		list ($loginID,$restofAddr) = explode("@", $remoteAuth);
 
-    CoralSession::set('loginID', $loginID);
-
-
+    	CoralSession::set('loginID', $loginID);
 	}else{
 
 		$loginID = CoralSession::get('loginID');
@@ -83,10 +66,6 @@ if ($config->settings->authModule == 'Y'){
 	}
 
 }
-
-
-
-
 
 if (isset($loginID) && ($loginID != "")){
 	include_once('setuser.php');

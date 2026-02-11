@@ -19,6 +19,8 @@
 
 
 //Get user privilege
+use common\{NamedArguments, LdapPerson, Privilege};
+use resources\{User};
 $user = new User(new NamedArguments(array('primaryKey' => $loginID)));
 $testUser = $user->privilegeID;
 
@@ -34,7 +36,7 @@ if (!($testUser)){
 	$user->accountTabIndicator='0';
 
 	try{
-		$ldap = new LdapPerson($loginID);
+		$ldap = new common\LdapPerson($loginID);
 
 		if ($ldap->lname){
 			$user->lastName = $ldap->lname;

@@ -20,7 +20,7 @@
 
 /* CORAL setup */
 include_once 'user.php';
-
+use common\{Utility, Configuration};
 $util = new Utility();
 $config = new Configuration();
 
@@ -34,7 +34,7 @@ if ($user->isAdmin() || $user->canEdit()) {
             'text' => _("Home")
         ),
         'new' => array(
-            'action' => "javascript:myDialog('ajax_forms.php?action=getNewResourceForm',1000,1000)",
+            'action' => "javascript:myDialog('ajax_forms.php?form=ResourceForm',1000,1000)",
             'id' => 'newResource',
             'classes' => 'thickbox',
             'text' => _("New Resource")
