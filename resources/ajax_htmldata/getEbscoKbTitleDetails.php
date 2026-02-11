@@ -214,7 +214,7 @@ $title->loadResource();
                                                         'resourceID' => $package->resource ? $package->resource->primaryKey : null,
                                                         'callback' => $callback
                                                     ];
-                                                    include BASE_DIR . '/templates/ebscoKbPackageDropdown.php';
+                                                    include MODULE_DIR . '/templates/ebscoKbPackageDropdown.php';
                                                 ?>
                                             </div>
                                         </div>

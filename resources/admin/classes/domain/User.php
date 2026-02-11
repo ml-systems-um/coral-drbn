@@ -16,8 +16,8 @@
 **
 **************************************************************************************************************************
 */
-
-class User extends DatabaseObject {
+namespace resources;
+class User extends common\DatabaseObject {
 
 	protected function defineRelationships() {}
 
@@ -31,7 +31,6 @@ class User extends DatabaseObject {
 	//used to formulate display name in case firstname/last name isn't set up or user doesn't exist
 	//format: firstname {space} lastname
 	public function getDisplayName(){
-
 		if ($this->firstName){
 			return $this->firstName . " " . $this->lastName;
 		}else if ($this->loginID){
@@ -45,7 +44,6 @@ class User extends DatabaseObject {
 	//used to formulate display name in case firstname/last name isn't set up or user doesn't exist for drop down
 	//format lastname {comma} firstname
 	public function getDDDisplayName(){
-
 		if ($this->firstName){
 			return $this->lastName . ", " . $this->firstName;
 		}else if ($this->loginID){
@@ -57,24 +55,18 @@ class User extends DatabaseObject {
 	//used only for allowing access to admin page
 	public function isAdmin(){
 		$privilege = new Privilege(new NamedArguments(array('primaryKey' => $this->privilegeID)));
-		if (mb_strtoupper($privilege->shortName) == 'ADMIN'){
-			return true;
-		}else{
-			return false;
-		}
-
+		$upperCasePrivilege = mb_strtoupper($privilege->shortName);
+		$isAnAdmin = ($upperCasePrivilege == 'ADMIN');
+		return $isAnAdmin;
 	}
 
 	//used for displaying add/update/delete links
 	public function canEdit(){
 		$privilege = new Privilege(new NamedArguments(array('primaryKey' => $this->privilegeID)));
-
-		if ((mb_strtoupper($privilege->shortName) == 'ADD/EDIT') || (mb_strtoupper($privilege->shortName) == 'ADMIN')){
-			return true;
-		}else{
-			return false;
-		}
-
+		$upperCasePrivilege = mb_strtoupper($privilege->shortName);
+		$editPrivilegeIDs = ["ADD/EDIT", "ADMIN"];
+		$hasEditPrivileges = in_array($upperCasePrivilege, $editPrivilegeIDs);
+		return $hasEditPrivileges;
 	}
 
 

@@ -16,15 +16,13 @@
 **
 **************************************************************************************************************************
 */
-
 include_once 'directory.php';
 include_once 'user.php';
-
-$action = $_GET['action'];
-if (!preg_match('/^[A-Za-z]+$/', $action) || !(include "ajax_forms/$action.php")){
-	if (empty($action))
-    return;
-	printf(_("Form action %s not set up!"), $action);
+//$action = $_GET['action'];
+$form = $_GET['form'] ?? FALSE;
+if(!$form){
+	throw new \Exception('No Form Provided to Form Script');
 }
-
+$formClass = "resources\controllers\\$form";
+new $formClass();
 ?>
