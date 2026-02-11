@@ -34,8 +34,15 @@
  * Note that coral/index.php does not use this file
  */
 
-$util = new Utility();
-$config = new Configuration();
+//Since we aren't doing an entire refactor of the entire codebase all at once (and are instead editing module-by-module), this autoloader will be hopping between the new, unified class structure and the older, module-based class structure. Once we have all the modules (and universal templates) set up to use the unified classes, we can reduce this function to only look at the \\classes\\ directory. As modules are updated, add them to the $updatedModules array.
+$updatedModules = [
+  'resources',
+];
+// Used to determine which module to exclude from the change module list and to determine name of title icon image file
+$currentModule = basename(dirname($_SERVER['SCRIPT_FILENAME']));
+$useUpdatedPath = in_array($currentModule, $updatedModules);
+$util = ($useUpdatedPath) ? new common\Utility() : new Utility();
+$config = ($useUpdatedPath) ? new common\Configuration() : new Configuration();
 
 //get CORAL URL for 'Change Module' and logout link.
 $coralURL = $util->getCORALURL();
@@ -45,9 +52,6 @@ $coralPath = parse_url($coralURL, PHP_URL_PATH);
 $modulePath = str_replace($coralPath, '', pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME));
 //get the current page to determine which menu button should be depressed
 $currentPage = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_BASENAME);
-// Used to determine which module to exclude from the change module list and to determine name of title icon image file
-$currentModule = basename(dirname($_SERVER['SCRIPT_FILENAME']));
-
 global $http_lang;
 ?>
 
@@ -61,15 +65,20 @@ global $http_lang;
     <title>
         <?php 
           // <title> should go most specific >>> least specific
+          $siteTitle = [];
           // are we looking at an item within a page?
-          if (isset($itemTitle) && !empty($itemTitle))
-            echo $itemTitle . ' - ';
-          
+          $itemTitleExists = (isset($itemTitle) && !empty($itemTitle));
+          if($itemTitleExists){$siteTitle[] = $itemTitle;}
             // are we looking at a page other than the module's index page?
-          if ($pageTitle !== $moduleMenu['index']['text'])
-            echo $pageTitle . ' - ';
-          
-          echo $moduleTitle . ' - ' . _("CORAL eRM");
+          $moduleIndex = (isset($moduleMenu)) ? $moduleMenu['index']['text'] : NULL;
+          $pageTitle = ($pageTitle) ?? NULL;
+          $notModuleIndex = ($pageTitle !== $moduleIndex);
+          if($notModuleIndex){$siteTitle[] = $pageTitle;}
+          //Always show the Module and CORAL eRM title.
+          $siteTitle[] = $moduleTitle;
+          $siteTitle[] = _("CORAL eRM");
+
+          echo implode(" - ", $siteTitle);
         ?>
     </title>
     <link rel="icon" href="<?php echo $coralPath; ?>images/favicon.ico">
@@ -190,107 +199,73 @@ global $http_lang;
 <nav id="main" aria-label="<?php echo _("Modules"); ?>">
   <button class="btn menu-toggle" id="modules-toggle" type="button" aria-expanded="false" aria-controls="modules"><?php echo _("Modules"); ?></button>
   <ul class="nav" id="modules">
-    <?php if (file_exists($util->getCORALPath() . "/index.php")) { 
-      if ($currentModule == $coralPath) {
-        $ariaCurrentModule = 'aria-current="page"';
+    <?php 
+      if (file_exists($util->getCORALPath() . "/index.php")) { 
+        $ariaCurrentModule = ($currentModule == $coralPath) ? 'aria-current="page"' : '';
+        $title = _("Main Menu");
+        echo "<li><a href='{$coralURL}' {$ariaCurrentModule}>{$title}</a></li>";
       }
-      else {
-        $ariaCurrentModule = '';
-      }
-      ?>
-      <li><a href="<?php echo $coralURL; ?>" <?php echo $ariaCurrentModule; ?>><?php echo _("Main Menu");?></a></li>
-    <?php }
-    if ($config->settings->resourcesModule == 'Y') { 
-      if ($currentModule == 'resources') {
-        $ariaCurrentModule = 'aria-current="page"';
-      }
-      else {
-        $ariaCurrentModule = '';
-      }
-      ?>
-      <li><a href="<?php echo $coralURL . 'resources/"'; ?>" <?php echo $ariaCurrentModule; ?>><?php echo _("Resources"); ?></a></li>
-    <?php }
-    if ($config->settings->organizationsModule == 'Y') { 
-      if ($currentModule == 'organizations') {
-        $ariaCurrentModule = 'aria-current="page"';
-      }
-      else {
-        $ariaCurrentModule = '';
-      }
-      ?>
-      <li><a href="<?php echo $coralURL . 'organizations/"'; ?>" <?php echo $ariaCurrentModule; ?>><?php echo _("Organizations");?></a></li>
-    <?php }
-    if ($config->settings->licensingModule == 'Y') { 
-      if ($currentModule == 'licensing') {
-        $ariaCurrentModule = 'aria-current="page"';
-      }
-      else {
-        $ariaCurrentModule = '';
-      }
-      ?>
-      <li><a href="<?php echo $coralURL . 'licensing/"'; ?>" <?php echo $ariaCurrentModule; ?>><?php echo _("Licensing");?></a></li>
-    <?php }
-    if ($config->settings->usageModule == 'Y') { 
-      if ($currentModule == 'usage') {
-        $ariaCurrentModule = 'aria-current="page"';
-      }
-      else {
-        $ariaCurrentModule = '';
-      }
-      ?>
-      <li><a href="<?php echo $coralURL . 'usage/"'; ?>" <?php echo $ariaCurrentModule; ?>><?php echo _("Usage Statistics");?></a></li>
-    <?php }
-    if ($config->settings->managementModule == 'Y') { 
-      if ($currentModule == 'management') {
-        $ariaCurrentModule = 'aria-current="page"';
-      }
-      else {
-        $ariaCurrentModule = '';
-      }
-      ?>
-      <li><a href="<?php echo $coralURL . 'management/"'; ?>" <?php echo $ariaCurrentModule; ?>><?php echo _("Management");?></a></li>
-    <?php } ?>
-  </ul>
+      $modules = [
+        'resources' => [
+          'activated' => $config->settings->resourcesModule,
+          'name' => _("Resources"),
+        ],
+        'organizations' => [
+          'activated' => $config->settings->organizationsModule,
+          'name' => _("Organizations"),
+        ],
+        'licensing' => [
+          'activated' => $config->settings->licensingModule,
+          'name' => _("Licensing"),
+        ],
+        'usage' => [
+          'activated' => $config->settings->usageModule,
+          'name' => _("Usage Statistics"),
+        ],
+        'management' => [
+          'activated' => $config->settings->managementModule,
+          'name' => _("Management"),
+        ],
+      ];
 
+      foreach($modules as $moduleDirectory => $module){
+        $activatedModule = ($module['activated'] == 'Y');
+        $isCurrentModule = ($moduleDirectory == $currentModule);
+        if($activatedModule){
+          $ariaCurrentModule = ($isCurrentModule) ? 'aria-current="page"' : '';
+          echo "<li><a href='{$coralURL}{$moduleDirectory}/' {$ariaCurrentModule}>{$module['name']}</a></li>";
+        }
+      }
+    ?>
+  </ul>
 
   <button class="btn menu-toggle" id="tools-toggle" type="button" aria-expanded="false" aria-controls="tools"><?php echo _("Tools"); ?></button>
   <ul class="nav" id="tools">
-  <?php
-  // menu links are defined in modules' templates/header.php file
-  
-  foreach ($moduleMenu as $item) {
-    $ariaCurrent = '';
-    if ( isset($item['url']) && $item['url'] == $currentPage ) {
-      $ariaCurrent = ' aria-current="page" ';
-    }
-    // New tabs only if configuration allows
-    $target = '';
-    if ( isset($item['target']) && $item['target'] == '_blank' ) {
-      $target = getTarget();
-    }
-    ?>
-    <li>
-      <?php if ( isset($item['action']) ) { ?>
-        <a href="javascript:void(0)" id="<?php echo $item['id']; ?>" class="<?php echo $item['classes']; ?>" onclick="<?php echo $item['action']; ?>">
-          <?php echo $item['text']; ?>
-        </a>
-      <?php 
-      } 
-      else { 
-        $url = ($item['url']) ?? "";
-        $classes = ($item['classes']) ?? "";
-        $id = ($item['id']) ?? "";
-        $text = ($item['text']) ?? "";
-        echo "<a href='{$url}' id='{$id}' class='{$classes}' {$ariaCurrent}{$target}>{$text}</a>";
-      } 
-      ?>
-    </li>
-<?php 
-  } 
-  ?>
-</ul>
-</nav>
+    <?php
+      // menu links are defined in modules' templates/header.php file
+      if(isset($moduleMenu)){
+        foreach ($moduleMenu as $item) {
+          $isCurrentPage = (isset($item['url']) && $item['url'] == $currentPage);
+          $ariaCurrent = ($isCurrentPage) ? 'aria-current="page"' : '';
 
+          // New tabs only if configuration allows
+          $validTargetSet = (isset($item['target']) && $item['target'] == '_blank');
+          $target = ($validTargetSet) ? getTarget() : '';
+
+          $onClickAction = ($item['action']) ?? FALSE;
+          $url = ($onClickAction) ? "javascript:void(0)" : $item['url'] ?? "";
+          $onclick = ($onClickAction) ? "onclick=\"".$onClickAction."\"" : "";
+          $linkBehavior = ($onClickAction) ? $onclick : $target;
+          $id = ($item['id']) ?? "";
+          $classes = ($item['classes']) ?? "";
+          $text = ($item['text']) ?? "";
+
+          echo "<li><a href='{$url}' id='{$id}' class='{$classes}' {$ariaCurrent} {$linkBehavior}>{$text}</a></li>";
+        }
+      } 
+    ?>
+  </ul>
+</nav>
 <p id="span_message" role="status">
   <?php
     $messages = [];
