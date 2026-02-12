@@ -536,7 +536,9 @@ class Resource extends DatabaseObject {
 		$searchDisplay = array();
 		$config = new Configuration();
 
-
+    if($search['isSelector'] == true){
+      $whereAdd[] = "(R.AZDBID IS NOT NULL)";
+    }
 		//if name is passed in also search alias, organizations and organization aliases
 		if ($search['name']) {
 			$nameQueryString = $resource->db->escapeString(strtoupper($search['name']));
@@ -873,6 +875,13 @@ class Resource extends DatabaseObject {
                 "stmt" => "LEFT JOIN Status S ON R.statusID = S.statusID",
             ),
 		);
+    $search = Resource::getSearch();
+    $isASelector = ($search['isSelector'] == true);
+    if($isASelector){
+      $joinTree["AZA"] = array(
+        "stmt" => "LEFT JOIN Alias AZA ON R.resourceID = AZA.resourceID AND AZA.aliasTypeID = 4",
+      );
+    }
 
 		if ($config->settings->organizationsModule == 'Y') {
 			$dbName = $config->settings->organizationsDatabaseName;
@@ -902,8 +911,8 @@ class Resource extends DatabaseObject {
 			$select = "SELECT COUNT(DISTINCT R.resourceID) count";
 			$groupBy = "";
 		} else {
-			$select = "SELECT R.resourceID, R.titleText, GROUP_CONCAT(DISTINCT AT.shortName SEPARATOR ' / ') as acquisitionType, R.createLoginID, CU.firstName, CU.lastName, R.createDate, S.shortName status,
-						GROUP_CONCAT(DISTINCT A.shortName, I.isbnOrIssn ORDER BY A.shortName DESC SEPARATOR '<br />') aliases";
+      $title = ($isASelector) ? "IFNULL(AZA.shortName, R.titleText) AS 'titleText'" : "R.titleText";
+      $select = "SELECT R.resourceID, {$title}, GROUP_CONCAT(DISTINCT AT.shortName SEPARATOR ' / ') as acquisitionType, R.createLoginID, CU.firstName, CU.lastName, R.createDate, S.shortName status, GROUP_CONCAT(DISTINCT A.shortName, I.isbnOrIssn ORDER BY A.shortName DESC SEPARATOR '<br />') aliases";
 			$groupBy = "GROUP BY R.resourceID";
 		}
 
