@@ -18,10 +18,10 @@
 		if($callType == 'Update'){
 			//Are we removing the Preferred? Set the Recommended Value based on what we're deleting.
 			//This will need to be changed if we ever get more than one Detailed Subject.
-			$postData['Recommended'] = ($generalDetailRow->detailedSubjectID !== 4);
+			$postData['Recommended'] = ($generalDetailRow->detailedSubjectID !== 1);
 		}
 		//Before updating CORAL, pass a CURL call to the A-Z list with the removal Instructions.
-		$url = 'https://devg.lib.umd.umich.edu/scripts/coral/subjectsAPI.php';
+		$url = 'https://library.umd.umich.edu/scripts/coral/subjectsAPI.php';
 		$ch = curl_init();
 		// Set cURL options
 		curl_setopt($ch, CURLOPT_URL, $url);

@@ -9,7 +9,7 @@
 $resource = new Resource(new NamedArguments(array('primaryKey' => $resourceID)));
 $brandNewSubject = ($resource->getSubjectCountByGeneral($generalSubjectID) == 0);
 $generalSubject = new GeneralSubject(new NamedArguments(array('primaryKey' => $generalSubjectID)));
-$addingRecommended = ($detailSubjectID == 4);
+$addingRecommended = ($detailSubjectID == 1);
 
 //If it's not a brand new Subject and we're not adding recommended, leave the resource recommended in the A-Z list.
 if(!$brandNewSubject && !$addingRecommended){$addingRecommended = TRUE;}
@@ -39,7 +39,7 @@ $postData = [
 		if ($resourceSubject->duplicateCheck($resourceID, $generalDetailSubjectLinkID) == 0) {
 			try {
 				//Before updating CORAL, pass a CURL call to the A-Z list with the removal Instructions.
-				$url = 'https://devg.lib.umd.umich.edu/scripts/coral/subjectsAPI.php';
+				$url = 'https://library.umd.umich.edu/scripts/coral/subjectsAPI.php';
 				$ch = curl_init();
 				// Set cURL options
 				curl_setopt($ch, CURLOPT_URL, $url);
