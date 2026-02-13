@@ -867,6 +867,7 @@ function bind_removes() {
         cache: false,
         data: "action=removeResourceSubjectRelationship&generalDetailSubjectID=" + $(this).attr("generalDetailSubjectID") + "&resourceID=" + $(this).attr("resourceID"),
         success: function (html) {
+          console.log(html);
           eval("update" + tabName + "();");
         }
 

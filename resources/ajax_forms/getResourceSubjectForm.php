@@ -22,7 +22,9 @@
 
 				foreach($generalSubjectArray as $ug) {
 					$generalSubject = new GeneralSubject(new NamedArguments(array('primaryKey' => $ug['generalSubjectID'])));
-
+                    $isSubjectSpecialist = ($loginID == $generalSubject->subjectSpecialist);
+                    $isASelector = ($user->privilegeID == 4);
+                    if(!$isSubjectSpecialist && $isASelector){continue;}
 					echo "<tr>";
 					echo "<th scope='row' id='subject-title-". $ug['generalSubjectID'] ."'>" . $generalSubject->shortName . "</th>";
 					echo "<td></td>";

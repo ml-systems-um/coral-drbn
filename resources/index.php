@@ -37,6 +37,10 @@ include 'templates/header.php';
 ?>
 
 <main id="main-content">
+<?php
+  $privilegeID = ($user->privilegeID);
+  $isSelector = ($privilegeID == 4);
+?>
 <article>
 	<div id='div_searchResults'></div>
 </article>
@@ -47,6 +51,8 @@ include 'templates/header.php';
 		foreach(array('orderBy','page','recordsPerPage','startWith') as $hidden) {
 			echo (new Html())->hidden_search_field_tag($hidden, isset($search[$hidden]) ? $search[$hidden] : '' );
 		}
+
+    echo (new HTML())->hidden_search_field_tag('isSelector', $isSelector);
 		?>
 
 	<div id='div_feedback' role='status'></div>
@@ -57,12 +63,12 @@ include 'templates/header.php';
 		<label for='searchName'><?php echo _("Name (contains)");?></label>
 		<?php echo (new Html())->text_search_field_tag('name', isset($search['name']) ? $search['name'] : '' ); ?>
 	</p>
-	
+
 	<p class='searchRow'>
 		<label for='searchPublisher'><?php echo _("Publisher (contains)"); ?></label>
 		<?php echo (new Html())->text_search_field_tag('publisher', isset($search['publisher']) ? $search['publisher'] : ''); ?>
 	</p>
-	
+
       <p class='searchRow'>
         <label for='searchPlatform'><?php echo _("Platform (contains)"); ?></label>
         <?php echo (new Html())->text_search_field_tag('platform', isset($search['platform']) ? $search['platform'] : ''); ?>
@@ -75,12 +81,12 @@ include 'templates/header.php';
 
 	<p class='searchRow'>
 		<label for='searchOrderNumber'><?php echo _("Order Number"); ?></label>
-		<?php 
+		<?php
 			$defaultOrder = ($search['orderNumber']) ?? '';
-			echo (new Html())->text_search_field_tag('orderNumber', $defaultOrder); 
+			echo (new Html())->text_search_field_tag('orderNumber', $defaultOrder);
 		?>
 	</p>
-			
+
 	<p class='searchRow'><label for='searchResourceISBNOrISSN'><?php echo _("ISBN/ISSN");?></label>
 	<?php echo (new Html())->text_search_field_tag('resourceISBNOrISSN', isset($search['resourceISBNOrISSN']) ? $search['resourceISBNOrISSN'] : ''); ?>
 </p>
@@ -116,7 +122,7 @@ include 'templates/header.php';
 
 	<p class='searchRow'>
 		<label for='searchAcquisitionTypeID'><?php echo _("Acquisition Type");?></label>
-	
+
 		<select name='search[acquisitionTypeID]' id='searchAcquisitionTypeID'>
 	<option value=''><?php echo _("All");?></option>
 	<?php
@@ -138,7 +144,7 @@ include 'templates/header.php';
 
 	<p class='searchRow'>
 		<label for='searchStatusID'><?php echo _("Status");?></label>
-	
+
 		<select name='search[statusID]' id='searchStatusID'>
 	<option value=''><?php echo _("All");?></option>
 	<?php
@@ -212,7 +218,7 @@ include 'templates/header.php';
 </p>
 
 
-	
+
 	<p class='searchRow'>
 		<label for='searchResourceTypeID'><?php echo _("Resource Type");?></label>
 	<select name='search[resourceTypeID]' id='searchResourceTypeID'>
@@ -273,7 +279,7 @@ include 'templates/header.php';
 	</select>
 </p>
 
-	
+
 	<p class='searchRow'>
 		<label for='searchDetailedSubjectID'><?php echo _("Detailed Subject");?></label>
 
@@ -327,11 +333,11 @@ include 'templates/header.php';
 		}
 		?>
 	</ul>
-	
+
 	<!-- TODO: modern toggle here -->
 	<details>
 		<summary class="btn"><?php echo _("more options...");?></summary>
-		
+
 		<div id='div_additionalSearch'>
 
 		<p class='searchRow'>
@@ -378,7 +384,7 @@ include 'templates/header.php';
 				</div>
 			</div>
 	</fieldset>
-		
+
 		<p class='searchRow'>
 			<label for='searchPurchaseSiteID'><?php echo _("Purchase Site");?></label>
 			<select name='search[purchaseSiteID]' id='searchPurchaseSiteID'>
@@ -459,7 +465,7 @@ include 'templates/header.php';
 				?>
 			</select>
 		</p>
-		
+
 		<p class='searchRow'>
 			<label for='searchAuthenticationTypeID'><?php echo _("Authentication Type");?></label>
 			<select name='search[authenticationTypeID]' id='searchAuthenticationTypeID'>
@@ -512,10 +518,10 @@ include 'templates/header.php';
 				?>
 			</select>
 		</p>
-		
+
 		<p class='searchRow'>
 			<label for='searchStepName'><?php echo _("Workflow Step");?></label>
-		
+
 			<select name='search[stepName]' id='searchStepName'>
 				<option value=''><?php echo _("All");?></option>
 				<?php
@@ -534,7 +540,7 @@ include 'templates/header.php';
 				?>
 			</select>
 		</p>
-		
+
 			<p class='searchRow'>
 				<label for='searchParents'><?php echo _('Relationship'); ?></label>
 				<select name='search[parent]' id='searchParents'>

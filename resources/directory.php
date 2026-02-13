@@ -67,13 +67,22 @@ function watchString($string) {
   return $string;
 }
 
+if (!function_exists('array_key_first')) {
+  function array_key_first(array $arr) {
+    foreach($arr as $key => $unused) {
+      return $key;
+    }
+    return NULL;
+  }
+}
+
 function resource_sidemenu($links, $selected_link = '') {
   global $user;
 
   if (empty($selected_link)) {
     $selected_link = array_key_first($links);
   }
-  
+
   foreach ($links as $key => $value) {
     $aria_current = '';
     $showTab = ($_GET['showTab']) ?? "";

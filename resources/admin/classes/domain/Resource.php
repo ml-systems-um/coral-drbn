@@ -25,7 +25,7 @@ class Resource extends DatabaseObject {
 
 	protected function overridePrimaryKeyName() {}
 
-    public function asArray() {
+	public function asArray() {
 		$rarray = array();
 		foreach (array_keys($this->attributeNames) as $attributeName) {
 			if ($this->$attributeName != null) {
@@ -33,84 +33,84 @@ class Resource extends DatabaseObject {
 			}
 		}
 
-        $status = new Status(new NamedArguments(array('primaryKey' => $this->statusID)));
-        $rarray['status'] = $status->shortName;
+		$status = new Status(new NamedArguments(array('primaryKey' => $this->statusID)));
+		$rarray['status'] = $status->shortName;
 
-        if ($this->resourceTypeID) {
-            $resourceType = new ResourceType(new NamedArguments(array('primaryKey' => $this->resourceTypeID)));
-            $rarray['resourceType'] = $resourceType->shortName;
-        }
+		if ($this->resourceTypeID) {
+			$resourceType = new ResourceType(new NamedArguments(array('primaryKey' => $this->resourceTypeID)));
+			$rarray['resourceType'] = $resourceType->shortName;
+		}
 
-        if ($this->resourceFormatID) {
-            $resourceFormat = new ResourceFormat(new NamedArguments(array('primaryKey' => $this->resourceFormatID)));
-            $rarray['resourceFormat'] = $resourceFormat->shortName;
-        }
+		if ($this->resourceFormatID) {
+			$resourceFormat = new ResourceFormat(new NamedArguments(array('primaryKey' => $this->resourceFormatID)));
+			$rarray['resourceFormat'] = $resourceFormat->shortName;
+		}
 
-        if ($this->acquisitionTypeID) {
-            $acquisitionType = new AcquisitionType(new NamedArguments(array('primaryKey' => $this->acquisitionTypeID)));
-            $rarray['acquisitionType'] = $acquisitionType->shortName;
-        }
+		if ($this->acquisitionTypeID) {
+			$acquisitionType = new AcquisitionType(new NamedArguments(array('primaryKey' => $this->acquisitionTypeID)));
+			$rarray['acquisitionType'] = $acquisitionType->shortName;
+		}
 
 		$identifiers = $this->getIsbnOrIssn();
 		$rarray['isbnOrIssn'] = array();
 		foreach ($identifiers as $identifier) {
-				array_push($rarray['isbnOrIssn'], $identifier->isbnOrIssn);
+			array_push($rarray['isbnOrIssn'], $identifier->isbnOrIssn);
 		}
 
-        $aliases = $this->getAliases();
-        $rarray['aliases'] = array();
+		$aliases = $this->getAliases();
+		$rarray['aliases'] = array();
 		foreach ($aliases as $alias) {
-				array_push($rarray['aliases'], $alias->shortName);
+			array_push($rarray['aliases'], $alias->shortName);
 		}
 
 		return $rarray;
 
 
-    }
+	}
 
 	//returns resource objects by title
-    public function getResourceByTitle($title) {
+	public function getResourceByTitle($title) {
 
-        $query = "SELECT *
+		$query = "SELECT *
 			FROM Resource
 			WHERE UPPER(titleText) = '" . str_replace("'", "''", strtoupper($title)) . "'
 			ORDER BY 1";
 
-        $result = $this->db->processQuery($query, 'assoc');
+		$result = $this->db->processQuery($query, 'assoc');
 
-        $objects = array();
+		$objects = array();
 
-        //need to do this since it could be that there's only one request and this is how the dbservice returns result
-        if (isset($result['resourceID'])) { $result = [$result]; }
-        foreach ($result as $row) {
-            $object = new Resource(new NamedArguments(array('primaryKey' => $row['resourceID'])));
-            array_push($objects, $object);
-        }
+		//need to do this since it could be that there's only one request and this is how the dbservice returns result
+		if (isset($result['resourceID'])) { $result = [$result]; }
+		foreach ($result as $row) {
+			$object = new Resource(new NamedArguments(array('primaryKey' => $row['resourceID'])));
+			array_push($objects, $object);
+		}
 
-        return $objects;
-    }
+		return $objects;
+	}
 
-    //returns resource object by ebscoKbId
-    public function getResourceByEbscoKbId($ebscoKbId) {
+	//returns resource object by ebscoKbId
+	public function getResourceByEbscoKbId($ebscoKbId) {
 
-        $query = "SELECT *
+		$query = "SELECT *
 			FROM Resource
 			WHERE ebscoKbID = $ebscoKbId
 			LIMIT 0,1";
 
-        $result = $this->db->processQuery($query, 'assoc');
-
-        if (isset($result['resourceID'])) {
-        	return new Resource(new NamedArguments(['primaryKey' => $result['resourceID']]));
-		} else {
-        	return false;
-		}
-    }
-
-    public function getResourceAcquisitions() {
-        $query = "SELECT * from ResourceAcquisition WHERE resourceID = " . $this->resourceID . " ORDER BY subscriptionStartDate DESC, subscriptionEndDate DESC";
 		$result = $this->db->processQuery($query, 'assoc');
-        $objects = array();
+
+		if (isset($result['resourceID'])) {
+			return new Resource(new NamedArguments(['primaryKey' => $result['resourceID']]));
+		} else {
+			return false;
+		}
+	}
+
+	public function getResourceAcquisitions() {
+		$query = "SELECT * from ResourceAcquisition WHERE resourceID = " . $this->resourceID . " ORDER BY subscriptionStartDate DESC, subscriptionEndDate DESC";
+		$result = $this->db->processQuery($query, 'assoc');
+		$objects = array();
 
 		//need to do this since it could be that there's only one request and this is how the dbservice returns result
 		if (isset($result['resourceAcquisitionID'])) { $result = [$result]; }
@@ -120,13 +120,13 @@ class Resource extends DatabaseObject {
 		}
 		return $objects;
 
-    }
+	}
 
-    public function countResourceAcquisitions() {
-        $query = "SELECT COUNT(*) AS count FROM ResourceAcquisition WHERE resourceID = " . $this->resourceID;
+	public function countResourceAcquisitions() {
+		$query = "SELECT COUNT(*) AS count FROM ResourceAcquisition WHERE resourceID = " . $this->resourceID;
 		$result = $this->db->processQuery($query, 'assoc');
-        return ($result) ? $result['count'] : 0;
-    }
+		return ($result) ? $result['count'] : 0;
+	}
 
 	//returns resource objects by title
 	public function getResourceByIsbnOrISSN($isbnOrISSN) {
@@ -201,18 +201,18 @@ class Resource extends DatabaseObject {
 
 
 
-    // return array of related resource objects
-    private function getRelatedResources($key) {
-        $query = "SELECT rr.resourceRelationshipID
+	// return array of related resource objects
+	private function getRelatedResources($key) {
+		$query = "SELECT rr.resourceRelationshipID
 			FROM ResourceRelationship rr
             JOIN Resource r on rr.resourceID = r.resourceID
 			WHERE rr.$key = '" . $this->resourceID . "'
 			AND relationshipTypeID = '1'
 			ORDER BY r.titleText";
 
-        $result = $this->db->processQuery($query, 'assoc');
+		$result = $this->db->processQuery($query, 'assoc');
 
-        $objects = array();
+		$objects = array();
 
 		//need to do this since it could be that there's only one request and this is how the dbservice returns result
 		if (isset($result['resourceRelationshipID'])) {
@@ -226,9 +226,9 @@ class Resource extends DatabaseObject {
 			}
 		}
 
-        return $objects;
+		return $objects;
 
-    }
+	}
 
 
 	//deletes all parent resources associated with this resource
@@ -494,9 +494,9 @@ class Resource extends DatabaseObject {
 		}
 
 		$defaultSearchParameters = array(
-		"orderBy" => $orderBy,
-		"page" => 1,
-		"recordsPerPage" => 25,
+			"orderBy" => $orderBy,
+			"page" => 1,
+			"recordsPerPage" => 25,
 		);
 		foreach ($defaultSearchParameters as $key => $value) {
 			if (!isset($search[$key])) {
@@ -536,7 +536,9 @@ class Resource extends DatabaseObject {
 		$searchDisplay = array();
 		$config = new Configuration();
 
-
+		if($search['isSelector'] == true){
+			$whereAdd[] = "(R.AZDBID IS NOT NULL)";
+		}
 		//if name is passed in also search alias, organizations and organization aliases
 		if ($search['name']) {
 			$nameQueryString = $resource->db->escapeString(strtoupper($search['name']));
@@ -558,7 +560,7 @@ class Resource extends DatabaseObject {
 		//get where statements together (and escape single quotes)
 		if ($search['resourceISBNOrISSN']) {
 			$resourceISBNOrISSN = $resource->db->escapeString(str_replace("-","",$search['resourceISBNOrISSN']));
-            $whereAdd[] = "REPLACE(I.isbnOrIssn,'-','') = '" . $resourceISBNOrISSN . "'";
+			$whereAdd[] = "REPLACE(I.isbnOrIssn,'-','') = '" . $resourceISBNOrISSN . "'";
 			$searchDisplay[] = _("ISSN/ISBN: ") . $search['resourceISBNOrISSN'];
 		}
 
@@ -577,12 +579,12 @@ class Resource extends DatabaseObject {
 
 
 		if ($search['parent'] != null) {
-            if ($search['parent'] == 'None') {
-                $parentadd = "(RRP.relationshipTypeID IS NULL AND RRC.relationshipTypeID IS NULL)";
-            } else {
-                $parentadd = "(" . $search['parent'] . ".relationshipTypeID = 1)";
-            }
-            $whereAdd[] = $parentadd;
+			if ($search['parent'] == 'None') {
+				$parentadd = "(RRP.relationshipTypeID IS NULL AND RRC.relationshipTypeID IS NULL)";
+			} else {
+				$parentadd = "(" . $search['parent'] . ".relationshipTypeID = 1)";
+			}
+			$whereAdd[] = $parentadd;
 		}
 
 
@@ -624,7 +626,7 @@ class Resource extends DatabaseObject {
 		}
 
 		if ($search['createDateStart']) {
-		  $startDate = create_date_from_js_format($search['createDateStart'])->format('Y-m-d');
+			$startDate = create_date_from_js_format($search['createDateStart'])->format('Y-m-d');
 			$whereAdd[] = "R.createDate >= '". $resource->db->escapeString($startDate) ."'";
 			if (!$search['createDateEnd']) {
 				$searchDisplay[] = _("Created on or after: ") . $search['createDateStart'];
@@ -634,7 +636,7 @@ class Resource extends DatabaseObject {
 		}
 
 		if ($search['createDateEnd']) {
-      $endDate = create_date_from_js_format($search['createDateEnd'])->format('Y-m-d');
+			$endDate = create_date_from_js_format($search['createDateEnd'])->format('Y-m-d');
 			$whereAdd[] = "R.createDate <= '" . $resource->db->escapeString($endDate) . "'";
 			if (!$search['createDateStart']) {
 				$searchDisplay[] = _("Created on or before: ") . $search['createDateEnd'];
@@ -745,7 +747,7 @@ class Resource extends DatabaseObject {
 		if ($search['publisher']) {
 			$nameQueryString = $resource->db->escapeString(strtoupper($search['publisher']));
 			$nameQueryString = preg_replace("/ +/", "%", $nameQueryString);
-		  	$nameQueryString = "'%" . $nameQueryString . "%'";
+			$nameQueryString = "'%" . $nameQueryString . "%'";
 			if ($config->settings->organizationsModule == 'Y'){
 				$dbName = $config->settings->organizationsDatabaseName;
 				$whereAdd[] = "ROL.organizationRoleID=5 AND ((UPPER(O.name) LIKE " . $nameQueryString . ") OR (UPPER(OA.name) LIKE " . $nameQueryString . "))";
@@ -762,22 +764,22 @@ class Resource extends DatabaseObject {
 			if ($config->settings->organizationsModule == 'Y'){
 				$dbName = $config->settings->organizationsDatabaseName;
 				$whereAdd[] = "ROL.organizationRoleID=3 AND ((UPPER(O.name) LIKE " . $nameQueryString . ") OR (UPPER(OA.name) LIKE " . $nameQueryString . "))";
- 			}else{
- 				$whereAdd[] = "ROL.organizationRoleID=3 AND (UPPER(O.shortName) LIKE " . $nameQueryString . ")";
- 			}
- 			$searchDisplay[] = _("Platform name contains: ") . $search['publisher'];
- 		}
+			}else{
+				$whereAdd[] = "ROL.organizationRoleID=3 AND (UPPER(O.shortName) LIKE " . $nameQueryString . ")";
+			}
+			$searchDisplay[] = _("Platform name contains: ") . $search['publisher'];
+		}
 
- 		if ($search['provider']) {
- 			$nameQueryString = $resource->db->escapeString(strtoupper($search['provider']));
- 			$nameQueryString = preg_replace("/ +/", "%", $nameQueryString);
- 			$nameQueryString = "'%" . $nameQueryString . "%'";
- 			if ($config->settings->organizationsModule == 'Y'){
- 				$dbName = $config->settings->organizationsDatabaseName;
- 				$whereAdd[] = "ROL.organizationRoleID=4 AND ((UPPER(O.name) LIKE " . $nameQueryString . ") OR (UPPER(OA.name) LIKE " . $nameQueryString . "))";
- 			}else{
- 				$whereAdd[] = "ROL.organizationRoleID=4 AND (UPPER(O.shortName) LIKE " . $nameQueryString . ")";
- 			}
+		if ($search['provider']) {
+			$nameQueryString = $resource->db->escapeString(strtoupper($search['provider']));
+			$nameQueryString = preg_replace("/ +/", "%", $nameQueryString);
+			$nameQueryString = "'%" . $nameQueryString . "%'";
+			if ($config->settings->organizationsModule == 'Y'){
+				$dbName = $config->settings->organizationsDatabaseName;
+				$whereAdd[] = "ROL.organizationRoleID=4 AND ((UPPER(O.name) LIKE " . $nameQueryString . ") OR (UPPER(OA.name) LIKE " . $nameQueryString . "))";
+			}else{
+				$whereAdd[] = "ROL.organizationRoleID=4 AND (UPPER(O.shortName) LIKE " . $nameQueryString . ")";
+			}
 			$searchDisplay[] = _("Provider name contains: ") . $search['publisher'];
 		}
 
@@ -797,82 +799,89 @@ class Resource extends DatabaseObject {
 
 		$joinTree = array(
 			"A" => array(
-                "stmt" => "LEFT JOIN Alias A ON R.resourceID = A.resourceID",
-            ),
-            "AT" => array(
-                "stmt" => "LEFT JOIN AcquisitionType AT ON RA.acquisitionTypeID = AT.acquisitionTypeID",
-                "requires" => "RA"
-            ),
-            "CU" => array(
-                "stmt" => "LEFT JOIN User CU ON R.createLoginID = CU.loginID",
-            ),
-            "GDLINK" => array(
-                "stmt" => "LEFT JOIN GeneralDetailSubjectLink GDLINK ON RSUB.generalDetailSubjectLinkID = GDLINK.generalDetailSubjectLinkID",
-                "requires" => "RSUB"
-            ),
-            "I" => array(
-                "stmt" => "LEFT JOIN IsbnOrIssn I ON R.resourceID = I.resourceID"
-            ),
+				"stmt" => "LEFT JOIN Alias A ON R.resourceID = A.resourceID",
+			),
+			"AT" => array(
+				"stmt" => "LEFT JOIN AcquisitionType AT ON RA.acquisitionTypeID = AT.acquisitionTypeID",
+				"requires" => "RA"
+			),
+			"CU" => array(
+				"stmt" => "LEFT JOIN User CU ON R.createLoginID = CU.loginID",
+			),
+			"GDLINK" => array(
+				"stmt" => "LEFT JOIN GeneralDetailSubjectLink GDLINK ON RSUB.generalDetailSubjectLinkID = GDLINK.generalDetailSubjectLinkID",
+				"requires" => "RSUB"
+			),
+			"I" => array(
+				"stmt" => "LEFT JOIN IsbnOrIssn I ON R.resourceID = I.resourceID"
+			),
 			"RA" => array(
 				"stmt" => "LEFT JOIN ResourceAcquisition RA ON R.resourceID = RA.resourceID",
 			),
-            "RADSL" => array(
-                "stmt" => "LEFT JOIN ResourceAdministeringSiteLink RADSL ON RA.resourceAcquisitionID = RADSL.resourceAcquisitionID",
-                "requires" => "RA"
-            ),
-            "RAUSL" => array(
-                "stmt" => "LEFT JOIN ResourceAuthorizedSiteLink RAUSL ON RA.resourceAcquisitionID = RAUSL.resourceAcquisitionID",
-                "requires" => "RA"
-            ),
-            "RF" => array(
-                "stmt" => "LEFT JOIN ResourceFormat RF ON R.resourceFormatID = RF.resourceFormatID",
-            ),
-            "RC" => array(
-                "stmt" => "LEFT JOIN Resource RC ON RC.resourceID = RRC.resourceID",
-                "requires" => "RRC"
-            ),
-            "RNA" => array(
-                "stmt" => "LEFT JOIN ResourceNote RNA ON RA.resourceAcquisitionID = RNA.entityID",
-                "requires" => "RA"
-            ),
-            "RNR" => array(
-                "stmt" => "LEFT JOIN ResourceNote RNR ON R.resourceID = RNR.entityID",
-            ),
-            "RP" => array(
-                "stmt" => "LEFT JOIN Resource RP ON RP.resourceID = RRP.relatedResourceID",
-                "requires" => "RRP"
-            ),
-            "RPAY" => array(
-                "stmt" => "LEFT JOIN ResourcePayment RPAY ON RA.resourceAcquisitionID = RPAY.resourceAcquisitionID",
+			"RADSL" => array(
+				"stmt" => "LEFT JOIN ResourceAdministeringSiteLink RADSL ON RA.resourceAcquisitionID = RADSL.resourceAcquisitionID",
 				"requires" => "RA"
-            ),
-            "RPSL" => array(
-                "stmt" => "LEFT JOIN ResourcePurchaseSiteLink RPSL ON RA.resourceAcquisitionID = RPSL.resourceAcquisitionID",
-                "requires" => "RA"
-            ),
+			),
+			"RAUSL" => array(
+				"stmt" => "LEFT JOIN ResourceAuthorizedSiteLink RAUSL ON RA.resourceAcquisitionID = RAUSL.resourceAcquisitionID",
+				"requires" => "RA"
+			),
+			"RF" => array(
+				"stmt" => "LEFT JOIN ResourceFormat RF ON R.resourceFormatID = RF.resourceFormatID",
+			),
+			"RC" => array(
+				"stmt" => "LEFT JOIN Resource RC ON RC.resourceID = RRC.resourceID",
+				"requires" => "RRC"
+			),
+			"RNA" => array(
+				"stmt" => "LEFT JOIN ResourceNote RNA ON RA.resourceAcquisitionID = RNA.entityID",
+				"requires" => "RA"
+			),
+			"RNR" => array(
+				"stmt" => "LEFT JOIN ResourceNote RNR ON R.resourceID = RNR.entityID",
+			),
+			"RP" => array(
+				"stmt" => "LEFT JOIN Resource RP ON RP.resourceID = RRP.relatedResourceID",
+				"requires" => "RRP"
+			),
+			"RPAY" => array(
+				"stmt" => "LEFT JOIN ResourcePayment RPAY ON RA.resourceAcquisitionID = RPAY.resourceAcquisitionID",
+				"requires" => "RA"
+			),
+			"RPSL" => array(
+				"stmt" => "LEFT JOIN ResourcePurchaseSiteLink RPSL ON RA.resourceAcquisitionID = RPSL.resourceAcquisitionID",
+				"requires" => "RA"
+			),
 			"ROL" => array(
-                "stmt" => "LEFT JOIN ResourceOrganizationLink ROL ON R.resourceID = ROL.resourceID",
-            ),
-            "RRC" => array(
-                "stmt" => "LEFT JOIN ResourceRelationship RRC ON RRC.relatedResourceID = R.resourceID",
-            ),
+				"stmt" => "LEFT JOIN ResourceOrganizationLink ROL ON R.resourceID = ROL.resourceID",
+			),
+			"RRC" => array(
+				"stmt" => "LEFT JOIN ResourceRelationship RRC ON RRC.relatedResourceID = R.resourceID",
+			),
 			"RRP" => array(
 				"stmt" => "LEFT JOIN ResourceRelationship RRP ON RRP.resourceID = R.resourceID",
 			),
-            "RS" => array(
-                "stmt" => "LEFT JOIN ResourceStep RS ON RA.resourceAcquisitionID = RS.resourceAcquisitionID",
-                "requires" => "RA"
-            ),
+			"RS" => array(
+				"stmt" => "LEFT JOIN ResourceStep RS ON RA.resourceAcquisitionID = RS.resourceAcquisitionID",
+				"requires" => "RA"
+			),
 			"RSUB" => array(
 				"stmt" => "LEFT JOIN ResourceSubject RSUB ON R.resourceID = RSUB.resourceID",
 			),
-            "RT" => array(
-                "stmt" => "LEFT JOIN ResourceType RT ON R.resourceTypeID = RT.resourceTypeID",
-            ),
-            "S" => array(
-                "stmt" => "LEFT JOIN Status S ON R.statusID = S.statusID",
-            ),
+			"RT" => array(
+				"stmt" => "LEFT JOIN ResourceType RT ON R.resourceTypeID = RT.resourceTypeID",
+			),
+			"S" => array(
+				"stmt" => "LEFT JOIN Status S ON R.statusID = S.statusID",
+			),
 		);
+		$search = Resource::getSearch();
+		$isASelector = ($search['isSelector'] == true);
+		if($isASelector){
+			$joinTree["AZA"] = array(
+				"stmt" => "LEFT JOIN Alias AZA ON R.resourceID = AZA.resourceID AND AZA.aliasTypeID = 4",
+			);
+		}
 
 		if ($config->settings->organizationsModule == 'Y') {
 			$dbName = $config->settings->organizationsDatabaseName;
@@ -884,7 +893,7 @@ class Resource extends DatabaseObject {
 		}else{
 			$joinTree["O"] = array(
 				"stmt" => "LEFT JOIN Organization O ON O.organizationID = ROL.organizationID",
-                "requires" => "ROL"
+				"requires" => "ROL"
 			);
 		}
 
@@ -902,21 +911,21 @@ class Resource extends DatabaseObject {
 			$select = "SELECT COUNT(DISTINCT R.resourceID) count";
 			$groupBy = "";
 		} else {
-			$select = "SELECT R.resourceID, R.titleText, GROUP_CONCAT(DISTINCT AT.shortName SEPARATOR ' / ') as acquisitionType, R.createLoginID, CU.firstName, CU.lastName, R.createDate, S.shortName status,
-						GROUP_CONCAT(DISTINCT A.shortName, I.isbnOrIssn ORDER BY A.shortName DESC SEPARATOR '<br />') aliases";
+			$title = ($isASelector) ? "IFNULL(AZA.shortName, R.titleText) AS 'titleText'" : "R.titleText";
+			$select = "SELECT R.resourceID, {$title}, GROUP_CONCAT(DISTINCT AT.shortName SEPARATOR ' / ') as acquisitionType, R.createLoginID, CU.firstName, CU.lastName, R.createDate, S.shortName status, GROUP_CONCAT(DISTINCT A.shortName, I.isbnOrIssn ORDER BY A.shortName DESC SEPARATOR '<br />') aliases";
 			$groupBy = "GROUP BY R.resourceID";
 		}
 
-        // Build a list of tables that are referenced by the select and where statements in order to limit the number of joins performed in the search.
-        preg_match_all("/[A-Z]+(?=[.][A-Z]+)/iu", $select, $table_matches);
-        $referenced_tables = array_unique($table_matches[0]);
+		// Build a list of tables that are referenced by the select and where statements in order to limit the number of joins performed in the search.
+		preg_match_all("/[A-Z]+(?=[.][A-Z]+)/iu", $select, $table_matches);
+		$referenced_tables = array_unique($table_matches[0]);
 
-        preg_match_all("/[A-Z]+(?=[.][A-Z]+)/iu", $whereStatement, $table_matches);
-        $referenced_tables = array_unique(array_merge($referenced_tables, $table_matches[0]));
-        // Remove the R table
-        if (($key = array_search('R', $referenced_tables)) !== false) {
-            unset($referenced_tables[$key]);
-        }
+		preg_match_all("/[A-Z]+(?=[.][A-Z]+)/iu", $whereStatement, $table_matches);
+		$referenced_tables = array_unique(array_merge($referenced_tables, $table_matches[0]));
+		// Remove the R table
+		if (($key = array_search('R', $referenced_tables)) !== false) {
+			unset($referenced_tables[$key]);
+		}
 
 		$joinStmts = array();
 
@@ -924,12 +933,12 @@ class Resource extends DatabaseObject {
 			$alreadyJoined = array();
 
 			foreach($referenced_tables as $join) {
-                // Prevent joining more than once
-                if (in_array($join, $alreadyJoined)) {
-                	continue;
-                }
+				// Prevent joining more than once
+				if (in_array($join, $alreadyJoined)) {
+					continue;
+				}
 
-                // If the table requires another linking table, join that first
+				// If the table requires another linking table, join that first
 				if(!empty($joinTree[$join]['requires'])) {
 					// Prevent joining parents more than once
 					$parent = $joinTree[$join]['requires'];
@@ -940,7 +949,7 @@ class Resource extends DatabaseObject {
 				}
 
 				$joinStmts[] = $joinTree[$join]['stmt'];
-                $alreadyJoined[] = $join;
+				$alreadyJoined[] = $join;
 			}
 		}
 
@@ -1177,7 +1186,7 @@ class Resource extends DatabaseObject {
 			$dbName = $config->settings->organizationsDatabaseName;
 			$query = "SELECT name, organizationID FROM " . $dbName . ".Organization ORDER BY 1;";
 
-		//otherwise get the orgs from this database
+			//otherwise get the orgs from this database
 		}else{
 			$query = "SELECT shortName name, organizationID FROM Organization ORDER BY 1;";
 		}
@@ -1274,7 +1283,7 @@ class Resource extends DatabaseObject {
 
 
 
-		//otherwise if the org module is not installed get the org name from this database
+			//otherwise if the org module is not installed get the org name from this database
 		}else{
 
 
@@ -1358,18 +1367,18 @@ class Resource extends DatabaseObject {
 
 	public function getSiblingResourcesArray($organizationID) {
 
-			$query = "SELECT DISTINCT r.resourceID, r.titleText FROM ResourceOrganizationLink rol
+		$query = "SELECT DISTINCT r.resourceID, r.titleText FROM ResourceOrganizationLink rol
 						LEFT JOIN Resource r ON r.resourceID=rol.resourceID
 						WHERE rol.organizationID=".$organizationID." AND r.archiveDate IS NULL
 						ORDER BY r.titleText";
 
-			$result = $this->db->processQuery($query, 'assoc');
+		$result = $this->db->processQuery($query, 'assoc');
 
-			if (isset($result["resourceID"])) {
-				return array($result);
-			}
+		if (isset($result["resourceID"])) {
+			return array($result);
+		}
 
-			return $result;
+		return $result;
 	}
 
 
@@ -1431,7 +1440,7 @@ class Resource extends DatabaseObject {
 
 
 
-		//otherwise if the org module is not installed get the org name from this database
+			//otherwise if the org module is not installed get the org name from this database
 		}else{
 
 
@@ -1518,14 +1527,14 @@ class Resource extends DatabaseObject {
 		$this->removeResource();
 	}
 
-    // Removes all resource acquisitions from this resource
-    public function removeResourceAcquisitions() {
-        $instance = new ResourceAcquisition();
-        foreach($this->getResourceAcquisitions() as $instance) {
-            $instance->removeResourceAcquisition();
-        }
+	// Removes all resource acquisitions from this resource
+	public function removeResourceAcquisitions() {
+		$instance = new ResourceAcquisition();
+		foreach($this->getResourceAcquisitions() as $instance) {
+			$instance->removeResourceAcquisition();
+		}
 
-    }
+	}
 
 
 	//removes this resource
@@ -1535,7 +1544,7 @@ class Resource extends DatabaseObject {
 		$this->removeResourceOrganizations();
 		$this->removeAllSubjects();
 		$this->removeAllIsbnOrIssn();
-        $this->removeResourceAcquisitions();
+		$this->removeResourceAcquisitions();
 		$instance = new ExternalLogin();
 		foreach ($this->getExternalLogins() as $instance) {
 			$instance->delete();
@@ -1708,6 +1717,16 @@ class Resource extends DatabaseObject {
 	}
 
 
+	//Returns a count of all subjects tied to a resource that share a general Subject ID.
+	public function getSubjectCountByGeneral($generalSubjectID){
+		$query = "SELECT COUNT(*) AS 'RowCount'
+              FROM ResourceSubject RS
+              LEFT JOIN GeneralDetailSubjectLink GDSL ON RS.generalDetailSubjectLinkID = GDSL.generalDetailSubjectLinkID
+              WHERE RS.resourceID = {$this->resourceID} AND GDSL.generalSubjectID = {$generalSubjectID}";
+
+		$result = $this->db->processQuery($query, 'assoc');
+		return $result['RowCount'];
+	}
 
 	//returns array of subject objects
 	public function getDetailedSubjects($resourceID, $generalSubjectID) {

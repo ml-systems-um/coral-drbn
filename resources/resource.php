@@ -58,9 +58,11 @@ if ($resource->titleText){
 	?>
 	<main id="main-content">
 	<nav id="side" class="sidemenu" aria-label="<?php echo _('Resource Data'); ?>">
-		<ul class="nav side">
-			<?php echo resource_sidemenu($links, watchString($showTab)); ?>
-		</ul>
+    <?php if($user->privilegeID !== 4){ ?>
+      <ul class="nav side">
+        <?php echo resource_sidemenu($links, watchString($showTab)); ?>
+      </ul>
+    <?php } ?>
 	</nav>
 
 		<article>
@@ -117,7 +119,7 @@ if ($resource->titleText){
 			</div>
 		</div>
 
-		<?php 
+		<?php
 		foreach ($links as $resource_tab => $tab_title) { ?>
 			<div id='div_<?php echo $resource_tab; ?>' class="tabpanel resource_tab_content">
 								<div class='div_mainContent'></div>
@@ -127,7 +129,7 @@ if ($resource->titleText){
 								}
 								?>
 				</div>
-		<?php 
+		<?php
 		}
 		?>
 	</article>

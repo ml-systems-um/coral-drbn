@@ -57,9 +57,9 @@
 
 
 		?>
-		
+
 					<p>
-						
+
 						<span class="editElement">
 							<?php if ($user->canEdit()) { ?>
 								<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getUpdateProductForm&resourceID=<?php echo $resource->resourceID; ?>", 800,830)'
@@ -104,7 +104,7 @@
 
 			<dt><?php echo _("Status:");?></dt>
 			<dd><?php echo $status->shortName; ?></dd>
-			
+
 			<?php
 			if (($resource->archiveDate) && ($resource->archiveDate != '0000-00-00')){
 			?>
@@ -115,9 +115,9 @@
 				<dd class="archived byline">
 				<?php
 					if ($archiveUser->getDisplayName){
-						printf(_("%s by %s"), format_date($resource->createDate), $archiveUser->getDisplayName);
+            printf(_("%s by %s"), format_date($resource->archiveDate), $archiveUser->getDisplayName);
 					}else if ($resource->archiveLoginID){
-						printf(_("%s by %s"), format_date($resource->createDate), $resource->archiveLoginID);
+						printf(_("%s by %s"), format_date($resource->archiveDate), $resource->archiveLoginID);
 					}
 				?>
 				</dd>
@@ -179,7 +179,7 @@
 					echo "</div>";
 				}
 
-				if (is_array($childResourceArray) && count($childResourceArray) > 0) { 
+				if (is_array($childResourceArray) && count($childResourceArray) > 0) {
 					echo "<div id='childResources'>";
 					echo "<h3>" . _("Child Resources") . "</h3>";
 					echo "<ul class='unstyled'>";
@@ -206,9 +206,9 @@
 							print  "<li>" . $isbnOrIssn->isbnOrIssn . "</li>";
 						}
 					?>
-				</ul>	
+				</ul>
 			</dd>
-			
+
 			<?php
 			}
 
@@ -333,7 +333,7 @@
 							</td>
 
 							<td class="actions">
-							<?php if ($user->canEdit() && $canDelete) { ?>
+							<?php if (($user->canEdit() || ($user->privilegeID == 4 && $user->loginID == $generalSubject->subjectSpecialist)) && $canDelete) { ?>
 								<a href='javascript:void(0);'
 									tab='Product'
 									class='removeResourceSubjectRelationship'
@@ -362,7 +362,7 @@
 
 
 
-		if ($user->canEdit()){
+		if ($user->canEdit() || $user->privilegeID == 4){
 		?>
 			<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getResourceSubjectForm&tab=Product&resourceID=<?php echo $resourceID; ?>",800,500)'' class='thickbox'><?php echo _("add subject");?></a>
 		<?php
@@ -408,10 +408,10 @@
 		if (is_array($noteArray) && count($noteArray) > 0) {
 		?>
 		<h2><?php echo _("Additional Notes");?></h2>
-			
+
 		<ol class="unstyled">
 				<?php foreach ($noteArray as $resourceNote){ ?>
-					
+
 					<li>
 						<h3><?php echo $resourceNote['noteTypeName']; ?></h3>
 						<div class="note-text">
@@ -428,7 +428,7 @@
 		</ol>
 		<?php
 		}
-		
+
 		if ($user->canEdit()){
 		?>
 			<p><a href='javascript:void(0)' onclick='javascript:myDialog("<?php echo "ajax_forms.php?action=getNoteForm&tab=Product&entityID={$resourceID}"; ?>",250,500)' class='thickbox'><?php echo _("add note");?></a></p>

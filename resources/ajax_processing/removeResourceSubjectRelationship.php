@@ -1,8 +1,35 @@
 <?php
 		$generalDetailSubjectID = $_GET['generalDetailSubjectID'];
 		$resourceID = $_GET['resourceID'];
+		$generalDetailRow = new GeneralDetailSubjectLink(new NamedArguments(array('primaryKey' => $generalDetailSubjectID)));
+		$generalSubjectID = $generalDetailRow->generalSubjectID;
+		$generalSubject = new GeneralSubject(new NamedArguments(array('primaryKey' => $generalSubjectID)));
+		$resource = new Resource(new NamedArguments(array('primaryKey' => $resourceID)));
+		$removeSubjectCompletely = ($resource->getSubjectCountByGeneral($generalSubjectID) == 1);
+		$resourceSubject = new ResourceSubject(new NamedArguments(array('primaryKey' => $resourceID)));
 
-		$resourceSubject = new ResourceSubject();
+		$callType = ($removeSubjectCompletely) ? 'Delete' : 'Update';
+		$postData = [
+			'CallType' => $callType,
+			'Librarian' => $loginID,
+			'SubjectName' => $generalSubject->shortName,
+			'DBID' => $resource->AZDBID,
+		];
+		if($callType == 'Update'){
+			//Are we removing the Preferred? Set the Recommended Value based on what we're deleting.
+			//This will need to be changed if we ever get more than one Detailed Subject.
+			$postData['Recommended'] = ($generalDetailRow->detailedSubjectID !== 4);
+		}
+		//Before updating CORAL, pass a CURL call to the A-Z list with the removal Instructions.
+		$url = 'https://devg.lib.umd.umich.edu/scripts/coral/subjectsAPI.php';
+		$ch = curl_init();
+		// Set cURL options
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// Execute cURL session
+		$response = curl_exec($ch);
 
 		try {
 
