@@ -15,12 +15,10 @@
 			'SubjectName' => $generalSubject->shortName,
 			'DBID' => $resource->AZDBID,
 		];
-		if($callType == 'update'){
+		if($callType == 'Update'){
 			//Are we removing the Preferred? Set the Recommended Value based on what we're deleting.
-			$removePreferred = ($generalDetailRow->detailedSubjectID == 4);
-			if($removePreferred){
-				$postData['Recommended'] = FALSE;
-			}
+			//This will need to be changed if we ever get more than one Detailed Subject.
+			$postData['Recommended'] = ($generalDetailRow->detailedSubjectID !== 4);
 		}
 		//Before updating CORAL, pass a CURL call to the A-Z list with the removal Instructions.
 		$url = 'https://devg.lib.umd.umich.edu/scripts/coral/subjectsAPI.php';
@@ -32,6 +30,7 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		// Execute cURL session
 		$response = curl_exec($ch);
+
 		try {
 
 			$resourceSubject->removeResourceSubject($resourceID, $generalDetailSubjectID);
