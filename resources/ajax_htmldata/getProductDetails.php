@@ -333,7 +333,7 @@
 							</td>
 
 							<td class="actions">
-							<?php if ($user->canEdit() && $canDelete) { ?>
+							<?php if (($user->canEdit() || ($user->privilegeID == 4 && $user->loginID == $generalSubject->subjectSpecialist)) && $canDelete) { ?>
 								<a href='javascript:void(0);'
 									tab='Product'
 									class='removeResourceSubjectRelationship'
@@ -362,7 +362,7 @@
 
 
 
-		if ($user->canEdit()){
+		if ($user->canEdit() || $user->privilegeID == 4){
 		?>
 			<a href='javascript:void(0)' onclick='javascript:myDialog("ajax_forms.php?action=getResourceSubjectForm&tab=Product&resourceID=<?php echo $resourceID; ?>",800,500)'' class='thickbox'><?php echo _("add subject");?></a>
 		<?php
